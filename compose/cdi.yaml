@@ -1,0 +1,10 @@
+# Rootless Docker: the nvidia hook behind `deploy.devices` fails on cgroup BPF
+# (bpf_prog_query(BPF_CGROUP_DEVICE) failed: operation not permitted).
+# Request the GPU through CDI instead; needs a CDI spec from
+# `nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml`.
+# Enabled by BENCH_CDI=1 (scripts/env.sh).
+services:
+  sglang:
+    deploy: !reset {}
+    devices:
+      - nvidia.com/gpu=all
