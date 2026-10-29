@@ -1,8 +1,10 @@
 # SGLang server plus BFCL client. Driven by env vars (scripts/env.sh sets the defaults):
 #   MODELS_DIR    host dir holding the checkpoints, mounted at /models (required)
 #   MODEL_DIR     checkpoint dir under MODELS_DIR (required)
-#   MEM_FRACTION  --mem-fraction-static
-#   SPEC_ARGS     speculative-decoding flags, empty to disable
+#   SERVER_ARGS   model-specific server flags incl. --mem-fraction-static (required),
+#                 see scripts/args/
+#   SPEC_ARGS     extra flags appended after SERVER_ARGS (speculative decoding), empty for none
+#   SHM_SIZE      container shared memory (default 72gb)
 #   SGLANG_IMAGE  server image
 # Benchmarks run inside the containers, so no port is published.
 services:
@@ -20,33 +22,14 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [gpu]
-    shm_size: '72gb'
+    shm_size: ${SHM_SIZE:-72gb}
     command: >
         python3 -m sglang.launch_server
         --model-path /models/${MODEL_DIR:?set MODEL_DIR}
         --port 8000
         --host 0.0.0.0
-        --mem-fraction-static ${MEM_FRACTION:-0.50}
-        --max-running-requests 4
-        --context-length 153600
-        --dtype auto
-        --attention-backend flashinfer
-        --reasoning-parser qwen3
-        --tool-call-parser qwen3_coder
+        ${SERVER_ARGS:?set SERVER_ARGS}
         ${SPEC_ARGS:-}
-        --mamba-full-memory-ratio 0.9
-        --mamba-ssm-dtype bfloat16
-        --mamba-radix-cache-strategy extra_buffer_lazy
-        --chunked-prefill-size 2048
-        --page-size 64
-        --enable-hierarchical-cache
-        --hicache-size 64
-        --hicache-write-policy write_through
-        --kv-cache-dtype fp8_e4m3
-        --schedule-policy lpm
-        --enable-session-radix-cache
-        --sleep-on-idle
-        --trust-remote-code
 
   # Started per run with `docker compose run`, which mounts the output dir at /out.
   bfcl:

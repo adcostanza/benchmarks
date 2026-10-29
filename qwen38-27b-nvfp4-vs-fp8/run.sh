@@ -14,7 +14,8 @@ here="$(cd "$(dirname "$0")" && pwd)"
 scripts="$here/../scripts"
 out="${OUT:-$here/results}"
 
-export SPEC_ARGS="--speculative-algorithm DFLASH --speculative-draft-model-path /models/Qwen3.8-27B-DFlash2 --speculative-num-draft-tokens 8"
+. "$scripts/args/qwen38-27b.sh"
+spec="--speculative-algorithm DFLASH --speculative-draft-model-path /models/Qwen3.8-27B-DFlash2 --speculative-num-draft-tokens 8"
 
 # label  checkpoint dir  mem fraction (sized so both get about the same KV pool)
 configs=(
@@ -28,7 +29,7 @@ for c in "${configs[@]}"; do
     if (( ${#wanted[@]} )) && [[ ! " ${wanted[*]} " == *" $label "* ]]; then
         continue
     fi
-    export MODEL_DIR="$model" MEM_FRACTION="$mem"
+    export MODEL_DIR="$model" SERVER_ARGS="$(qwen38_27b_server_args "$mem" "$spec")" LOG_DIR="$out/$label"
     "$scripts/serve.sh" up
     "$scripts/bench-serving.sh" "$out/$label"
     "$scripts/bfcl.sh" "$out/$label"
