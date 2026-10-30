@@ -148,7 +148,8 @@ writing 3.80 / 3.78.
 - Swift's card at `medium`: 82.22% vs base 84.14%, 24.8% fewer thinking tokens
   ([card](https://huggingface.co/ukisai/Swift-1.5-Qwen3.8-27b) @ `b4c84d42`, "Efficiency across
   reasoning efforts", checked 2026-10-30). The table doesn't name the benchmark; its `xhigh` row
-  equals the card's GPQA-Diamond row. Not measured here.
+  (88.28% vs 88.59%, 41.9% fewer thinking tokens) equals the card's GPQA-Diamond row. Not measured
+  here.
 - The card's accept lengths are on one H200; its evaluation section doesn't state the target
   precision (its launch example serves BF16 `Qwen/Qwen3.8-27B`). Ours are NVFP4 on an RTX PRO 6000
   at 400 W, 32 prompts per set.
