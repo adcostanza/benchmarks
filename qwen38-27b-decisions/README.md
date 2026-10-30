@@ -99,9 +99,9 @@ Fitted temperatures (T only), `choice` / `noul` / `score`: stock 2.58 / 3.28 / 2
 Parameters and metrics: `results/<config>/calibration.json`.
 
 ECE is not a usable calibration metric here: scored as a prediction against its own argmax, the
-gold has ECE 0.341 on `test` (`gold_ece_test`), because soft labels put many decisions near
-0.5. Lower ECE then rewards being less confident than the teacher. KL and Brier are the
-calibration metrics.
+gold has ECE 0.341 on `test` (`gold_ece_test`). This ECE compares confidence with agreement on
+the teacher's top label, not with its full distribution, so matching the teacher exactly doesn't
+minimise it. KL and Brier are the calibration metrics.
 
 ## Benchmark
 
