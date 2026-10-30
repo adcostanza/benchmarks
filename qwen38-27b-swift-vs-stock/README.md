@@ -65,6 +65,33 @@ Mean completion tokens per answer (reasoning + answer), share cut off at 4096 in
 Cut-off answers count as 4096 tokens, so where stock is cut off more often, the reduction is
 understated.
 
+## Thinking vs answer tokens
+
+`completion_tokens` is thinking plus answer. `thinking_tokens.py <tokenizer.json>` splits it: the
+saved reasoning text of each response, tokenized with the model's `tokenizer.json` (stock and Swift
+share it), on the prompts where both models stopped on their own. Totals here are over that subset,
+so they differ from the all-prompt means above.
+
+| Set | Effort | n (both stopped) | Stock thinking | Swift thinking | Δ | Stock total | Swift total | Δ |
+|---|---|---|---|---|---|---|---|---|
+| GSM8K, all 1,319 | medium | 1319 of 1319 | 214 | 184 | -14% | 348 | 320 | -8% |
+| SPEED-Bench qualitative | medium | 125 of 142 | 622 | 502 | -19% | 1,114 | 970 | -13% |
+| gsm8k | xhigh | 32 of 32 | 312 | 167 | -47% | 438 | 296 | -32% |
+| math500 | xhigh | 31 of 32 | 759 | 517 | -32% | 1,004 | 760 | -24% |
+| humaneval | xhigh | 21 of 32 | 845 | 700 | -17% | 966 | 853 | -12% |
+| mbpp | xhigh | 26 of 32 | 762 | 545 | -28% | 964 | 724 | -25% |
+| mt-bench | xhigh | 24 of 32 | 416 | 243 | -42% | 624 | 391 | -37% |
+| gsm8k | medium | 32 of 32 | 204 | 186 | -9% | 371 | 368 | -1% |
+| math500 | medium | 30 of 32 | 768 | 478 | -38% | 1,088 | 776 | -29% |
+| humaneval | medium | 31 of 32 | 685 | 652 | -5% | 1,102 | 1,079 | -2% |
+| mbpp | medium | 32 of 32 | 342 | 306 | -10% | 977 | 895 | -8% |
+| mt-bench | medium | 31 of 32 | 499 | 425 | -15% | 1,017 | 902 | -11% |
+
+Swift at `xhigh` vs Swift at `medium`, all-prompt mean completion tokens on the card's sets (table
+above): GSM8K 296 vs 368, MATH-500 864 vs 833, MBPP 899 vs 895, MT-Bench 1,163 vs 1,002, HumanEval
+1,454 vs 1,131. Stock: 438 vs 371, 1,052 vs 1,276, 1,551 vs 977, 1,475 vs 1,113, 2,042 vs 1,196.
+`xhigh` answers are capped at 4096 (up to 34% cut off), and no `xhigh` accuracy was measured.
+
 ## SPEED-Bench (`dflash8`, `swift-dflash8`, daily, concurrency 1)
 
 | Split | Stock accept | Swift accept | Stock tok/s | Swift tok/s |

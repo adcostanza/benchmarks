@@ -7,7 +7,7 @@ Scripts and raw results behind the benchmark posts on [acostanza.com](https://ac
 | [qwen38-27b-nvfp4-vs-fp8](qwen38-27b-nvfp4-vs-fp8/) | [NVFP4 is 32–37% faster than FP8 on Qwen3.8-27B](https://acostanza.com/blog/qwen38-27b-nvfp4-vs-fp8/) | 2026-10-28 | [RTX PRO 6000 Blackwell, 400 W](hardware.md) |
 | [qwen38-27b-spec-decode](qwen38-27b-spec-decode/) | [DFlash2 is the fastest drafter for Qwen3.8-27B, up to 120k tokens](https://acostanza.com/blog/qwen38-27b-spec-decode/) | 2026-10-29 | [RTX PRO 6000 Blackwell, 400 W](hardware.md) |
 | [qwen38-flash-next-vs-27b](qwen38-flash-next-vs-27b/) | [Qwen3.8-Flash-Next only beats the 27B past 40k tokens on one RTX PRO 6000](https://acostanza.com/blog/qwen38-flash-next-vs-27b/) | 2026-10-29 | [RTX PRO 6000 Blackwell, 400 W](hardware.md) |
-| [qwen38-27b-swift-vs-stock](qwen38-27b-swift-vs-stock/) | [Swift 1.5 NVFP4 matches stock Qwen3.8-27B and writes about 10% fewer tokens](https://acostanza.com/blog/qwen38-27b-swift-vs-stock/) | 2026-10-30 | [RTX PRO 6000 Blackwell, 400 W](hardware.md) |
+| [qwen38-27b-swift-vs-stock](qwen38-27b-swift-vs-stock/) | [Swift 1.5 NVFP4 matches stock Qwen3.8-27B and thinks 14–19% less at medium](https://acostanza.com/blog/qwen38-27b-swift-vs-stock/) | 2026-10-30 | [RTX PRO 6000 Blackwell, 400 W](hardware.md) |
 
 ## Layout
 
