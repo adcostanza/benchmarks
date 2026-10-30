@@ -1,0 +1,15 @@
+{
+  "model_dir": "Qwen3.8-27B-NVFP4",
+  "checkpoint_gib": 20.4,
+  "page_cache_fraction": 0.001,
+  "gpu_mem_before_mib": 15,
+  "startup_s": 181,
+  "gpu_mem_after_load_mib": 43375,
+  "container_mem_after_load": "85.22GiB",
+  "gpu_mem_peak_mib": 43669,
+  "container_mem_peak_gib": 85.25,
+  "host_mem_used_peak_gib": 83.36,
+  "mem_psi_some_avg10_peak": 0.0,
+  "mem_psi_full_avg10_peak": 0.0,
+  "samples": 304
+}

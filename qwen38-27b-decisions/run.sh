@@ -15,9 +15,12 @@
 #   Swift-1.5-Qwen3.8-27B-FP8            block FP8 of the above (built locally, see README.md)
 #   Swift-1.5-Qwen3.8-27B-NVFP4-ukisai   ukisai/Swift-1.5-Qwen3.8-27b-NVFP4
 #   Qwen3.8-27B-DFlash2                  z-lab/Qwen3.8-27B-DFlash2 (daily-setup row only)
-# and DATASETS_DIR with typed-decisions/ (scripts/decisions.sh).
+# and DATASETS_DIR with typed-decisions/ (scripts/decisions.sh), plus the sets named in
+# DECISIONS_RUNS (files per set: scripts/decisions/sets.py).
 #
 # Usage: ./run.sh [label ...]   default: every config below, in order
+# Env: DECISIONS_RUNS  space-separated <set>:<split> runs per config, in order (default
+#                      typed-decisions:test); other DECISIONS_* settings as in scripts/decisions.sh
 # Results go to $OUT/<label>/ (default: results/ next to this script). A config whose server
 # fails to start or whose decisions step fails is listed in $OUT/FAILED and the run continues.
 set -euo pipefail
@@ -53,6 +56,9 @@ for c in "${configs[@]}"; do
         echo "$label: server failed to start, see server.log" >>"$out/FAILED"
         continue
     fi
-    "$scripts/decisions.sh" "$out/$label" || echo "$label: decisions failed, see the log" >>"$out/FAILED"
+    for run in ${DECISIONS_RUNS:-typed-decisions:test}; do
+        DECISIONS_SET="${run%%:*}" DECISIONS_SPLIT="${run#*:}" "$scripts/decisions.sh" "$out/$label" \
+            || echo "$label: decisions $run failed, see the log" >>"$out/FAILED"
+    done
     "$scripts/serve.sh" down
 done

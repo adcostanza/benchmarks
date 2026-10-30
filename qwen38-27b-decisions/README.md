@@ -4,8 +4,9 @@
 `/v1/systemone` and `/v1/decisions`, and do Swift 1.5's fine-tune or the quantization
 (BF16 / FP8 / NVFP4) hurt it? Answers come from the answer-label log-probs with thinking off
 ([SGLang decision models docs](https://docs.sglang.io/docs/supported-models/decision_models)).
-Follow-up: how much does client-side calibration (fitted on `train`, no weights or server
-changes) fix?
+Follow-ups: how much does client-side calibration (fitted on `train`, no weights or server
+changes) fix, and how do the two NVFP4 configs do on datasets whose answers are human labels or
+exact rules instead of a teacher model (`results-real/`)?
 
 Run 2026-10-30, one RTX PRO 6000, one config at a time.
 
@@ -38,7 +39,8 @@ By question type (agreement / KL):
 | `swift-nvfp4` | 0.667 / 0.723 | 0.747 / 0.612 | 0.647 / 0.688 |
 
 Noise and API checks (`pass_drift` and `native_vs_systemone` in each `summary.json`), 2,000
-decisions per config:
+decisions per config. These passes ran with an almost empty prefix cache (see "Prefix cache
+check" below), so they compare cold with cold:
 
 | Config | pass 2 vs pass 1: mean / max \|Δp\|, top answers changed | native vs systemone: mean / max \|Δp\|, changed |
 |---|---|---|
@@ -68,9 +70,31 @@ Paired gaps over the same 400 cases, 95% bootstrap intervals that resample cases
 
 Read: quantization doesn't measurably change agreement (every BF16 → FP8/NVFP4 interval
 contains 0, every point gap is under 0.01, widest bound +0.021); the drafter changes nothing (decisions are prefill only);
-the two APIs give the same answers. Swift agrees with the teacher 0.006–0.018 more than stock
+with a cold cache the two APIs give the same answers. Swift agrees with the teacher 0.006–0.018 more than stock
 (interval above 0 at BF16 and NVFP4) and sits further from its distributions (KL 0.66–0.71 vs
 0.54–0.59): sharper, with only a small agreement lead.
+
+### Prefix cache check (`results-cache/`, `stock-nvfp4`, `swift-nvfp4`)
+
+In the 400-case run, pass 2 and the native pass got about 5% of prompt tokens from the prefix
+cache (server log `#cached-token`). The server keeps 117 Mamba states (`max_mamba_cache_size` in
+the log) and a cached prefix is only usable where a state is stored, so by the time pass 2 came
+back to a case its states were likely evicted `[INFERENCE]`. Rerun on the first 50 `test`
+cases (250 decisions), same flags, two `/v1/systemone` passes then one native pass, so the
+cache is warm after pass 1:
+
+| Config | cached prompt tokens: pass 1 / pass 2 / native | top answers changed: pass 2 vs 1 / native vs 1 / native vs 2 | max \|Δp\| pass 2 vs 1 |
+|---|---|---|---|
+| `stock-nvfp4` | 0.9% / 67.9% / 75.4% | 25 / 27 / 8 | 0.388 |
+| `swift-nvfp4` | 0.9% / 67.9% / 75.4% | 34 / 29 / 10 | 0.584 |
+
+Phase shares are split at the request count, so they are approximate at the boundaries. A cache
+hit changes 10–14% of top answers against a cold prefill of the same prompt; two warm passes
+through different APIs still differ on 3–4%. Aggregate agreement on these 50 cases barely moves
+(0.636 / 0.640 / 0.640 Swift, 0.628 / 0.620 / 0.624 stock), so the headline numbers stand as
+cold-cache numbers, but a single decision on a served model depends on what's in the cache.
+Whether the warm path is a numerical difference or an SGLang bug in restoring Mamba state is not
+tested here.
 
 ## Calibration (`stock-nvfp4`, `swift-nvfp4`)
 
@@ -102,6 +126,59 @@ ECE is not a usable calibration metric here: scored as a prediction against its 
 gold has ECE 0.341 on `test` (`gold_ece_test`). This ECE compares confidence with agreement on
 the teacher's top label, not with its full distribution, so matching the teacher exactly doesn't
 minimise it. KL and Brier are the calibration metrics.
+
+## Datasets with real answers (`results-real/`, `stock-nvfp4`, `swift-nvfp4`)
+
+Run 2026-10-30 14:13–14:55, same server flags, `/v1/systemone`, one pass, concurrency 1. Each set
+is scored with its own scorer (`../scripts/decisions/sets.py`); calibration is the same
+temperature (T) and temperature + bias (T+B) fit as above, fitted on a split the scores don't use.
+Full tables with paired 95% intervals: [`results-real/tables.md`](results-real/tables.md).
+
+| Set (split, cases) | Gold | Metric | `stock-nvfp4` raw / T / T+B | `swift-nvfp4` raw / T / T+B |
+|---|---|---|---|---|
+| Typed Decision Bench (`test`, 5,387) | human labels from 21 datasets + 1 generator | DecisionScore | 77.18 / 80.28 / 83.97 | 76.63 / 80.58 / 84.17 |
+| Procedural Typed Decisions (`test` sample, 874) | exact rules | proper score | 74.28 / 76.46 / 79.64 | 74.38 / 77.41 / 80.30 |
+| Calibrated Typed Decisions (`test`, 1,797) | human labels | accuracy | 0.823 / 0.823 / 0.878 | 0.838 / 0.838 / 0.874 |
+| Calibrated Typed Decisions (`heldout` PubMedQA, 1,000) | expert labels | accuracy | 0.716 / 0.716 / 0.716 | 0.731 / 0.731 / 0.731 |
+
+- **Swift vs stock, raw:** −0.55 DecisionScore [−0.86, −0.25] on Typed Decision Bench, +0.10
+  [−0.63, +0.84] on procedural, +0.014 accuracy [+0.006, +0.023] on calibrated `test`, +0.015
+  [+0.001, +0.029] on PubMedQA. After T+B the gaps are +0.19 [−0.05, +0.44], +0.66 [+0.04, +1.28]
+  and −0.004 [−0.014, +0.005]. Small, mixed in sign, no consistent winner.
+- **Calibration** helps on every set: T alone +2.2 to +4.0 score points, T+B +5.4 to +7.5. On
+  calibrated `test`, log loss 0.60–0.67 → 0.32 and ECE 0.095–0.099 → 0.011 with T+B.
+- **Out of distribution (PubMedQA):** the biases are per task and option, and none were fitted
+  for PubMedQA, so T+B there is the temperatures plus nothing; accuracy can't change. The fitted
+  temperatures still cut log loss 0.90 → 0.69 (stock) and 0.95 → 0.68 (Swift) and ECE
+  0.15 → 0.06. T+B's temperatures (fitted jointly with the biases) do worse there than T's
+  (log loss 0.72 / 0.70): the T-only fit is the one that transfers.
+- **Typed Decision Bench vs published systems** (their published answer files, scored here with
+  the same scorer; reproduces the leaderboard exactly): raw, both configs sit between OpenJev 0.1
+  (75.56) and decider-2b-v8 (77.56) and 4.5–5.1 points under Jev 1.13.0 (81.70). With T+B, both
+  are 2.3–2.5 points over Jev, but that fit is cross-fitted on the test items themselves (5 folds
+  stratified by task; the set has no other split), so it's a fitted row against zero-shot rows,
+  not like for like.
+
+Sets:
+
+- [SamuelChien821/typed-decision-bench](https://huggingface.co/datasets/SamuelChien821/typed-decision-bench)
+  v0.3.0, revision `79ec2b9bf193d69ceaaaf86ad9d0b79623adb101`: 5,387 items in 25 tasks. The 359
+  items it withholds (Abt-Buy, TrialGPT) are rebuilt with its builder
+  (`blobfishai/jevfish` @ `80262b5c7049179a5def5e15fc85c51e3f9d7314`, `python -m
+  typed_decision_bench.freeze --only abt-buy-product-match,trialgpt-criterion-support --seed
+  20260919 --version 0.3.0`); the result matches the dataset's `SHA256SUMS`. Score:
+  DecisionScore (mean per-item proper score × 100) and accuracy on each item's primary question.
+- [tasksource/procedural-typed-decisions](https://huggingface.co/datasets/tasksource/procedural-typed-decisions)
+  `all`, revision `05ca1d0388f57461a634a7caed67145d28e2eca7`: answers computed from rules stated
+  in the state. Fixed stratified sample, up to 10 states per (task, level) by smallest sha256(id):
+  874 `test`, 880 `validation` (calibration fit). No scorer ships with it: Typed Decision Bench's
+  per-item proper score against the gold as given; accuracy over the 2,787 questions with an
+  exact label.
+- [m-lagnajit/calibrated-typed-decisions](https://huggingface.co/datasets/m-lagnajit/calibrated-typed-decisions)
+  v2.1, revision `34189779d116d0523db6af58c0d62538f7e7d07e`: one question per short text, gold
+  is the source dataset's human label (its soft teacher labels are not used). `test` six sources
+  (CLINC150, GoEmotions, BANKING77, MASSIVE, Amazon polarity, SciCite), `heldout` PubMedQA,
+  `validation` fits the calibration. Score: accuracy, log loss, Brier, ECE (10 bins).
 
 ## Benchmark
 
@@ -163,19 +240,33 @@ uv run --no-project --with pyarrow --with numpy --with scipy ../scripts/decision
   --test-answers results/swift-nvfp4/decisions/pass1.jsonl \
   --test-data "$DATASETS_DIR/typed-decisions/all/test-00000-of-00001.parquet" \
   --out results/swift-nvfp4/calibration.json
+
+# real-answer sets (both NVFP4 configs, ~45 min), then calibration and tables (host, CPU)
+OUT=$PWD/results-real DECISIONS_PASSES=1 DECISIONS_NATIVE_PASSES=0 \
+  DECISIONS_RUNS="typed-decision-bench:test procedural-typed-decisions:validation procedural-typed-decisions:test calibrated-typed-decisions:validation calibrated-typed-decisions:test calibrated-typed-decisions:heldout" \
+  DATASETS_DIR=... MODELS_DIR=... BENCH_CDI=1 ./run.sh stock-nvfp4 swift-nvfp4
+DATASETS_DIR=... ./calibrate-real.sh
+uv run --no-project --with pyarrow --with numpy --with scipy real_answers.py "$DATASETS_DIR" > results-real/tables.md
 ```
 
 `DATASETS_DIR` needs `typed-decisions/all/{train,test}-00000-of-00001.parquet` at the revision
-above.
+above; for `results-real/`, `typed-decision-bench/` (with the rebuilt items merged into
+`bench-complete/`), `procedural-typed-decisions/all/` and `calibrated-typed-decisions/` at the
+revisions in that section.
+
+Prefix cache check: `OUT=$PWD/results-cache DECISIONS_LIMIT=50 DATASETS_DIR=... MODELS_DIR=...
+BENCH_CDI=1 ./run.sh stock-nvfp4 swift-nvfp4` (default two passes plus native).
 
 ## Caveats
 
-- One run per config. Repeat passes and the two APIs move at most 3 of 2,000 top answers, so
-  request-level noise is negligible; the paired intervals above are the uncertainty from the 400
-  cases.
+- One run per config. With a cold cache, repeat passes and the two APIs move at most 3 of 2,000
+  top answers; with a warm prefix cache, 10–14% of top answers change (`results-cache/`). The
+  paired intervals above are the uncertainty from the 400 cases at cold cache.
 - Gold is an unnamed ~4B-class teacher's soft distribution, not human labels. "Calibrated" means calibrated to
   that teacher.
 - The biases are per workflow, question and option: they only exist for questions with labeled
   `train` data. The temperatures are per question type; whether they carry over to other
   questions is not tested here.
 - Calibration was fitted for the two NVFP4 configs only.
+- `results-real/`: one pass, NVFP4 configs only. Procedural is a 874-state sample of 18,000.
+  Typed Decision Bench's calibrated rows are cross-fitted on its test items.
