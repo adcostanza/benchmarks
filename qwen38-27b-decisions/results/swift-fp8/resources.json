@@ -1,0 +1,15 @@
+{
+  "model_dir": "Swift-1.5-Qwen3.8-27B-FP8",
+  "checkpoint_gib": 28.8,
+  "page_cache_fraction": 0.0,
+  "gpu_mem_before_mib": 15,
+  "startup_s": 196,
+  "gpu_mem_after_load_mib": 51797,
+  "container_mem_after_load": "93.92GiB",
+  "gpu_mem_peak_mib": 51993,
+  "container_mem_peak_gib": 93.95,
+  "host_mem_used_peak_gib": 76.75,
+  "mem_psi_some_avg10_peak": 0.47,
+  "mem_psi_full_avg10_peak": 0.47,
+  "samples": 77
+}

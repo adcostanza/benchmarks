@@ -1,0 +1,121 @@
+{
+  "fit_on": {
+    "answers": "qwen38-27b-decisions/results-train/stock-nvfp4/decisions/pass1.jsonl",
+    "n_decisions": 6000
+  },
+  "scored_on": {
+    "answers": "qwen38-27b-decisions/results/stock-nvfp4/decisions/pass1.jsonl"
+  },
+  "l2": 0.1,
+  "temperature_only": {
+    "temperatures": {
+      "choice": 2.577202139078939,
+      "noul": 3.2808384772968537,
+      "score": 2.618625154427629
+    }
+  },
+  "temperature_and_bias": {
+    "temperatures": {
+      "choice": 1.998503106597912,
+      "noul": 2.047811016262296,
+      "score": 2.429311880818828
+    },
+    "bias": {
+      "agent_trace_observability/action/continue": 0.5899257469652799,
+      "agent_trace_observability/action/human_review": -0.19435369648352915,
+      "agent_trace_observability/action/observe": 0.45760183227007956,
+      "agent_trace_observability/action/stop": -0.8531605933865123,
+      "agent_trace_observability/needs_review/false": -0.16617185803808324,
+      "agent_trace_observability/needs_review/true": 0.1661755259173963,
+      "agent_trace_observability/outcome/failure": 0.6712991820231633,
+      "agent_trace_observability/outcome/harmful": -1.2756664908494164,
+      "agent_trace_observability/outcome/partial": 0.6205833429120504,
+      "agent_trace_observability/outcome/success": -0.016199178442194023,
+      "agent_trace_observability/risk/0": 0.31104036162193566,
+      "agent_trace_observability/risk/1": 0.14674196956980254,
+      "agent_trace_observability/risk/2": -0.28429655215912514,
+      "agent_trace_observability/risk/3": -0.17347595116082937,
+      "agent_trace_observability/urgency/0": 0.6650603328013376,
+      "agent_trace_observability/urgency/1": 0.32439182910924,
+      "agent_trace_observability/urgency/2": 0.018860082678905786,
+      "agent_trace_observability/urgency/3": -1.0082963928233903,
+      "customer_service/action/answer_directly": 1.504185596043496,
+      "customer_service/action/close_no_action": -1.597699904791703,
+      "customer_service/action/escalate_to_human": -0.2745179683546985,
+      "customer_service/action/execute_refund": -0.05706619437243039,
+      "customer_service/action/request_information": 0.4251063240853086,
+      "customer_service/category/account": 0.7532754673708492,
+      "customer_service/category/billing": -0.13182483944175108,
+      "customer_service/category/delivery": -0.7301257879680927,
+      "customer_service/category/refund": -0.026241351277127824,
+      "customer_service/category/technical": 0.13491702657556442,
+      "customer_service/churn_risk/0": 0.05789634263900619,
+      "customer_service/churn_risk/1": 0.13415142221531876,
+      "customer_service/churn_risk/2": -0.011005488227010423,
+      "customer_service/churn_risk/3": -0.1810454443904869,
+      "customer_service/needs_human/false": -0.2588825388088867,
+      "customer_service/needs_human/true": 0.25888956849455075,
+      "customer_service/urgency/0": -0.5743478643728412,
+      "customer_service/urgency/1": 0.35413165363448046,
+      "customer_service/urgency/2": 0.19057233565184997,
+      "customer_service/urgency/3": 0.029649195223311667,
+      "invoice_processing/discrepancy_severity/0": 0.4003844614315265,
+      "invoice_processing/discrepancy_severity/1": -0.5419111074065243,
+      "invoice_processing/discrepancy_severity/2": 0.09609359364467729,
+      "invoice_processing/discrepancy_severity/3": 0.045451610372537046,
+      "invoice_processing/disposition/approve": 0.5097135978414402,
+      "invoice_processing/disposition/hold": -0.6470480957056383,
+      "invoice_processing/disposition/manual_review": 0.4107564610682547,
+      "invoice_processing/disposition/reject": -0.273409089612621,
+      "invoice_processing/duplicate/false": -0.22093808945921553,
+      "invoice_processing/duplicate/true": 0.22094310466108524,
+      "invoice_processing/matches_order/false": 0.05419490044797194,
+      "invoice_processing/matches_order/true": -0.05417837370718495,
+      "invoice_processing/urgency/0": -0.17613222247543803,
+      "invoice_processing/urgency/1": 0.9149676767029519,
+      "invoice_processing/urgency/2": -0.12903463736983473,
+      "invoice_processing/urgency/3": -0.6097857335140346,
+      "security_incidents/credential_compromise/false": -0.7704505395916033,
+      "security_incidents/credential_compromise/true": 0.7704677804126006,
+      "security_incidents/disposition/close_benign": 0.7000084680862265,
+      "security_incidents/disposition/contain": -0.7410817369209554,
+      "security_incidents/disposition/investigate": -0.29768498326720416,
+      "security_incidents/disposition/monitor": 0.3387675572979007,
+      "security_incidents/severity/0": -0.4925708618455233,
+      "security_incidents/severity/1": -0.22798226523651305,
+      "security_incidents/severity/2": 0.49010368275747,
+      "security_incidents/severity/3": 0.13269084608518905,
+      "security_incidents/severity/4": 0.09777156664125315,
+      "security_incidents/true_positive/false": -0.6243832230025236,
+      "security_incidents/true_positive/true": 0.6243950925095645,
+      "security_incidents/urgency/0": -0.29564075759915853,
+      "security_incidents/urgency/1": 0.29766684118527037,
+      "security_incidents/urgency/2": 0.2840921629127037,
+      "security_incidents/urgency/3": -0.28610609107093904
+    }
+  },
+  "test": {
+    "raw": {
+      "accuracy": 0.6655,
+      "kl_from_gold": 0.5415572242371469,
+      "brier": 0.20473812834045818,
+      "ece": 0.1291689460400635,
+      "n_decisions": 2000
+    },
+    "T": {
+      "accuracy": 0.6655,
+      "kl_from_gold": 0.20282674172951606,
+      "brier": 0.10536845735361994,
+      "ece": 0.08431168204042852,
+      "n_decisions": 2000
+    },
+    "T+B": {
+      "accuracy": 0.7425,
+      "kl_from_gold": 0.13297805727449458,
+      "brier": 0.06936218392324141,
+      "ece": 0.13489106516424523,
+      "n_decisions": 2000
+    }
+  },
+  "gold_ece_test": 0.3410537779999998
+}

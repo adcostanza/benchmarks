@@ -8,6 +8,7 @@ Scripts and raw results behind the benchmark posts on [acostanza.com](https://ac
 | [qwen38-27b-spec-decode](qwen38-27b-spec-decode/) | [DFlash2 is the fastest drafter for Qwen3.8-27B, up to 120k tokens](https://acostanza.com/blog/qwen38-27b-spec-decode/) | 2026-10-29 | [RTX PRO 6000 Blackwell, 400 W](hardware.md) |
 | [qwen38-flash-next-vs-27b](qwen38-flash-next-vs-27b/) | [Qwen3.8-Flash-Next only beats the 27B past 40k tokens on one RTX PRO 6000](https://acostanza.com/blog/qwen38-flash-next-vs-27b/) | 2026-10-29 | [RTX PRO 6000 Blackwell, 400 W](hardware.md) |
 | [qwen38-27b-swift-vs-stock](qwen38-27b-swift-vs-stock/) | [Swift 1.5 NVFP4 matches stock Qwen3.8-27B and thinks 14–19% less at medium](https://acostanza.com/blog/qwen38-27b-swift-vs-stock/) | 2026-10-30 | [RTX PRO 6000 Blackwell, 400 W](hardware.md) |
+| [qwen38-27b-decisions](qwen38-27b-decisions/) | [Qwen3.8-27B as a decision model: NVFP4 loses no agreement, and three temperatures cut Swift 1.5's KL](https://acostanza.com/blog/qwen38-27b-decisions/) | 2026-10-30 | [RTX PRO 6000 Blackwell, 400 W](hardware.md) |
 
 ## Layout
 
@@ -21,6 +22,7 @@ Scripts and raw results behind the benchmark posts on [acostanza.com](https://ac
 - `scripts/speed-bench.sh <out-dir>`: [SPEED-Bench](https://huggingface.co/datasets/nvidia/SPEED-Bench) (NVIDIA): accept length per domain and throughput on real prompts. Prompts resolved once with `scripts/speed/prepare.sh`.
 - `scripts/accept-sets.sh <out-dir>`: accept length on the five sets of the [DFlash2 card](https://huggingface.co/z-lab/Qwen3.8-27B-DFlash2) (GSM8K, MATH-500, HumanEval, MBPP, MT-Bench), with the card's protocol (`ref`) and at `medium` (`daily`).
 - `scripts/gsm8k.sh <out-dir>`: the full GSM8K test split with sgl-eval's prompt and grader.
+- `scripts/decisions.sh <out-dir>`: [Typed Decisions](https://huggingface.co/datasets/LocalLLaMA/typed-decisions) on SGLang's `/v1/systemone` and `/v1/decisions` with the dataset's own scorer. `scripts/decisions/calibrate.py` fits client-side calibration on the `train` split's answers and scores it on `test`.
 - `scripts/compare.py <dir-a> <dir-b> ...`: side-by-side tables of serving and BFCL results (BFCL with ± standard error and a "within 2 SE" mark), plus one row per metric of every step's `summary.json`.
 - Each step script's header lists its env vars, protocol and reference; each writes `<out-dir>/<step>/summary.json`.
 - `<benchmark>/run.sh`: the exact configs for one post. Results go to `<benchmark>/results/<label>/`, or to `$OUT/<label>/`.

@@ -1,0 +1,9 @@
+# Typed Decisions client (scripts/decisions.sh). Paths are relative to compose/.
+services:
+  decisions:
+    build:
+      context: ../scripts/decisions
+    profiles: [client]
+    volumes:
+      - ${DATASETS_DIR:-./datasets-unset}:/datasets:ro
+      - ../scripts/decisions:/app:ro
