@@ -29,7 +29,7 @@ live_simple 18/18, multi_turn_base 14/16, multi_turn_miss_param 3/3, multiple 24
 ## Accept length on the DFlash2 card's five sets (`dflash8`, `swift-dflash8`)
 
 32 prompts per set, concurrency 1, max 4096 new tokens, temperature 1.0, top-p 0.95, top-k 20.
-`ref` is the card's protocol (`xhigh`), `daily` is `medium`. Mean accept length ± standard error.
+`ref` is the DFlash2 card's protocol (`xhigh`), `daily` is `medium`. Mean accept length ± standard error.
 Card: [z-lab/Qwen3.8-27B-DFlash2](https://huggingface.co/z-lab/Qwen3.8-27B-DFlash2) @
 `50307d4c`, "Acceptance Length" table, DFlash 2 column (one H200, block size 8, `xhigh`, max 4096
 new tokens; prompt count not stated). Checked 2026-10-30.
@@ -87,7 +87,7 @@ so they differ from the all-prompt means above.
 | mbpp | medium | 32 of 32 | 342 | 306 | -10% | 977 | 895 | -8% |
 | mt-bench | medium | 31 of 32 | 499 | 425 | -15% | 1,017 | 902 | -11% |
 
-Swift at `xhigh` vs Swift at `medium`, all-prompt mean completion tokens on the card's sets (table
+Swift at `xhigh` vs Swift at `medium`, all-prompt mean completion tokens on the DFlash2 card's sets (table
 above): GSM8K 296 vs 368, MATH-500 864 vs 833, MBPP 899 vs 895, MT-Bench 1,163 vs 1,002, HumanEval
 1,454 vs 1,131. Stock: 438 vs 371, 1,052 vs 1,276, 1,551 vs 977, 1,475 vs 1,113, 2,042 vs 1,196.
 `xhigh` answers are capped at 4096 (up to 34% cut off), and no `xhigh` accuracy was measured.
@@ -150,7 +150,7 @@ writing 3.80 / 3.78.
   reasoning efforts", checked 2026-10-30). The table doesn't name the benchmark; its `xhigh` row
   (88.28% vs 88.59%, 41.9% fewer thinking tokens) equals the card's GPQA-Diamond row. Not measured
   here.
-- The card's accept lengths are on one H200; its evaluation section doesn't state the target
+- The DFlash2 card's accept lengths are on one H200; its evaluation section doesn't state the target
   precision (its launch example serves BF16 `Qwen/Qwen3.8-27B`). Ours are NVFP4 on an RTX PRO 6000
   at 400 W, 32 prompts per set.
 - The runs went through a suite runner that isn't in this repo; `suite.json` in each result dir is

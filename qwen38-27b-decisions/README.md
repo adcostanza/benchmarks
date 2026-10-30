@@ -119,12 +119,13 @@ shape, the one the dataset's scorer uses; two passes, headline numbers from pass
 criteria as `levels`). SGLang documents both as the same prompt rendering and scoring for chat
 models.
 
-**Gold** is the mean of three samples from a ~4B-class teacher at temperature 0.7 (dataset
-card), so agreement is agreement with that teacher. Card references: prior (label frequencies)
+**Gold** is the mean of three samples from a ~4B-class teacher at temperature 0.7, per the
+[Typed Decisions card](https://huggingface.co/datasets/LocalLLaMA/typed-decisions/blob/1415d375cb86b418c53abec12795adf5b194e7fc/README.md),
+which doesn't name the model. Agreement is agreement with that teacher. Card references: prior (label frequencies)
 0.470, perfect factor recovery 0.704, teacher self-agreement 0.735. Differences between our
-configs (same prompts, same scorer) are the result; absolute numbers compare with the card's
+configs (same prompts, same scorer) are the result; absolute numbers compare with the Typed Decisions card's
 zero-shot table only loosely (its rows are mostly vLLM or vendor APIs). Calibrated rows are fitted
-on `train` and belong with the card's second table ("fitted or fine-tuned on `train`").
+on `train` and belong with that card's second table ("fitted or fine-tuned on `train`").
 
 ## Configs
 
@@ -172,7 +173,7 @@ above.
 - One run per config. Repeat passes and the two APIs move at most 3 of 2,000 top answers, so
   request-level noise is negligible; the paired intervals above are the uncertainty from the 400
   cases.
-- Gold is one ~4B teacher's soft distribution, not human labels. "Calibrated" means calibrated to
+- Gold is an unnamed ~4B-class teacher's soft distribution, not human labels. "Calibrated" means calibrated to
   that teacher.
 - The biases are per workflow, question and option: they only exist for questions with labeled
   `train` data. The temperatures are per question type; whether they carry over to other
