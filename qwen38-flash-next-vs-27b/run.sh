@@ -15,8 +15,9 @@
 # Stock SGLang caps the Flash-Next draft block at 4 tokens (QSA compress ratio), for MTP and DFLASH.
 #
 # Whole card: fn-nospec, fn-mtp, fn-dflash2 (SGLang, --mem-fraction-static 0.88).
-# Daily-driver budget: the 27B NVFP4 + DFlash2 8 server (../qwen38-27b-spec-decode, dflash8) uses
-# 43.8 GB of GPU memory after load, 44.0 GB peak. fn-gguf-q4 (llama.cpp, experts of 30 of 48
+# Daily-driver budget: the 27B NVFP4 + DFlash2 8 server (the daily setup when these runs were made;
+# since 2026-10-30: Swift 1.5 NVFP4 + DFlash2 8) uses 43.8 GB of GPU memory after load, 44.0 GB peak
+# (../qwen38-27b-swift-vs-stock/results/dflash8/resources.json). fn-gguf-q4 (llama.cpp, experts of 30 of 48
 # layers in host RAM, 44.3 GB after load) is sized to it. SGLang has no config at this budget:
 # it rejects --cpu-offload-gb and --offload-group-size together with --ple-offload-embedding
 # (srt/arg_groups/memory_hook.py), and KTransformers expert offload has no qwen4_exp support.

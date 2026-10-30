@@ -2,7 +2,7 @@
 
 Question: does Swift 1.5 cost anything against stock Qwen3.8-27B at NVFP4, in quality, in speed or
 in DFlash2 acceptance, and does the stock drafter leave room for one fine-tuned on Swift? Answer:
-no cost anywhere measured; Swift writes fewer tokens for the same answers; the stock drafter
+no cost measured except chat at 1 user, which is 4% slower (12 prompts, one run); Swift writes fewer tokens for the same answers; the stock drafter
 already matches the DFlash2 card's accept length on both models, so a Swift-tuned drafter has
 little headroom. Hardware: [hardware.md](../hardware.md) (400 W). One run per config.
 
@@ -140,7 +140,7 @@ writing 3.80 / 3.78.
 
 ## Caveats
 
-- One run per config. Accept-sets have 32 prompts per set and SPEED-Bench 10–26 rows per domain;
+- One run per config. Accept-sets have 32 prompts per set and SPEED-Bench 10–26 turns per domain;
   gaps under ~2 standard errors are noise. Every Swift-minus-stock accept gap on the five sets is
   under 2 SE of the gap.
 - Token counts include reasoning and answer (`completion_tokens`). The Swift card's claims are

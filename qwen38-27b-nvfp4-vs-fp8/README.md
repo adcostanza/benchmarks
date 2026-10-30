@@ -40,4 +40,4 @@ Run: `./run.sh` (both configs) or `./run.sh stock-nvfp4`.
 - `bench-serving.jsonl`: one JSON line per scenario (`sharegpt_c1`, `sharegpt_c4`, `long20k_c1`, `long20k_c4`).
 - `bfcl/score/`: BFCL accuracy per category; `bfcl/result/`: every model response.
 
-One run per config. BFCL categories have 10–25 cases, so a few points either way is noise.
+One run per config. The 20k scenarios use SGLang's `random` dataset (one ShareGPT prompt repeated to length), not real prompts. BFCL categories have 10–25 cases, so a few points either way is noise.

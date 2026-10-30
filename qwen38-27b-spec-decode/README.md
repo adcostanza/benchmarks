@@ -1,6 +1,6 @@
 # Qwen3.8-27B NVFP4: which speculative drafter is fastest?
 
-Post: not published yet. Hardware: [hardware.md](../hardware.md).
+Post: [DFlash2 is the fastest drafter for Qwen3.8-27B, up to 120k tokens](https://acostanza.com/blog/qwen38-27b-spec-decode/). Hardware: [hardware.md](../hardware.md).
 
 Question: on one RTX PRO 6000 Blackwell (400 W), which drafter gives the highest decode speed for stock Qwen3.8-27B NVFP4 at `reasoning_effort=medium`, and how does acceptance hold as the context grows to 120k tokens?
 
@@ -28,7 +28,7 @@ Mean accept length (tokens per verify step; sharegpt_c1 / long20k_c1 / long40k_c
 
 BFCL subset (of 205): nospec 171, mtp3 173, mtp7 173, dflash4 176, dflash8 176, dspark 171. Categories have 10–25 cases, so these differences are noise.
 
-Reading the data: `dflash8` is fastest in every scenario. It reaches 2.5x the no-spec speed on chat with one user and 1.16x at 120k tokens. Accept length swings by 0.15–0.43 across contexts for every drafter; only `dflash4` drifts down (2.81 to 2.66), `dflash8` does not. The 20k–120k rows are the SGLang `random` dataset (one ShareGPT prompt repeated to length), so these accept lengths are not representative of real prompts. The shrinking gain comes from prefill and attention cost, which speculation does not remove: TPOT stays near-halved at every length (about 5.4–6.5 ms vs 13.9–16.5 ms), while the fixed prefill time (TTFT, 28 s at 120k) dominates the 512-token requests. `mtp7` accepts more tokens per step than `dflash8` at 40k–80k, but each step costs more, so it is slower. `dspark` accepts about as many tokens as `mtp3` and is 1–5% ahead of `dflash4` in five of seven throughput rows and level in the other two; it is the slowest config in mean BFCL latency (3.24 s per call vs 0.91 s for `dflash8`).
+Reading the data: `dflash8` is fastest in every scenario. It reaches 2.5x the no-spec speed on chat with one user and 1.16x at 120k tokens. Accept length swings by 0.15–0.43 across contexts for every drafter; only `dflash4` drifts down (2.81 to 2.66), `dflash8` does not. The 20k–120k rows are the SGLang `random` dataset (one ShareGPT prompt repeated to length), so these accept lengths are not representative of real prompts. The shrinking gain comes from prefill, which speculation does not remove: TPOT stays near-halved at every length (about 5.4–6.5 ms vs 13.9–16.5 ms), while the fixed prefill time (TTFT, 28 s at 120k) dominates the 512-token requests. `mtp7` accepts more tokens per step than `dflash8` at 40k–120k but is slower in every scenario; per-step cost was not measured (its TPOT is higher at 1 user). `dspark` accepts about as many tokens as `mtp3` and is 1–5% ahead of `dflash4` in five of seven throughput rows and level in the other two; it is the slowest config in mean BFCL latency (3.24 s per call vs 0.91 s for `dflash8`).
 
 Full tables: `../scripts/compare.py results/nospec results/mtp3 results/mtp7 results/dflash4 results/dflash8 results/dspark`.
 
@@ -86,4 +86,4 @@ Run: `./run.sh` (all configs, retries a failed config once) or `./run.sh dflash8
 
 `results/<label>/`: `bench-serving.jsonl` (scenarios `sharegpt_c1`, `sharegpt_c4`, `long20k_c1`, `long20k_c4`, plus `long40k_c1`, `long80k_c1`, `long120k_c1` with 4 prompts of 512 output tokens each, except the diagnosis configs), `server.log`, and for the six main configs `bfcl/`. No config failed.
 
-One run per config. The 40k–120k scenarios have 4 prompts each, so their rates carry a few percent of noise.
+One run per config. The 40k–120k scenarios have 4 prompts each, so their rates carry a few percent of noise, and `dflash8`'s lead over the nearest drafter at 40k (+3.2%), 80k and 120k is inside it.

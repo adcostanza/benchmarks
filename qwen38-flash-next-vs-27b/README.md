@@ -1,6 +1,6 @@
 # Qwen3.8-Flash-Next vs Qwen3.8-27B on one RTX PRO 6000
 
-Question: is Qwen3.8-Flash-Next a better daily driver than the 27B NVFP4 + DFlash2 8 on one 96 GB
+Question: is Qwen3.8-Flash-Next a better daily driver than the 27B NVFP4 + DFlash2 8 (the daily setup when these runs were made; since 2026-10-30: Swift 1.5 NVFP4 + DFlash2 8) on one 96 GB
 card, at the whole card and at the daily driver's 44 GB GPU budget? Answer: no. Hardware:
 [hardware.md](../hardware.md) (400 W). No more Flash-Next 3.8 runs are planned; the tables below
 are final, including the partial llama.cpp row.
@@ -21,7 +21,7 @@ Output tok/s, median time to first token in parentheses:
 | 40k, 1 user | 39.1 (5.53 s) | 58.7 (5.57 s) | 58.3 (3.41 s) |
 | 80k, 1 user | 22.5 (14.7 s) | 28.5 (14.8 s) | 41.4 (6.98 s) |
 | 120k, 1 user | 14.2 (27.6 s) | 16.5 (27.8 s) | 31.9 (10.6 s) |
-| BFCL subset (of 205) | 171 | 176 | 136, see caveats (not used in the post) |
+| BFCL subset (of 205) | 171 | 176 (other runs of the same config: 168, 174) | 136, see caveats (not used in the post) |
 
 Resources for `fn-nospec` (`results/fn-nospec/resources.json`): startup 159 s with the checkpoint
 fully in the page cache (warm); GPU memory 87.7 GB after load, 88.1 GB peak; container RAM 70.0 GiB
@@ -30,7 +30,7 @@ after load, 71.9 GiB peak (the n-gram table is ~48 GiB of it); checkpoint 126.0 
 ## 44 GB GPU budget (partial run)
 
 The daily driver (27B NVFP4 + DFlash2 8, `--mem-fraction-static 0.41`) uses 43.8 GB of GPU memory
-after load, 44.0 GB peak. SGLang won't start Flash-Next at that budget: `--ple-offload-embedding` is
+after load, 44.0 GB peak (`../qwen38-27b-swift-vs-stock/results/dflash8/resources.json`). SGLang won't start Flash-Next at that budget: `--ple-offload-embedding` is
 rejected together with `--cpu-offload-gb` and `--offload-group-size`
 (`srt/arg_groups/memory_hook.py` in the image), and KTransformers expert offload has no `qwen4_exp`
 support ([ktransformers#2179](https://github.com/kvcache-ai/ktransformers/issues/2179), open on

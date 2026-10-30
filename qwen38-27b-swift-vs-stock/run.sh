@@ -2,10 +2,10 @@
 # Reproduces https://acostanza.com/blog/qwen38-27b-swift-vs-stock/
 # Swift 1.5 NVFP4 (ukisai's official build) vs stock Qwen3.8-27B NVFP4 (RadixArk), both with
 # DFlash2 speculative decoding (8 draft tokens), same flags and memory fraction.
-#   *-quality   GSM8K (all 1,319, daily) and the BFCL subset (1 run)            ~25 min each
+#   *-quality   GSM8K (all 1,319, daily) and the BFCL subset (1 run)
 #   *dflash8    serving (seven scenarios), SPEED-Bench (c1, 10 per domain, 4 per entropy tier
 #               and length bucket, daily), the DFlash2 card's five sets (32 per set, ref + daily)
-#                                                                              ~1.3 h each
+#   Measured: about 2.3 h for all four (suite.json step times sum to 2.1 h)
 #
 # Needs MODELS_DIR containing:
 #   Qwen3.8-27B-NVFP4                    RadixArk/Qwen3.8-27B-NVFP4
