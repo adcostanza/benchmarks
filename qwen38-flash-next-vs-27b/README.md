@@ -30,7 +30,7 @@ after load, 71.9 GiB peak (the n-gram table is ~48 GiB of it); checkpoint 126.0 
 ## 44 GB GPU budget (partial run)
 
 The daily driver (27B NVFP4 + DFlash2 8, `--mem-fraction-static 0.41`) uses 43.8 GB of GPU memory
-after load, 44.0 GB peak. SGLang can't run Flash-Next at that budget: `--ple-offload-embedding` is
+after load, 44.0 GB peak. SGLang won't start Flash-Next at that budget: `--ple-offload-embedding` is
 rejected together with `--cpu-offload-gb` and `--offload-group-size`
 (`srt/arg_groups/memory_hook.py` in the image), and KTransformers expert offload has no `qwen4_exp`
 support ([ktransformers#2179](https://github.com/kvcache-ai/ktransformers/issues/2179), open on
