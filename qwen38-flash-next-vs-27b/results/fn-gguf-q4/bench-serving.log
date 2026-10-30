@@ -1,0 +1,456 @@
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 13.0.3
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.
+   Use the NVIDIA Container Toolkit to start this container with GPU support; see
+   https://docs.nvidia.com/datacenter/cloud-native/ .
+
+/sgl-workspace/sglang/python/sglang/srt/layers/quantization/awq/awq.py:53: UserWarning: Only CUDA, HIP and XPU support AWQ currently.
+  warnings.warn(f"Only CUDA, HIP and XPU support AWQ currently.")
+/sgl-workspace/sglang/python/sglang/srt/layers/quantization/gguf.py:76: UserWarning: Only CUDA, MUSA and NPU support GGUF quantization currently.
+  warnings.warn(f"Only CUDA, MUSA and NPU support GGUF quantization currently.")
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+benchmark_args=Namespace(backend='vllm-chat', base_url='http://llamacpp:8000', host='0.0.0.0', port=None, ready_check_timeout_sec=60, dataset_name='sharegpt', dataset_path='', dataset_offset=0, agentic_max_turns=None, speed_bench_category=None, speed_bench_output_len=512, model='/models/Qwen3.8-Flash-Next-NVFP4', served_model_name=None, tokenizer='/models/Qwen3.8-Flash-Next-NVFP4', num_prompts=12, sharegpt_output_len=1024, sharegpt_context_len=None, random_input_len=1024, random_output_len=1024, random_range_ratio=0.0, image_count=1, image_resolution='1080p', random_image_count=False, image_format='jpeg', image_content='random', request_rate=inf, use_trace_timestamps=False, max_concurrency=1, output_file='/out/bench-serving.jsonl', output_details=False, goodput=None, print_requests=False, disable_tqdm=False, disable_stream=False, return_logprob=False, top_logprobs_num=0, token_ids_logprob=None, logprob_start_len=-1, return_routed_experts=False, cache_report=False, seed=1, disable_ignore_eos=False, temperature=0.0, top_p=1.0, extra_request_body='{"chat_template_kwargs": {"reasoning_effort": "medium"}, "cache_prompt": false, "stream_options": {"include_usage": true}}', apply_chat_template=False, profile=False, plot_throughput=False, profile_activities=['CPU', 'GPU'], profile_start_step=None, profile_steps=None, profile_num_steps=None, profile_by_stage=False, profile_stages=None, profile_output_dir=None, profile_prefix=None, lora_name=None, lora_request_distribution='uniform', lora_zipf_alpha=1.5, prompt_suffix='', pd_separated=False, profile_prefill_url=None, profile_decode_url=None, flush_cache=False, flush_cache_timeout=60.0, warmup_requests=2, tokenize_prompt=False, gsp_num_groups=64, gsp_prompts_per_group=16, gsp_system_prompt_len=2048, gsp_question_len=128, gsp_output_len=256, gsp_range_ratio=1.0, gsp_fast_prepare=False, gsp_send_routing_key=False, gsp_num_turns=1, gsp_ordered=False, gsp_group_distribution='uniform', gsp_zipf_alpha=None, mooncake_slowdown_factor=1.0, mooncake_num_rounds=1, mooncake_workload='conversation', fake_prefill=False, tag='sharegpt_c1', header=None, rust_client=False, rust_worker_threads=None)
+Waiting up to 60s for http://llamacpp:8000/v1/models to become ready...
+Server ready in 0.0s.
+Namespace(backend='vllm-chat', base_url='http://llamacpp:8000', host='0.0.0.0', port=30000, ready_check_timeout_sec=60, dataset_name='sharegpt', dataset_path='', dataset_offset=0, agentic_max_turns=None, speed_bench_category=None, speed_bench_output_len=512, model='/models/Qwen3.8-Flash-Next-NVFP4', served_model_name=None, tokenizer='/models/Qwen3.8-Flash-Next-NVFP4', num_prompts=12, sharegpt_output_len=1024, sharegpt_context_len=None, random_input_len=1024, random_output_len=1024, random_range_ratio=0.0, image_count=1, image_resolution='1080p', random_image_count=False, image_format='jpeg', image_content='random', request_rate=inf, use_trace_timestamps=False, max_concurrency=1, output_file='/out/bench-serving.jsonl', output_details=False, goodput=None, print_requests=False, disable_tqdm=False, disable_stream=False, return_logprob=False, top_logprobs_num=0, token_ids_logprob=None, logprob_start_len=-1, return_routed_experts=False, cache_report=False, seed=1, disable_ignore_eos=False, temperature=0.0, top_p=1.0, extra_request_body='{"chat_template_kwargs": {"reasoning_effort": "medium"}, "cache_prompt": false, "stream_options": {"include_usage": true}}', apply_chat_template=False, profile=False, plot_throughput=False, profile_activities=['CPU', 'GPU'], profile_start_step=None, profile_steps=None, profile_num_steps=None, profile_by_stage=False, profile_stages=None, profile_output_dir=None, profile_prefix=None, lora_name=None, lora_request_distribution='uniform', lora_zipf_alpha=1.5, prompt_suffix='', pd_separated=False, profile_prefill_url=None, profile_decode_url=None, flush_cache=False, flush_cache_timeout=60.0, warmup_requests=2, tokenize_prompt=False, gsp_num_groups=64, gsp_prompts_per_group=16, gsp_system_prompt_len=2048, gsp_question_len=128, gsp_output_len=256, gsp_range_ratio=1.0, gsp_fast_prepare=False, gsp_send_routing_key=False, gsp_num_turns=1, gsp_ordered=False, gsp_group_distribution='uniform', gsp_zipf_alpha=None, mooncake_slowdown_factor=1.0, mooncake_num_rounds=1, mooncake_workload='conversation', fake_prefill=False, tag='sharegpt_c1', header=None, rust_client=False, rust_worker_threads=None)
+
+#Input tokens: 4702
+#Output tokens: 12288
+Starting warmup with 2 sequences...
+Warmup completed with 2 sequences. Starting main benchmark run...
+  0%|          | 0/12 [00:00<?, ?it/s]  8%|▊         | 1/12 [00:33<06:04, 33.14s/it] 17%|█▋        | 2/12 [01:06<05:33, 33.33s/it] 25%|██▌       | 3/12 [01:40<05:04, 33.81s/it] 33%|███▎      | 4/12 [02:14<04:31, 33.88s/it] 42%|████▏     | 5/12 [02:48<03:55, 33.67s/it] 50%|█████     | 6/12 [03:21<03:21, 33.53s/it] 58%|█████▊    | 7/12 [03:55<02:48, 33.69s/it] 67%|██████▋   | 8/12 [04:29<02:14, 33.72s/it] 75%|███████▌  | 9/12 [05:03<01:41, 33.88s/it] 83%|████████▎ | 10/12 [05:37<01:07, 33.84s/it] 92%|█████████▏| 11/12 [06:12<00:34, 34.18s/it]100%|██████████| 12/12 [06:46<00:00, 34.16s/it]100%|██████████| 12/12 [06:46<00:00, 33.86s/it]
+
+============ Serving Benchmark Result ============
+Backend:                                 vllm-chat 
+Traffic request rate:                    inf       
+Max request concurrency:                 1         
+Successful requests:                     12        
+Benchmark duration (s):                  406.38    
+Total input tokens:                      4702      
+Total input text tokens:                 4702      
+Total generated tokens:                  12288     
+Total generated tokens (retokenized):    12241     
+Request throughput (req/s):              0.03      
+Input token throughput (tok/s):          11.57     
+Output token throughput (tok/s):         30.24     
+Peak output token throughput (tok/s):    32.00     
+Peak concurrent requests:                2         
+Total token throughput (tok/s):          41.81     
+Concurrency:                             1.00      
+----------------End-to-End Latency----------------
+Mean E2E Latency (ms):                   33864.58  
+Median E2E Latency (ms):                 33897.74  
+P90 E2E Latency (ms):                    34354.10  
+P95 E2E Latency (ms):                    34633.07  
+P99 E2E Latency (ms):                    34892.11  
+---------------Time to First Token----------------
+Mean TTFT (ms):                          1094.69   
+Median TTFT (ms):                        1113.80   
+P90 TTFT (ms):                           1517.72   
+P95 TTFT (ms):                           1761.11   
+P99 TTFT (ms):                           1998.46   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          32.03     
+Median TPOT (ms):                        32.04     
+P90 TPOT (ms):                           32.11     
+P95 TPOT (ms):                           32.14     
+P99 TPOT (ms):                           32.15     
+---------------Inter-Token Latency----------------
+Mean ITL (ms):                           32.56     
+Median ITL (ms):                         31.66     
+P90 ITL (ms):                            32.83     
+P95 ITL (ms):                            33.98     
+P99 ITL (ms):                            62.65     
+Max ITL (ms):                            140.33    
+==================================================
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 13.0.3
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.
+   Use the NVIDIA Container Toolkit to start this container with GPU support; see
+   https://docs.nvidia.com/datacenter/cloud-native/ .
+
+/sgl-workspace/sglang/python/sglang/srt/layers/quantization/awq/awq.py:53: UserWarning: Only CUDA, HIP and XPU support AWQ currently.
+  warnings.warn(f"Only CUDA, HIP and XPU support AWQ currently.")
+/sgl-workspace/sglang/python/sglang/srt/layers/quantization/gguf.py:76: UserWarning: Only CUDA, MUSA and NPU support GGUF quantization currently.
+  warnings.warn(f"Only CUDA, MUSA and NPU support GGUF quantization currently.")
+  0%|          | 0/32 [00:00<?, ?it/s]benchmark_args=Namespace(backend='vllm-chat', base_url='http://llamacpp:8000', host='0.0.0.0', port=None, ready_check_timeout_sec=60, dataset_name='sharegpt', dataset_path='', dataset_offset=0, agentic_max_turns=None, speed_bench_category=None, speed_bench_output_len=512, model='/models/Qwen3.8-Flash-Next-NVFP4', served_model_name=None, tokenizer='/models/Qwen3.8-Flash-Next-NVFP4', num_prompts=32, sharegpt_output_len=1024, sharegpt_context_len=None, random_input_len=1024, random_output_len=1024, random_range_ratio=0.0, image_count=1, image_resolution='1080p', random_image_count=False, image_format='jpeg', image_content='random', request_rate=inf, use_trace_timestamps=False, max_concurrency=4, output_file='/out/bench-serving.jsonl', output_details=False, goodput=None, print_requests=False, disable_tqdm=False, disable_stream=False, return_logprob=False, top_logprobs_num=0, token_ids_logprob=None, logprob_start_len=-1, return_routed_experts=False, cache_report=False, seed=1, disable_ignore_eos=False, temperature=0.0, top_p=1.0, extra_request_body='{"chat_template_kwargs": {"reasoning_effort": "medium"}, "cache_prompt": false, "stream_options": {"include_usage": true}}', apply_chat_template=False, profile=False, plot_throughput=False, profile_activities=['CPU', 'GPU'], profile_start_step=None, profile_steps=None, profile_num_steps=None, profile_by_stage=False, profile_stages=None, profile_output_dir=None, profile_prefix=None, lora_name=None, lora_request_distribution='uniform', lora_zipf_alpha=1.5, prompt_suffix='', pd_separated=False, profile_prefill_url=None, profile_decode_url=None, flush_cache=False, flush_cache_timeout=60.0, warmup_requests=2, tokenize_prompt=False, gsp_num_groups=64, gsp_prompts_per_group=16, gsp_system_prompt_len=2048, gsp_question_len=128, gsp_output_len=256, gsp_range_ratio=1.0, gsp_fast_prepare=False, gsp_send_routing_key=False, gsp_num_turns=1, gsp_ordered=False, gsp_group_distribution='uniform', gsp_zipf_alpha=None, mooncake_slowdown_factor=1.0, mooncake_num_rounds=1, mooncake_workload='conversation', fake_prefill=False, tag='sharegpt_c4', header=None, rust_client=False, rust_worker_threads=None)
+Waiting up to 60s for http://llamacpp:8000/v1/models to become ready...
+Server ready in 0.0s.
+Namespace(backend='vllm-chat', base_url='http://llamacpp:8000', host='0.0.0.0', port=30000, ready_check_timeout_sec=60, dataset_name='sharegpt', dataset_path='', dataset_offset=0, agentic_max_turns=None, speed_bench_category=None, speed_bench_output_len=512, model='/models/Qwen3.8-Flash-Next-NVFP4', served_model_name=None, tokenizer='/models/Qwen3.8-Flash-Next-NVFP4', num_prompts=32, sharegpt_output_len=1024, sharegpt_context_len=None, random_input_len=1024, random_output_len=1024, random_range_ratio=0.0, image_count=1, image_resolution='1080p', random_image_count=False, image_format='jpeg', image_content='random', request_rate=inf, use_trace_timestamps=False, max_concurrency=4, output_file='/out/bench-serving.jsonl', output_details=False, goodput=None, print_requests=False, disable_tqdm=False, disable_stream=False, return_logprob=False, top_logprobs_num=0, token_ids_logprob=None, logprob_start_len=-1, return_routed_experts=False, cache_report=False, seed=1, disable_ignore_eos=False, temperature=0.0, top_p=1.0, extra_request_body='{"chat_template_kwargs": {"reasoning_effort": "medium"}, "cache_prompt": false, "stream_options": {"include_usage": true}}', apply_chat_template=False, profile=False, plot_throughput=False, profile_activities=['CPU', 'GPU'], profile_start_step=None, profile_steps=None, profile_num_steps=None, profile_by_stage=False, profile_stages=None, profile_output_dir=None, profile_prefix=None, lora_name=None, lora_request_distribution='uniform', lora_zipf_alpha=1.5, prompt_suffix='', pd_separated=False, profile_prefill_url=None, profile_decode_url=None, flush_cache=False, flush_cache_timeout=60.0, warmup_requests=2, tokenize_prompt=False, gsp_num_groups=64, gsp_prompts_per_group=16, gsp_system_prompt_len=2048, gsp_question_len=128, gsp_output_len=256, gsp_range_ratio=1.0, gsp_fast_prepare=False, gsp_send_routing_key=False, gsp_num_turns=1, gsp_ordered=False, gsp_group_distribution='uniform', gsp_zipf_alpha=None, mooncake_slowdown_factor=1.0, mooncake_num_rounds=1, mooncake_workload='conversation', fake_prefill=False, tag='sharegpt_c4', header=None, rust_client=False, rust_worker_threads=None)
+
+#Input tokens: 10391
+#Output tokens: 32768
+Starting warmup with 2 sequences...
+Warmup completed with 2 sequences. Starting main benchmark run...
+  3%|▎         | 1/32 [01:49<56:23, 109.13s/it] 16%|█▌        | 5/32 [03:37<17:41, 39.32s/it]  28%|██▊       | 9/32 [05:28<12:39, 33.03s/it] 41%|████      | 13/32 [07:20<09:43, 30.73s/it] 53%|█████▎    | 17/32 [09:11<07:24, 29.60s/it] 66%|██████▌   | 21/32 [10:58<05:14, 28.58s/it] 78%|███████▊  | 25/32 [12:48<03:17, 28.25s/it] 91%|█████████ | 29/32 [14:40<01:24, 28.15s/it]100%|██████████| 32/32 [14:40<00:00, 27.52s/it]
+
+============ Serving Benchmark Result ============
+Backend:                                 vllm-chat 
+Traffic request rate:                    inf       
+Max request concurrency:                 4         
+Successful requests:                     32        
+Benchmark duration (s):                  880.49    
+Total input tokens:                      10391     
+Total input text tokens:                 10391     
+Total generated tokens:                  32768     
+Total generated tokens (retokenized):    32652     
+Request throughput (req/s):              0.04      
+Input token throughput (tok/s):          11.80     
+Output token throughput (tok/s):         37.22     
+Peak output token throughput (tok/s):    48.00     
+Peak concurrent requests:                8         
+Total token throughput (tok/s):          49.02     
+Concurrency:                             4.00      
+----------------End-to-End Latency----------------
+Mean E2E Latency (ms):                   110059.69 
+Median E2E Latency (ms):                 110812.40 
+P90 E2E Latency (ms):                    111718.57 
+P95 E2E Latency (ms):                    111751.20 
+P99 E2E Latency (ms):                    111751.31 
+---------------Time to First Token----------------
+Mean TTFT (ms):                          5066.98   
+Median TTFT (ms):                        4404.31   
+P90 TTFT (ms):                           7425.45   
+P95 TTFT (ms):                           7495.98   
+P99 TTFT (ms):                           7497.51   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          102.63    
+Median TPOT (ms):                        102.38    
+P90 TPOT (ms):                           104.58    
+P95 TPOT (ms):                           104.68    
+P99 TPOT (ms):                           104.68    
+---------------Inter-Token Latency----------------
+Mean ITL (ms):                           106.48    
+Median ITL (ms):                         102.77    
+P90 ITL (ms):                            109.05    
+P95 ITL (ms):                            112.19    
+P99 ITL (ms):                            297.45    
+Max ITL (ms):                            514.78    
+==================================================
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 13.0.3
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.
+   Use the NVIDIA Container Toolkit to start this container with GPU support; see
+   https://docs.nvidia.com/datacenter/cloud-native/ .
+
+/sgl-workspace/sglang/python/sglang/srt/layers/quantization/awq/awq.py:53: UserWarning: Only CUDA, HIP and XPU support AWQ currently.
+  warnings.warn(f"Only CUDA, HIP and XPU support AWQ currently.")
+/sgl-workspace/sglang/python/sglang/srt/layers/quantization/gguf.py:76: UserWarning: Only CUDA, MUSA and NPU support GGUF quantization currently.
+  warnings.warn(f"Only CUDA, MUSA and NPU support GGUF quantization currently.")
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+  0%|          | 0/4 [00:00<?, ?it/s]benchmark_args=Namespace(backend='vllm-chat', base_url='http://llamacpp:8000', host='0.0.0.0', port=None, ready_check_timeout_sec=60, dataset_name='random', dataset_path='', dataset_offset=0, agentic_max_turns=None, speed_bench_category=None, speed_bench_output_len=512, model='/models/Qwen3.8-Flash-Next-NVFP4', served_model_name=None, tokenizer='/models/Qwen3.8-Flash-Next-NVFP4', num_prompts=4, sharegpt_output_len=None, sharegpt_context_len=None, random_input_len=20000, random_output_len=512, random_range_ratio=1.0, image_count=1, image_resolution='1080p', random_image_count=False, image_format='jpeg', image_content='random', request_rate=inf, use_trace_timestamps=False, max_concurrency=1, output_file='/out/bench-serving.jsonl', output_details=False, goodput=None, print_requests=False, disable_tqdm=False, disable_stream=False, return_logprob=False, top_logprobs_num=0, token_ids_logprob=None, logprob_start_len=-1, return_routed_experts=False, cache_report=False, seed=1, disable_ignore_eos=False, temperature=0.0, top_p=1.0, extra_request_body='{"chat_template_kwargs": {"reasoning_effort": "medium"}, "cache_prompt": false, "stream_options": {"include_usage": true}}', apply_chat_template=False, profile=False, plot_throughput=False, profile_activities=['CPU', 'GPU'], profile_start_step=None, profile_steps=None, profile_num_steps=None, profile_by_stage=False, profile_stages=None, profile_output_dir=None, profile_prefix=None, lora_name=None, lora_request_distribution='uniform', lora_zipf_alpha=1.5, prompt_suffix='', pd_separated=False, profile_prefill_url=None, profile_decode_url=None, flush_cache=False, flush_cache_timeout=60.0, warmup_requests=2, tokenize_prompt=False, gsp_num_groups=64, gsp_prompts_per_group=16, gsp_system_prompt_len=2048, gsp_question_len=128, gsp_output_len=256, gsp_range_ratio=1.0, gsp_fast_prepare=False, gsp_send_routing_key=False, gsp_num_turns=1, gsp_ordered=False, gsp_group_distribution='uniform', gsp_zipf_alpha=None, mooncake_slowdown_factor=1.0, mooncake_num_rounds=1, mooncake_workload='conversation', fake_prefill=False, tag='long20k_c1', header=None, rust_client=False, rust_worker_threads=None)
+Waiting up to 60s for http://llamacpp:8000/v1/models to become ready...
+Server ready in 0.0s.
+Namespace(backend='vllm-chat', base_url='http://llamacpp:8000', host='0.0.0.0', port=30000, ready_check_timeout_sec=60, dataset_name='random', dataset_path='', dataset_offset=0, agentic_max_turns=None, speed_bench_category=None, speed_bench_output_len=512, model='/models/Qwen3.8-Flash-Next-NVFP4', served_model_name=None, tokenizer='/models/Qwen3.8-Flash-Next-NVFP4', num_prompts=4, sharegpt_output_len=None, sharegpt_context_len=None, random_input_len=20000, random_output_len=512, random_range_ratio=1.0, image_count=1, image_resolution='1080p', random_image_count=False, image_format='jpeg', image_content='random', request_rate=inf, use_trace_timestamps=False, max_concurrency=1, output_file='/out/bench-serving.jsonl', output_details=False, goodput=None, print_requests=False, disable_tqdm=False, disable_stream=False, return_logprob=False, top_logprobs_num=0, token_ids_logprob=None, logprob_start_len=-1, return_routed_experts=False, cache_report=False, seed=1, disable_ignore_eos=False, temperature=0.0, top_p=1.0, extra_request_body='{"chat_template_kwargs": {"reasoning_effort": "medium"}, "cache_prompt": false, "stream_options": {"include_usage": true}}', apply_chat_template=False, profile=False, plot_throughput=False, profile_activities=['CPU', 'GPU'], profile_start_step=None, profile_steps=None, profile_num_steps=None, profile_by_stage=False, profile_stages=None, profile_output_dir=None, profile_prefix=None, lora_name=None, lora_request_distribution='uniform', lora_zipf_alpha=1.5, prompt_suffix='', pd_separated=False, profile_prefill_url=None, profile_decode_url=None, flush_cache=False, flush_cache_timeout=60.0, warmup_requests=2, tokenize_prompt=False, gsp_num_groups=64, gsp_prompts_per_group=16, gsp_system_prompt_len=2048, gsp_question_len=128, gsp_output_len=256, gsp_range_ratio=1.0, gsp_fast_prepare=False, gsp_send_routing_key=False, gsp_num_turns=1, gsp_ordered=False, gsp_group_distribution='uniform', gsp_zipf_alpha=None, mooncake_slowdown_factor=1.0, mooncake_num_rounds=1, mooncake_workload='conversation', fake_prefill=False, tag='long20k_c1', header=None, rust_client=False, rust_worker_threads=None)
+
+#Input tokens: 80000
+#Output tokens: 2048
+Starting warmup with 2 sequences...
+Warmup completed with 2 sequences. Starting main benchmark run...
+ 25%|██▌       | 1/4 [00:24<01:14, 24.72s/it] 50%|█████     | 2/4 [00:50<00:50, 25.47s/it] 75%|███████▌  | 3/4 [01:18<00:26, 26.53s/it]100%|██████████| 4/4 [01:45<00:00, 26.86s/it]100%|██████████| 4/4 [01:45<00:00, 26.47s/it]
+
+============ Serving Benchmark Result ============
+Backend:                                 vllm-chat 
+Traffic request rate:                    inf       
+Max request concurrency:                 1         
+Successful requests:                     4         
+Benchmark duration (s):                  105.87    
+Total input tokens:                      80000     
+Total input text tokens:                 80000     
+Total generated tokens:                  2048      
+Total generated tokens (retokenized):    2032      
+Request throughput (req/s):              0.04      
+Input token throughput (tok/s):          755.62    
+Output token throughput (tok/s):         19.34     
+Peak output token throughput (tok/s):    31.00     
+Peak concurrent requests:                2         
+Total token throughput (tok/s):          774.96    
+Concurrency:                             1.00      
+----------------End-to-End Latency----------------
+Mean E2E Latency (ms):                   26467.34  
+Median E2E Latency (ms):                 26677.70  
+P90 E2E Latency (ms):                    27665.55  
+P95 E2E Latency (ms):                    27731.89  
+P99 E2E Latency (ms):                    27784.95  
+---------------Time to First Token----------------
+Mean TTFT (ms):                          9609.19   
+Median TTFT (ms):                        9805.63   
+P90 TTFT (ms):                           10916.57  
+P95 TTFT (ms):                           10968.25  
+P99 TTFT (ms):                           11009.59  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          32.99     
+Median TPOT (ms):                        32.96     
+P90 TPOT (ms):                           33.30     
+P95 TPOT (ms):                           33.35     
+P99 TPOT (ms):                           33.38     
+---------------Inter-Token Latency----------------
+Mean ITL (ms):                           33.55     
+Median ITL (ms):                         32.29     
+P90 ITL (ms):                            34.80     
+P95 ITL (ms):                            37.92     
+P99 ITL (ms):                            64.66     
+Max ITL (ms):                            132.13    
+==================================================
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 13.0.3
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.
+   Use the NVIDIA Container Toolkit to start this container with GPU support; see
+   https://docs.nvidia.com/datacenter/cloud-native/ .
+
+/sgl-workspace/sglang/python/sglang/srt/layers/quantization/awq/awq.py:53: UserWarning: Only CUDA, HIP and XPU support AWQ currently.
+  warnings.warn(f"Only CUDA, HIP and XPU support AWQ currently.")
+/sgl-workspace/sglang/python/sglang/srt/layers/quantization/gguf.py:76: UserWarning: Only CUDA, MUSA and NPU support GGUF quantization currently.
+  warnings.warn(f"Only CUDA, MUSA and NPU support GGUF quantization currently.")
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+benchmark_args=Namespace(backend='vllm-chat', base_url='http://llamacpp:8000', host='0.0.0.0', port=None, ready_check_timeout_sec=60, dataset_name='random', dataset_path='', dataset_offset=0, agentic_max_turns=None, speed_bench_category=None, speed_bench_output_len=512, model='/models/Qwen3.8-Flash-Next-NVFP4', served_model_name=None, tokenizer='/models/Qwen3.8-Flash-Next-NVFP4', num_prompts=8, sharegpt_output_len=None, sharegpt_context_len=None, random_input_len=20000, random_output_len=512, random_range_ratio=1.0, image_count=1, image_resolution='1080p', random_image_count=False, image_format='jpeg', image_content='random', request_rate=inf, use_trace_timestamps=False, max_concurrency=4, output_file='/out/bench-serving.jsonl', output_details=False, goodput=None, print_requests=False, disable_tqdm=False, disable_stream=False, return_logprob=False, top_logprobs_num=0, token_ids_logprob=None, logprob_start_len=-1, return_routed_experts=False, cache_report=False, seed=1, disable_ignore_eos=False, temperature=0.0, top_p=1.0, extra_request_body='{"chat_template_kwargs": {"reasoning_effort": "medium"}, "cache_prompt": false, "stream_options": {"include_usage": true}}', apply_chat_template=False, profile=False, plot_throughput=False, profile_activities=['CPU', 'GPU'], profile_start_step=None, profile_steps=None, profile_num_steps=None, profile_by_stage=False, profile_stages=None, profile_output_dir=None, profile_prefix=None, lora_name=None, lora_request_distribution='uniform', lora_zipf_alpha=1.5, prompt_suffix='', pd_separated=False, profile_prefill_url=None, profile_decode_url=None, flush_cache=False, flush_cache_timeout=60.0, warmup_requests=2, tokenize_prompt=False, gsp_num_groups=64, gsp_prompts_per_group=16, gsp_system_prompt_len=2048, gsp_question_len=128, gsp_output_len=256, gsp_range_ratio=1.0, gsp_fast_prepare=False, gsp_send_routing_key=False, gsp_num_turns=1, gsp_ordered=False, gsp_group_distribution='uniform', gsp_zipf_alpha=None, mooncake_slowdown_factor=1.0, mooncake_num_rounds=1, mooncake_workload='conversation', fake_prefill=False, tag='long20k_c4', header=None, rust_client=False, rust_worker_threads=None)
+Waiting up to 60s for http://llamacpp:8000/v1/models to become ready...
+Server ready in 0.0s.
+Namespace(backend='vllm-chat', base_url='http://llamacpp:8000', host='0.0.0.0', port=30000, ready_check_timeout_sec=60, dataset_name='random', dataset_path='', dataset_offset=0, agentic_max_turns=None, speed_bench_category=None, speed_bench_output_len=512, model='/models/Qwen3.8-Flash-Next-NVFP4', served_model_name=None, tokenizer='/models/Qwen3.8-Flash-Next-NVFP4', num_prompts=8, sharegpt_output_len=None, sharegpt_context_len=None, random_input_len=20000, random_output_len=512, random_range_ratio=1.0, image_count=1, image_resolution='1080p', random_image_count=False, image_format='jpeg', image_content='random', request_rate=inf, use_trace_timestamps=False, max_concurrency=4, output_file='/out/bench-serving.jsonl', output_details=False, goodput=None, print_requests=False, disable_tqdm=False, disable_stream=False, return_logprob=False, top_logprobs_num=0, token_ids_logprob=None, logprob_start_len=-1, return_routed_experts=False, cache_report=False, seed=1, disable_ignore_eos=False, temperature=0.0, top_p=1.0, extra_request_body='{"chat_template_kwargs": {"reasoning_effort": "medium"}, "cache_prompt": false, "stream_options": {"include_usage": true}}', apply_chat_template=False, profile=False, plot_throughput=False, profile_activities=['CPU', 'GPU'], profile_start_step=None, profile_steps=None, profile_num_steps=None, profile_by_stage=False, profile_stages=None, profile_output_dir=None, profile_prefix=None, lora_name=None, lora_request_distribution='uniform', lora_zipf_alpha=1.5, prompt_suffix='', pd_separated=False, profile_prefill_url=None, profile_decode_url=None, flush_cache=False, flush_cache_timeout=60.0, warmup_requests=2, tokenize_prompt=False, gsp_num_groups=64, gsp_prompts_per_group=16, gsp_system_prompt_len=2048, gsp_question_len=128, gsp_output_len=256, gsp_range_ratio=1.0, gsp_fast_prepare=False, gsp_send_routing_key=False, gsp_num_turns=1, gsp_ordered=False, gsp_group_distribution='uniform', gsp_zipf_alpha=None, mooncake_slowdown_factor=1.0, mooncake_num_rounds=1, mooncake_workload='conversation', fake_prefill=False, tag='long20k_c4', header=None, rust_client=False, rust_worker_threads=None)
+
+#Input tokens: 160000
+#Output tokens: 4096
+Starting warmup with 2 sequences...
+Warmup completed with 2 sequences. Starting main benchmark run...
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [01:35<11:07, 95.41s/it] 25%|██▌       | 2/8 [01:42<04:22, 43.69s/it] 38%|███▊      | 3/8 [01:52<02:20, 28.15s/it] 50%|█████     | 4/8 [02:03<01:25, 21.39s/it] 62%|██████▎   | 5/8 [03:09<01:51, 37.31s/it] 75%|███████▌  | 6/8 [03:09<00:49, 24.77s/it] 88%|████████▊ | 7/8 [03:09<00:16, 16.77s/it]100%|██████████| 8/8 [03:10<00:00, 11.49s/it]100%|██████████| 8/8 [03:10<00:00, 23.75s/it]
+
+============ Serving Benchmark Result ============
+Backend:                                 vllm-chat 
+Traffic request rate:                    inf       
+Max request concurrency:                 4         
+Successful requests:                     8         
+Benchmark duration (s):                  190.02    
+Total input tokens:                      160000    
+Total input text tokens:                 160000    
+Total generated tokens:                  4096      
+Total generated tokens (retokenized):    4066      
+Request throughput (req/s):              0.04      
+Input token throughput (tok/s):          842.01    
+Output token throughput (tok/s):         21.56     
+Peak output token throughput (tok/s):    44.00     
+Peak concurrent requests:                5         
+Total token throughput (tok/s):          863.56    
+Concurrency:                             3.99      
+----------------End-to-End Latency----------------
+Mean E2E Latency (ms):                   94811.45  
+Median E2E Latency (ms):                 94553.85  
+P90 E2E Latency (ms):                    115861.45 
+P95 E2E Latency (ms):                    119725.50 
+P99 E2E Latency (ms):                    122816.75 
+---------------Time to First Token----------------
+Mean TTFT (ms):                          22767.73  
+Median TTFT (ms):                        15897.85  
+P90 TTFT (ms):                           40095.84  
+P95 TTFT (ms):                           42393.08  
+P99 TTFT (ms):                           44230.87  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          140.99    
+Median TPOT (ms):                        146.18    
+P90 TPOT (ms):                           157.28    
+P95 TPOT (ms):                           158.68    
+P99 TPOT (ms):                           159.80    
+---------------Inter-Token Latency----------------
+Mean ITL (ms):                           142.63    
+Median ITL (ms):                         103.51    
+P90 ITL (ms):                            111.40    
+P95 ITL (ms):                            124.56    
+P99 ITL (ms):                            1890.33   
+Max ITL (ms):                            3674.00   
+==================================================
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 13.0.3
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.
+   Use the NVIDIA Container Toolkit to start this container with GPU support; see
+   https://docs.nvidia.com/datacenter/cloud-native/ .
+
+/sgl-workspace/sglang/python/sglang/srt/layers/quantization/awq/awq.py:53: UserWarning: Only CUDA, HIP and XPU support AWQ currently.
+  warnings.warn(f"Only CUDA, HIP and XPU support AWQ currently.")
+/sgl-workspace/sglang/python/sglang/srt/layers/quantization/gguf.py:76: UserWarning: Only CUDA, MUSA and NPU support GGUF quantization currently.
+  warnings.warn(f"Only CUDA, MUSA and NPU support GGUF quantization currently.")
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+  0%|          | 0/4 [00:00<?, ?it/s]benchmark_args=Namespace(backend='vllm-chat', base_url='http://llamacpp:8000', host='0.0.0.0', port=None, ready_check_timeout_sec=60, dataset_name='random', dataset_path='', dataset_offset=0, agentic_max_turns=None, speed_bench_category=None, speed_bench_output_len=512, model='/models/Qwen3.8-Flash-Next-NVFP4', served_model_name=None, tokenizer='/models/Qwen3.8-Flash-Next-NVFP4', num_prompts=4, sharegpt_output_len=None, sharegpt_context_len=None, random_input_len=40000, random_output_len=512, random_range_ratio=1.0, image_count=1, image_resolution='1080p', random_image_count=False, image_format='jpeg', image_content='random', request_rate=inf, use_trace_timestamps=False, max_concurrency=1, output_file='/out/bench-serving.jsonl', output_details=False, goodput=None, print_requests=False, disable_tqdm=False, disable_stream=False, return_logprob=False, top_logprobs_num=0, token_ids_logprob=None, logprob_start_len=-1, return_routed_experts=False, cache_report=False, seed=1, disable_ignore_eos=False, temperature=0.0, top_p=1.0, extra_request_body='{"chat_template_kwargs": {"reasoning_effort": "medium"}, "cache_prompt": false, "stream_options": {"include_usage": true}}', apply_chat_template=False, profile=False, plot_throughput=False, profile_activities=['CPU', 'GPU'], profile_start_step=None, profile_steps=None, profile_num_steps=None, profile_by_stage=False, profile_stages=None, profile_output_dir=None, profile_prefix=None, lora_name=None, lora_request_distribution='uniform', lora_zipf_alpha=1.5, prompt_suffix='', pd_separated=False, profile_prefill_url=None, profile_decode_url=None, flush_cache=False, flush_cache_timeout=60.0, warmup_requests=2, tokenize_prompt=False, gsp_num_groups=64, gsp_prompts_per_group=16, gsp_system_prompt_len=2048, gsp_question_len=128, gsp_output_len=256, gsp_range_ratio=1.0, gsp_fast_prepare=False, gsp_send_routing_key=False, gsp_num_turns=1, gsp_ordered=False, gsp_group_distribution='uniform', gsp_zipf_alpha=None, mooncake_slowdown_factor=1.0, mooncake_num_rounds=1, mooncake_workload='conversation', fake_prefill=False, tag='long40k_c1', header=None, rust_client=False, rust_worker_threads=None)
+Waiting up to 60s for http://llamacpp:8000/v1/models to become ready...
+Server ready in 0.0s.
+Namespace(backend='vllm-chat', base_url='http://llamacpp:8000', host='0.0.0.0', port=30000, ready_check_timeout_sec=60, dataset_name='random', dataset_path='', dataset_offset=0, agentic_max_turns=None, speed_bench_category=None, speed_bench_output_len=512, model='/models/Qwen3.8-Flash-Next-NVFP4', served_model_name=None, tokenizer='/models/Qwen3.8-Flash-Next-NVFP4', num_prompts=4, sharegpt_output_len=None, sharegpt_context_len=None, random_input_len=40000, random_output_len=512, random_range_ratio=1.0, image_count=1, image_resolution='1080p', random_image_count=False, image_format='jpeg', image_content='random', request_rate=inf, use_trace_timestamps=False, max_concurrency=1, output_file='/out/bench-serving.jsonl', output_details=False, goodput=None, print_requests=False, disable_tqdm=False, disable_stream=False, return_logprob=False, top_logprobs_num=0, token_ids_logprob=None, logprob_start_len=-1, return_routed_experts=False, cache_report=False, seed=1, disable_ignore_eos=False, temperature=0.0, top_p=1.0, extra_request_body='{"chat_template_kwargs": {"reasoning_effort": "medium"}, "cache_prompt": false, "stream_options": {"include_usage": true}}', apply_chat_template=False, profile=False, plot_throughput=False, profile_activities=['CPU', 'GPU'], profile_start_step=None, profile_steps=None, profile_num_steps=None, profile_by_stage=False, profile_stages=None, profile_output_dir=None, profile_prefix=None, lora_name=None, lora_request_distribution='uniform', lora_zipf_alpha=1.5, prompt_suffix='', pd_separated=False, profile_prefill_url=None, profile_decode_url=None, flush_cache=False, flush_cache_timeout=60.0, warmup_requests=2, tokenize_prompt=False, gsp_num_groups=64, gsp_prompts_per_group=16, gsp_system_prompt_len=2048, gsp_question_len=128, gsp_output_len=256, gsp_range_ratio=1.0, gsp_fast_prepare=False, gsp_send_routing_key=False, gsp_num_turns=1, gsp_ordered=False, gsp_group_distribution='uniform', gsp_zipf_alpha=None, mooncake_slowdown_factor=1.0, mooncake_num_rounds=1, mooncake_workload='conversation', fake_prefill=False, tag='long40k_c1', header=None, rust_client=False, rust_worker_threads=None)
+
+#Input tokens: 160000
+#Output tokens: 2048
+Starting warmup with 2 sequences...
+Warmup completed with 2 sequences. Starting main benchmark run...
+ 25%|██▌       | 1/4 [00:32<01:37, 32.61s/it] 50%|█████     | 2/4 [01:07<01:07, 33.79s/it] 75%|███████▌  | 3/4 [01:46<00:36, 36.12s/it]100%|██████████| 4/4 [02:24<00:00, 36.99s/it]100%|██████████| 4/4 [02:24<00:00, 36.11s/it]
+
+============ Serving Benchmark Result ============
+Backend:                                 vllm-chat 
+Traffic request rate:                    inf       
+Max request concurrency:                 1         
+Successful requests:                     4         
+Benchmark duration (s):                  144.44    
+Total input tokens:                      160000    
+Total input text tokens:                 160000    
+Total generated tokens:                  2048      
+Total generated tokens (retokenized):    2034      
+Request throughput (req/s):              0.03      
+Input token throughput (tok/s):          1107.75   
+Output token throughput (tok/s):         14.18     
+Peak output token throughput (tok/s):    32.00     
+Peak concurrent requests:                2         
+Total token throughput (tok/s):          1121.93   
+Concurrency:                             1.00      
+----------------End-to-End Latency----------------
+Mean E2E Latency (ms):                   36108.17  
+Median E2E Latency (ms):                 36462.76  
+P90 E2E Latency (ms):                    38723.99  
+P95 E2E Latency (ms):                    38812.36  
+P99 E2E Latency (ms):                    38883.06  
+---------------Time to First Token----------------
+Mean TTFT (ms):                          19344.44  
+Median TTFT (ms):                        19730.89  
+P90 TTFT (ms):                           22023.82  
+P95 TTFT (ms):                           22119.41  
+P99 TTFT (ms):                           22195.87  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          32.81     
+Median TPOT (ms):                        32.74     
+P90 TPOT (ms):                           32.98     
+P95 TPOT (ms):                           33.03     
+P99 TPOT (ms):                           33.07     
+---------------Inter-Token Latency----------------
+Mean ITL (ms):                           33.71     
+Median ITL (ms):                         32.24     
+P90 ITL (ms):                            34.04     
+P95 ITL (ms):                            38.01     
+P99 ITL (ms):                            66.22     
+Max ITL (ms):                            138.89    
+==================================================
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 13.0.3
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.
+   Use the NVIDIA Container Toolkit to start this container with GPU support; see
+   https://docs.nvidia.com/datacenter/cloud-native/ .
+
+/sgl-workspace/sglang/python/sglang/srt/layers/quantization/awq/awq.py:53: UserWarning: Only CUDA, HIP and XPU support AWQ currently.
+  warnings.warn(f"Only CUDA, HIP and XPU support AWQ currently.")
+/sgl-workspace/sglang/python/sglang/srt/layers/quantization/gguf.py:76: UserWarning: Only CUDA, MUSA and NPU support GGUF quantization currently.
+  warnings.warn(f"Only CUDA, MUSA and NPU support GGUF quantization currently.")
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/sgl-workspace/sglang/python/sglang/benchmark/serving.py", line 2893, in <module>
+    cli_main()
+  File "/sgl-workspace/sglang/python/sglang/benchmark/serving.py", line 2889, in cli_main
+    run_benchmark(args)
+  File "/sgl-workspace/sglang/python/sglang/benchmark/serving.py", line 2206, in run_benchmark
+    return asyncio.run(
+           ^^^^^^^^^^^^
+  File "/opt/python/cpython-3.12.16-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/opt/python/cpython-3.12.16-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/python/cpython-3.12.16-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/sgl-workspace/sglang/python/sglang/benchmark/serving.py", line 1507, in benchmark
+    raise ValueError(
+ValueError: Warmup failed - Please make sure benchmark arguments are correctly specified. Error: Traceback (most recent call last):
+  File "/sgl-workspace/sglang/python/sglang/benchmark/serving.py", line 547, in async_request_openai_chat_completions
+    data = json.loads(chunk)
+           ^^^^^^^^^^^^^^^^^
+  File "/opt/python/cpython-3.12.16-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/python/cpython-3.12.16-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/python/cpython-3.12.16-linux-x86_64-gnu/lib/python3.12/json/decoder.py", line 356, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+benchmark_args=Namespace(backend='vllm-chat', base_url='http://llamacpp:8000', host='0.0.0.0', port=None, ready_check_timeout_sec=60, dataset_name='random', dataset_path='', dataset_offset=0, agentic_max_turns=None, speed_bench_category=None, speed_bench_output_len=512, model='/models/Qwen3.8-Flash-Next-NVFP4', served_model_name=None, tokenizer='/models/Qwen3.8-Flash-Next-NVFP4', num_prompts=4, sharegpt_output_len=None, sharegpt_context_len=None, random_input_len=80000, random_output_len=512, random_range_ratio=1.0, image_count=1, image_resolution='1080p', random_image_count=False, image_format='jpeg', image_content='random', request_rate=inf, use_trace_timestamps=False, max_concurrency=1, output_file='/out/bench-serving.jsonl', output_details=False, goodput=None, print_requests=False, disable_tqdm=False, disable_stream=False, return_logprob=False, top_logprobs_num=0, token_ids_logprob=None, logprob_start_len=-1, return_routed_experts=False, cache_report=False, seed=1, disable_ignore_eos=False, temperature=0.0, top_p=1.0, extra_request_body='{"chat_template_kwargs": {"reasoning_effort": "medium"}, "cache_prompt": false, "stream_options": {"include_usage": true}}', apply_chat_template=False, profile=False, plot_throughput=False, profile_activities=['CPU', 'GPU'], profile_start_step=None, profile_steps=None, profile_num_steps=None, profile_by_stage=False, profile_stages=None, profile_output_dir=None, profile_prefix=None, lora_name=None, lora_request_distribution='uniform', lora_zipf_alpha=1.5, prompt_suffix='', pd_separated=False, profile_prefill_url=None, profile_decode_url=None, flush_cache=False, flush_cache_timeout=60.0, warmup_requests=2, tokenize_prompt=False, gsp_num_groups=64, gsp_prompts_per_group=16, gsp_system_prompt_len=2048, gsp_question_len=128, gsp_output_len=256, gsp_range_ratio=1.0, gsp_fast_prepare=False, gsp_send_routing_key=False, gsp_num_turns=1, gsp_ordered=False, gsp_group_distribution='uniform', gsp_zipf_alpha=None, mooncake_slowdown_factor=1.0, mooncake_num_rounds=1, mooncake_workload='conversation', fake_prefill=False, tag='long80k_c1', header=None, rust_client=False, rust_worker_threads=None)
+Waiting up to 60s for http://llamacpp:8000/v1/models to become ready...
+Server ready in 0.0s.
+Namespace(backend='vllm-chat', base_url='http://llamacpp:8000', host='0.0.0.0', port=30000, ready_check_timeout_sec=60, dataset_name='random', dataset_path='', dataset_offset=0, agentic_max_turns=None, speed_bench_category=None, speed_bench_output_len=512, model='/models/Qwen3.8-Flash-Next-NVFP4', served_model_name=None, tokenizer='/models/Qwen3.8-Flash-Next-NVFP4', num_prompts=4, sharegpt_output_len=None, sharegpt_context_len=None, random_input_len=80000, random_output_len=512, random_range_ratio=1.0, image_count=1, image_resolution='1080p', random_image_count=False, image_format='jpeg', image_content='random', request_rate=inf, use_trace_timestamps=False, max_concurrency=1, output_file='/out/bench-serving.jsonl', output_details=False, goodput=None, print_requests=False, disable_tqdm=False, disable_stream=False, return_logprob=False, top_logprobs_num=0, token_ids_logprob=None, logprob_start_len=-1, return_routed_experts=False, cache_report=False, seed=1, disable_ignore_eos=False, temperature=0.0, top_p=1.0, extra_request_body='{"chat_template_kwargs": {"reasoning_effort": "medium"}, "cache_prompt": false, "stream_options": {"include_usage": true}}', apply_chat_template=False, profile=False, plot_throughput=False, profile_activities=['CPU', 'GPU'], profile_start_step=None, profile_steps=None, profile_num_steps=None, profile_by_stage=False, profile_stages=None, profile_output_dir=None, profile_prefix=None, lora_name=None, lora_request_distribution='uniform', lora_zipf_alpha=1.5, prompt_suffix='', pd_separated=False, profile_prefill_url=None, profile_decode_url=None, flush_cache=False, flush_cache_timeout=60.0, warmup_requests=2, tokenize_prompt=False, gsp_num_groups=64, gsp_prompts_per_group=16, gsp_system_prompt_len=2048, gsp_question_len=128, gsp_output_len=256, gsp_range_ratio=1.0, gsp_fast_prepare=False, gsp_send_routing_key=False, gsp_num_turns=1, gsp_ordered=False, gsp_group_distribution='uniform', gsp_zipf_alpha=None, mooncake_slowdown_factor=1.0, mooncake_num_rounds=1, mooncake_workload='conversation', fake_prefill=False, tag='long80k_c1', header=None, rust_client=False, rust_worker_threads=None)
+
+#Input tokens: 320000
+#Output tokens: 2048
+Starting warmup with 2 sequences...
+

@@ -1,0 +1,13 @@
+{
+  "model_dir": "Qwen3.8-Flash-Next-GGUF/UD-Q4_K_XL",
+  "checkpoint_gib": 103.7,
+  "page_cache_fraction": 0.925,
+  "gpu_mem_before_mib": 15,
+  "startup_s": 32,
+  "gpu_mem_after_load_mib": 44311,
+  "container_mem_after_load": "47.32GiB",
+  "gpu_mem_peak_mib": 44483,
+  "container_mem_peak_gib": 63.98,
+  "host_mem_used_peak_gib": 75.23,
+  "samples": 875
+}

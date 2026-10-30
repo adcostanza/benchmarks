@@ -1,0 +1,13 @@
+{
+  "model_dir": "Qwen3.8-Flash-Next-NVFP4",
+  "checkpoint_gib": 126.0,
+  "page_cache_fraction": 1.0,
+  "gpu_mem_before_mib": 15,
+  "startup_s": 159,
+  "gpu_mem_after_load_mib": 87663,
+  "container_mem_after_load": "69.95GiB",
+  "gpu_mem_peak_mib": 88099,
+  "container_mem_peak_gib": 71.91,
+  "host_mem_used_peak_gib": 84.88,
+  "samples": 292
+}

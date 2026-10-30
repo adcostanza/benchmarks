@@ -8,3 +8,7 @@ services:
     deploy: !reset {}
     devices:
       - nvidia.com/gpu=all
+  llamacpp:
+    deploy: !reset {}
+    devices:
+      - nvidia.com/gpu=all
