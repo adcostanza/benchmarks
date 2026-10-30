@@ -1,0 +1,41 @@
+sglang-1  | 
+sglang-1  | ==========
+sglang-1  | == CUDA ==
+sglang-1  | ==========
+sglang-1  | 
+sglang-1  | CUDA Version 13.0.3
+sglang-1  | 
+sglang-1  | Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+sglang-1  | 
+sglang-1  | This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+sglang-1  | By pulling and using the container, you accept the terms and conditions of this license:
+sglang-1  | https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+sglang-1  | 
+sglang-1  | A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+sglang-1  | 
+sglang-1  | /sgl-workspace/sglang/python/sglang/launch_server.py:71: UserWarning: 'python -m sglang.launch_server' is still supported, but 'sglang serve' is the recommended entrypoint.
+sglang-1  |   Example: sglang serve --model-path <model> [options]
+sglang-1  |   warnings.warn(
+sglang-1  | [2026-10-30 20:58:39] Registered linear attn model: config=GigaChat35Config, backend=GDNAttnBackend, archs=['GigaChat35ForCausalLM', 'GigaChat35ForCausalLMNextN']
+sglang-1  | [2026-10-30 20:58:44] kill_process_tree called: parent_pid=1, include_parent=False, pid=1
+sglang-1  | Traceback (most recent call last):
+sglang-1  |   File "<frozen runpy>", line 198, in _run_module_as_main
+sglang-1  |   File "<frozen runpy>", line 88, in _run_code
+sglang-1  |   File "/sgl-workspace/sglang/python/sglang/launch_server.py", line 84, in <module>
+sglang-1  |     run_server(server_args)
+sglang-1  |   File "/sgl-workspace/sglang/python/sglang/launch_server.py", line 29, in run_server
+sglang-1  |     server_args.resolve_once()
+sglang-1  |   File "/sgl-workspace/sglang/python/sglang/srt/server_args.py", line 276, in resolve_once
+sglang-1  |     run_resolution_pipeline(self)
+sglang-1  |   File "/sgl-workspace/sglang/python/sglang/srt/arg_groups/pipeline.py", line 212, in run_resolution_pipeline
+sglang-1  |     run_hook(handle_model_specific_adjustments, server_args)
+sglang-1  |   File "/sgl-workspace/sglang/python/sglang/srt/arg_groups/resolution_hooks.py", line 133, in run_hook
+sglang-1  |     step(server_args)
+sglang-1  |   File "/sgl-workspace/sglang/python/sglang/srt/arg_groups/model_hook.py", line 733, in handle_model_specific_adjustments
+sglang-1  |     handle_mamba_radix_cache(server_args, hf_config)
+sglang-1  |   File "/sgl-workspace/sglang/python/sglang/srt/arg_groups/model_hook.py", line 1054, in handle_mamba_radix_cache
+sglang-1  |     validate_mamba_no_buffer(view, hf_config.architectures[0])
+sglang-1  |   File "/sgl-workspace/sglang/python/sglang/srt/arg_groups/mamba_hook.py", line 157, in validate_mamba_no_buffer
+sglang-1  |     assert view.page_size in (1, None), "no_buffer only supports page_size=1."
+sglang-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sglang-1  | AssertionError: no_buffer only supports page_size=1.

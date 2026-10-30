@@ -10,6 +10,10 @@ exact rules instead of a teacher model (`results-real/`)?
 
 Run 2026-10-30, one RTX PRO 6000, one config at a time.
 
+[Typed Decisions](https://huggingface.co/datasets/LocalLLaMA/typed-decisions) @ `1415d375`: its
+gold is the mean of three samples from an unnamed "roughly 4B-class" teacher, so these scores
+measure agreement with that teacher, not correctness.
+
 ## Results (`test`, 400 cases, 2,000 decisions, `/v1/systemone` pass 1)
 
 | Config | Agreement | KL from gold | Brier | ECE | Label mass | p50 / p95 latency per case |
@@ -68,8 +72,19 @@ Paired gaps over the same 400 cases, 95% bootstrap intervals that resample cases
 | `swift-nvfp4` | `swift-nvfp4` T+B | +0.065 | [+0.046, +0.084] |
 | `stock-nvfp4` T+B | `swift-nvfp4` T+B | +0.005 | [−0.009, +0.019] |
 
-Read: quantization doesn't measurably change agreement (every BF16 → FP8/NVFP4 interval
-contains 0, every point gap is under 0.01, widest bound +0.021); the drafter changes nothing (decisions are prefill only);
+Same agreement rate doesn't mean the same answers. Top answers that differ from BF16 (pass 1,
+raw, second table in `results/paired-agreement.txt`):
+
+| A | B | top answers that differ (of 2,000) |
+|---|---|---|
+| `stock-bf16` | `stock-fp8` | 64 (3.2%) |
+| `stock-bf16` | `stock-nvfp4` | 198 (9.9%) |
+| `swift-bf16` | `swift-fp8` | 62 (3.1%) |
+| `swift-bf16` | `swift-nvfp4` | 177 (8.8%) |
+
+Read: quantization doesn't measurably change the agreement rate (every BF16 → FP8/NVFP4 interval
+contains 0, every point gap is under 0.01, widest bound +0.021), but NVFP4 changes about 9–10% of
+top answers, gaining about as many matches with the teacher as it loses; the drafter changes nothing (decisions are prefill only);
 with a cold cache the two APIs give the same answers. Swift agrees with the teacher 0.006–0.018 more than stock
 (interval above 0 at BF16 and NVFP4) and sits further from its distributions (KL 0.66–0.71 vs
 0.54–0.59): sharper, with only a small agreement lead.
@@ -95,8 +110,47 @@ through different APIs still differ on 3–4%. Aggregate agreement on these 50 c
 cold-cache numbers, but a single decision on a served model depends on what's in the cache. The
 real-answer runs below were not cold: about 30% of Typed Decision Bench prompt tokens and 16–17%
 of procedural ones came from the cache (none for Calibrated Typed Decisions).
-Whether the warm path is a numerical difference or an SGLang bug in restoring Mamba state is not
-tested here.
+The ablation below tests which flag is involved.
+
+### Prefix cache ablation (`results-cache-ablation/`, `swift-nvfp4`)
+
+Same 50-case check, one change to the shared flags per row (some rows change two or three flags) (`cache-ablation.sh`, table from
+`cache_check.py`). Run 2026-10-30.
+
+| Change | cached prompt tokens: pass 1 / pass 2 / native | top answers changed: pass 2 vs 1 / native vs 1 / native vs 2 | max \|Δp\| pass 2 vs 1 |
+|---|---|---|---|
+| none (`results-cache/`) | 0.9% / 67.7% / 75.5% | 34 / 29 / 10 | 0.584 |
+| `--kv-cache-dtype auto` (BF16 KV) | 0.9% / 67.7% / 75.5% | 30 / 31 / 7 | 0.607 |
+| `--attention-backend triton --enable-deterministic-inference` | 0.9% / 67.7% / 75.5% | 17 / 24 / 7 | 0.502 |
+| both of the above | 0.9% / 67.7% / 75.5% | 18 / 22 / 8 | 0.547 |
+| `--mamba-ssm-dtype float32` | 0.9% / 0.9% / 0.9% | 0 / 0 / 0 | 0 |
+| no hierarchical cache | 0.9% / 0.9% / 0.9% | 0 / 0 / 0 | 0 |
+| no hierarchical cache, `--mamba-radix-cache-strategy extra_buffer` | 0.9% / 0.9% / 0.9% | 0 / 0 / 0 | 0 |
+| same, deterministic + triton | 0.9% / 0.9% / 0.9% | 0 / 0 / 0 | 0 |
+
+Didn't start: `--disable-radix-cache` (exclusive with the hierarchical cache),
+`--mamba-radix-cache-strategy no_buffer` (needs page size 1), `--disable-overlap-schedule` (the
+lazy extra buffer requires the overlap scheduler).
+
+Read: in the variants tested, answers change only with the hierarchical cache on; without it (or
+with FP32 SSM state) 0.9% of prompt tokens come from the cache on every pass and repeats are
+identical. With it,
+hits change 7–14% of top answers. BF16 KV doesn't remove it (30). Deterministic inference
+halves the changes but doesn't remove them, although SGLang's deterministic mode is meant to make
+cached and uncached prefill identical. The log reports `NPU HiCache Mamba state transfer mode:
+sync torch fallback`; that the restored Mamba state is where the difference comes from is my
+reading, not tested.
+
+SGLang's own check, `python3 -m sglang.test.test_deterministic --test-mode radix_cache` in the
+container (`radix-test-{base,det}/test_deterministic.txt`), fails on both: the request with a
+64-token cache hit and the same prompt uncached give the same top token with logprobs 0.486
+apart (shared flags) and 0.197 apart (deterministic inference, Triton attention, BF16 KV).
+
+Without the hierarchical cache, pass 2 is as fast as pass 1 (p50 104 ms); with it, warm passes
+take 78–81 ms against 105–106 ms cold (deterministic runs).
+
+Rerun: `DATASETS_DIR=... MODELS_DIR=... BENCH_CDI=1 ./cache-ablation.sh [variant ...]`, then
+`./cache_check.py results-cache-ablation/*/swift-nvfp4`.
 
 ## Calibration (`stock-nvfp4`, `swift-nvfp4`)
 
@@ -108,7 +162,7 @@ change, chat on the same server untouched.
 - **T:** one temperature per question type, `p_i ∝ p_i^(1/T)`. 3 parameters. Can't change any
   argmax, so agreement stays the same.
 - **T+B:** the same plus one log-prior bias per workflow, question and option,
-  `p_i ∝ p_i^(1/T) e^(b_i)`, L2-penalised, with the temperatures refit alongside the biases. 3 + 71 parameters. Same idea as the dataset card's
+  `p_i ∝ p_i^(1/T) e^(b_i)`, L2-penalised, with the temperatures refit alongside the biases. 3 + 71 parameters. Same idea as the [Typed Decisions card's](https://huggingface.co/datasets/LocalLLaMA/typed-decisions/blob/1415d375cb86b418c53abec12795adf5b194e7fc/README.md)
   "Amos 1 large, per-question priors fitted on `train`" row.
 
 | Config | Fit | Agreement | KL from gold | Brier | ECE |

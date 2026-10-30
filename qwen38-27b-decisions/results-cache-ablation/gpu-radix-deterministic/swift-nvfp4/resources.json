@@ -1,0 +1,15 @@
+{
+  "model_dir": "Swift-1.5-Qwen3.8-27B-NVFP4-ukisai",
+  "checkpoint_gib": 20.4,
+  "page_cache_fraction": 0.961,
+  "gpu_mem_before_mib": 15,
+  "startup_s": 125,
+  "gpu_mem_after_load_mib": 42477,
+  "container_mem_after_load": "5.104GiB",
+  "gpu_mem_peak_mib": 42477,
+  "container_mem_peak_gib": 5.11,
+  "host_mem_used_peak_gib": 22.34,
+  "mem_psi_some_avg10_peak": 0.0,
+  "mem_psi_full_avg10_peak": 0.0,
+  "samples": 9
+}

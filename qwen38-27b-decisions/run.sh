@@ -21,6 +21,9 @@
 # Usage: ./run.sh [label ...]   default: every config below, in order
 # Env: DECISIONS_RUNS  space-separated <set>:<split> runs per config, in order (default
 #                      typed-decisions:test); other DECISIONS_* settings as in scripts/decisions.sh
+#      SERVER_ARGS_DROP  space-separated flags removed from the shared flags, each with its value
+#                        if it has one (flag-ablation runs, e.g. the prefix cache check variants)
+#      SERVER_ARGS_EXTRA flags appended after the shared flags
 # Results go to $OUT/<label>/ (default: results/ next to this script). A config whose server
 # fails to start or whose decisions step fails is listed in $OUT/FAILED and the run continues.
 set -euo pipefail
@@ -29,6 +32,22 @@ scripts="$here/../scripts"
 out="${OUT:-$here/results}"
 : "${DATASETS_DIR:?set DATASETS_DIR}"
 . "$scripts/args/qwen38-27b.sh"
+
+# Shared flags for one config, minus SERVER_ARGS_DROP, plus SERVER_ARGS_EXTRA.
+server_args() {
+    local -a args kept=()
+    read -ra args <<<"$(qwen38_27b_server_args "$1")"
+    local i=0
+    while (( i < ${#args[@]} )); do
+        if [[ " ${SERVER_ARGS_DROP:-} " == *" ${args[i]} "* ]]; then
+            (( i + 1 < ${#args[@]} )) && [[ ${args[i+1]} != --* ]] && (( i++ )) || true
+        else
+            kept+=("${args[i]}")
+        fi
+        (( i++ )) || true
+    done
+    echo "${kept[*]} ${SERVER_ARGS_EXTRA:-}"
+}
 dflash8="--speculative-algorithm DFLASH --speculative-draft-model-path /models/Qwen3.8-27B-DFlash2 --speculative-num-draft-tokens 8"
 
 # label | checkpoint | mem fraction (as in suite-v1) | speculative flags
@@ -49,7 +68,7 @@ for c in "${configs[@]}"; do
     if (( ${#wanted[@]} )) && [[ ! " ${wanted[*]} " == *" $label "* ]]; then
         continue
     fi
-    export MODEL_DIR="$model" SERVER_ARGS="$(qwen38_27b_server_args "$mem")" SPEC_ARGS="$spec"
+    export MODEL_DIR="$model" SERVER_ARGS="$(server_args "$mem")" SPEC_ARGS="$spec"
     export LOG_DIR="$out/$label"
     if ! "$scripts/serve.sh" up; then
         "$scripts/serve.sh" down || true

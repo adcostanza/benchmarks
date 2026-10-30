@@ -7,6 +7,9 @@ NVFP4 configs, after the T+B calibration in results/<config>/calibration.json. A
 mean per-decision difference over the same 400 cases; the interval resamples cases (10,000
 resamples, seed 0), since the 5 decisions of one case are not independent.
 
+A second table counts, for the quantization pairs, the top answers that differ between A and B
+(pass 1, raw), whatever the gold says: similar agreement rates can hide different answers.
+
 Usage (host, from this folder):
   uv run --no-project --with pyarrow --with numpy --with scipy paired_ci.py "$DATASETS_DIR" \
       > results/paired-agreement.txt
@@ -41,6 +44,16 @@ def hits(cfg, cases, calibrated):
     return TD.case_scores(rows, cases)
 
 
+def top_answers(cfg):
+    out = {}
+    for line in open(here / "results" / cfg / "decisions" / "pass1.jsonl"):
+        rec = json.loads(line)
+        for name, a in (rec.get("answers") or {}).items():
+            if probs := a.get("probabilities"):
+                out[(rec["id"], name)] = max(probs, key=probs.get)
+    return out
+
+
 def main():
     cases = TD.load(sys.argv[1], "test")
     scores = {}
@@ -57,6 +70,13 @@ def main():
         lo, hi = np.percentile(d[resample].mean(1), [2.5, 97.5])
         acc = lambda c: np.mean([scores[c][i] for i in ids])  # noqa: E731
         print(f"| `{a}` | `{b}` | {acc(a):.4f} | {acc(b):.4f} | {d.mean():+.4f} | [{lo:+.4f}, {hi:+.4f}] |")
+    print("\n| A | B | decisions | top answers that differ |")
+    print("|---|---|---|---|")
+    for a, b in PAIRS[:4]:
+        ta, tb = top_answers(a), top_answers(b)
+        keys = ta.keys() & tb.keys()
+        diff = sum(ta[k] != tb[k] for k in keys)
+        print(f"| `{a}` | `{b}` | {len(keys)} | {diff} ({diff / len(keys):.1%}) |")
 
 
 if __name__ == "__main__":

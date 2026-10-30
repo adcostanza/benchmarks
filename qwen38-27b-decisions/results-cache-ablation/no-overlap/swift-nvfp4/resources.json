@@ -1,0 +1,6 @@
+{
+  "model_dir": "Swift-1.5-Qwen3.8-27B-NVFP4-ukisai",
+  "checkpoint_gib": 20.4,
+  "page_cache_fraction": 0.961,
+  "gpu_mem_before_mib": 15
+}

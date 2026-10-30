@@ -1,0 +1,50 @@
+
+=== Prefill Cache Consistency Test ===
+This test verifies prefill request produces consistent logprobs w/ and w/o cache.
+
+Step 1: Generating random 100 token IDs...
+✓ Using 100 initial tokens
+
+Step 2: Generating 2 tokens from 100 token prefix...
+✓ Generated 2 tokens
+  Output text: "
+
+#"
+
+Step 3: Generating with radix cache (101 tokens prefill, should hit cache based on page size)...
+  Prefix: 100 initial + 1 generated = 101 tokens
+✓ Generated with cache:
+  Token ID: 248046
+  Logprob:  -3.3714032173
+
+Step 4: Flushing cache...
+
+Step 5: Generating without cache (same 164 tokens prefill, no cache)...
+✓ Generated without cache:
+  Token ID: 248046
+  Logprob:  -3.8573627472
+
+============================================================
+Comparison 1: Decode (Request 1) vs Prefill with Cache (Request 2)
+============================================================
+  Decode token (Request 1):          ID=2, logprob=-3.3498213291
+  Prefill w/ cache token (Request 2): ID=248046, logprob=-3.3714032173
+  Token ID match: ✗ NO
+  Logprob match:  ✗ NO
+  Logprob difference: 2.1581888199e-02
+  Note: We expect these to be DIFFERENT (decode vs prefill kernels)
+
+============================================================
+Comparison 2: Cached Prefill (Request 2) vs Uncached Prefill (Request 3)
+============================================================
+  Cached prefill token (Request 2):   ID=248046, logprob=-3.3714032173
+  Uncached prefill token (Request 3): ID=248046, logprob=-3.8573627472
+  Token ID match: ✓ YES
+  Logprob match:  ✗ NO
+    Cached:   -3.3714032173
+    Uncached: -3.8573627472
+    Difference: 4.8595952988e-01
+  Note: We expect these to be IDENTICAL (both prefill kernels)
+
+============================================================
+✗✗✗ TEST FAILED - Radix cache produces different results! ✗✗✗
