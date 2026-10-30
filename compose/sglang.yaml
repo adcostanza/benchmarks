@@ -7,6 +7,8 @@
 #                 --mem-fraction-static, for llama.cpp incl. -m /models/<file>.gguf
 #   SPEC_ARGS     extra SGLang flags appended after SERVER_ARGS (speculative decoding), empty for none
 #   SHM_SIZE      container shared memory (default 72gb)
+#   DATASETS_DIR  host dir with benchmark datasets, mounted read-only at /datasets in the clients
+#                 (scripts that need it check it is set)
 #   SGLANG_IMAGE  SGLang server image; also the bench-client image
 #   LLAMACPP_IMAGE  llama.cpp server image
 #   SERVER_ENV_FILE  optional env file for the server (default: none)
@@ -66,6 +68,7 @@ services:
     profiles: [client]
     volumes:
       - ${MODELS_DIR:?set MODELS_DIR}:/models:ro
+      - ${DATASETS_DIR:-./datasets-unset}:/datasets:ro
       # ShareGPT and other downloads, kept across runs.
       - bench-client-cache:/root/.cache
 

@@ -73,6 +73,10 @@ def summary(run_dir, pairs):
             data["gpu_mem_peak_mib"] = max(int(r["gpu_mem_mib"]) for r in rows)
             data["container_mem_peak_gib"] = round(max(float(r["container_mem_gib"]) for r in rows), 2)
             data["host_mem_used_peak_gib"] = round(max(float(r["host_mem_used_gib"]) for r in rows), 2)
+            for col in ("mem_psi_some_avg10", "mem_psi_full_avg10"):
+                vals = [float(r[col]) for r in rows if r.get(col)]
+                if vals:
+                    data[f"{col}_peak"] = max(vals)
             data["samples"] = len(rows)
     out_file.write_text(json.dumps(data, indent=2) + "\n")
 

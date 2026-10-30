@@ -1,0 +1,45 @@
+{
+  "suite_version": 1,
+  "tier": "drafter",
+  "engine": "sglang",
+  "harness": {
+    "commit": "ba2ba5b2a5e76f3f535710d0a24c46836bbaa0df",
+    "dirty": true
+  },
+  "sglang_image": "lmsysorg/sglang:nightly-dev-cu13-20261010-961bcf48",
+  "settings": {
+    "SCENARIOS": "sharegpt_c1 sharegpt_c4 long20k_c1 long20k_c4 long40k_c1 long80k_c1 long120k_c1",
+    "SPEEDBENCH_CONC": "1",
+    "SPEEDBENCH_QUAL_PER_CAT": "10",
+    "SPEEDBENCH_TP_PER_TIER": "4",
+    "ACCEPT_NUM_PROMPTS": "32",
+    "BFCL_REPEATS": "1",
+    "RULER_SAMPLES": "10"
+  },
+  "steps": [
+    {
+      "step": "bench-serving",
+      "status": "ok",
+      "protocol": null,
+      "exit_code": 0,
+      "start": 1793331990,
+      "end": 1793332517
+    },
+    {
+      "step": "speed-bench",
+      "status": "ok",
+      "protocol": "daily",
+      "exit_code": 0,
+      "start": 1793332518,
+      "end": 1793333789
+    },
+    {
+      "step": "accept-sets",
+      "status": "ok",
+      "protocol": "both",
+      "exit_code": 0,
+      "start": 1793333790,
+      "end": 1793335463
+    }
+  ]
+}

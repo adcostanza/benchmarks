@@ -1,0 +1,103 @@
+{
+  "benchmark": "bfcl",
+  "suite_version": 1,
+  "dataset": {
+    "repo": "bfcl-eval (pip package, bundled data)",
+    "revision": "2026.3.23"
+  },
+  "runs": [
+    {
+      "protocol": "daily",
+      "n": 205,
+      "metrics": {
+        "accuracy.irrelevance": 0.55,
+        "accuracy.live_irrelevance": 0.7,
+        "accuracy.live_multiple": 0.8,
+        "accuracy.live_simple": 0.9,
+        "accuracy.multi_turn_base": 0.8,
+        "accuracy.multi_turn_miss_param": 0.3,
+        "accuracy.multiple": 0.92,
+        "accuracy.parallel": 0.95,
+        "accuracy.parallel_multiple": 0.95,
+        "accuracy.simple_python": 1.0,
+        "accuracy": 0.8195121951219512,
+        "mean_output_tokens": 133.93418647166362,
+        "calls_at_4096_cap_per_repeat": 0.0,
+        "mean_latency_s": 0.8655314336529162
+      },
+      "stderr": {
+        "accuracy.irrelevance": 0.11124297730643495,
+        "accuracy.live_irrelevance": 0.10246950765959599,
+        "accuracy.live_multiple": 0.08,
+        "accuracy.live_simple": 0.06708203932499368,
+        "accuracy.multi_turn_base": 0.08944271909999157,
+        "accuracy.multi_turn_miss_param": 0.14491376746189438,
+        "accuracy.multiple": 0.05425863986500213,
+        "accuracy.parallel": 0.04873397172404484,
+        "accuracy.parallel_multiple": 0.04873397172404484,
+        "accuracy.simple_python": 0.0,
+        "accuracy": 0.026861156756265075
+      },
+      "stderr_repeat": {},
+      "counts": {
+        "accuracy.irrelevance": {
+          "mean_correct": 11,
+          "n": 20
+        },
+        "accuracy.live_irrelevance": {
+          "mean_correct": 14,
+          "n": 20
+        },
+        "accuracy.live_multiple": {
+          "mean_correct": 20,
+          "n": 25
+        },
+        "accuracy.live_simple": {
+          "mean_correct": 18,
+          "n": 20
+        },
+        "accuracy.multi_turn_base": {
+          "mean_correct": 16,
+          "n": 20
+        },
+        "accuracy.multi_turn_miss_param": {
+          "mean_correct": 3,
+          "n": 10
+        },
+        "accuracy.multiple": {
+          "mean_correct": 23,
+          "n": 25
+        },
+        "accuracy.parallel": {
+          "mean_correct": 19,
+          "n": 20
+        },
+        "accuracy.parallel_multiple": {
+          "mean_correct": 19,
+          "n": 20
+        },
+        "accuracy.simple_python": {
+          "mean_correct": 25,
+          "n": 25
+        },
+        "accuracy": {
+          "mean_correct": 168,
+          "n": 205
+        }
+      },
+      "repeat_accuracy": [
+        0.8195121951219512
+      ],
+      "settings": {
+        "handler": "Qwen/Qwen3-32B-FC",
+        "temperature": 0.001,
+        "thinking": true,
+        "reasoning_effort": "default",
+        "repeats": 1,
+        "case_limit": null,
+        "stderr": "binomial sqrt(p(1-p)/n) on one run's n",
+        "stderr_repeat": "std of repeat accuracies / sqrt(repeats), only with 2+ repeats"
+      }
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 13.0.3
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.
+   Use the NVIDIA Container Toolkit to start this container with GPU support; see
+   https://docs.nvidia.com/datacenter/cloud-native/ .
+
+=== ref gsm8k c1: 32 prompts
+    240.0 tok/s, accept 5.287017164681171
+=== ref math500 c1: 32 prompts
+    233.7 tok/s, accept 5.177695274220677
+=== ref humaneval c1: 32 prompts
+    199.5 tok/s, accept 4.235264846252096
+=== ref mbpp c1: 32 prompts
+    216.6 tok/s, accept 4.607630275237609
+=== ref mt-bench c1: 32 prompts
+    179.9 tok/s, accept 4.133587263323442
+=== daily gsm8k c1: 32 prompts
+    296.0 tok/s, accept 6.181100001985649
+=== daily math500 c1: 32 prompts
+    251.3 tok/s, accept 5.559570020866447
+=== daily humaneval c1: 32 prompts
+    305.2 tok/s, accept 6.175457116605763
+=== daily mbpp c1: 32 prompts
+    272.1 tok/s, accept 5.390613414930208
+=== daily mt-bench c1: 32 prompts
+    192.4 tok/s, accept 4.729460848352205
+wrote /out/accept-sets/summary.json

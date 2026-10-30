@@ -1,0 +1,9 @@
+# GSM8K client (scripts/gsm8k.sh). Paths are relative to compose/.
+services:
+  gsm8k:
+    build:
+      context: ../scripts/gsm8k
+    profiles: [client]
+    volumes:
+      - ${DATASETS_DIR:-./datasets-unset}:/datasets:ro
+      - ../scripts/gsm8k:/app:ro

@@ -2,12 +2,18 @@
 #   BENCH_PROJECT  compose project name (default: bench)
 #   BENCH_CDI=1    request the GPU through CDI (rootless Docker), see compose/cdi.yaml
 #   ENGINE         server the scripts drive: sglang (default) or llamacpp (compose service name)
+# Benchmark clients with their own services live in compose/clients/<name>.yaml; dc() loads
+# every file there on top of compose/sglang.yaml.
 scripts_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 repo_dir="$(dirname "$scripts_dir")"
 
 dc() {
     local files=(-f "$repo_dir/compose/sglang.yaml")
     [[ "${BENCH_CDI:-0}" == 1 ]] && files+=(-f "$repo_dir/compose/cdi.yaml")
+    local f
+    for f in "$repo_dir"/compose/clients/*.yaml; do
+        [[ -e "$f" ]] && files+=(-f "$f")
+    done
     docker compose -p "${BENCH_PROJECT:-bench}" "${files[@]}" "$@"
 }
 

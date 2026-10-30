@@ -39,6 +39,15 @@ llamacpp)
 esac
 common+=(--extra-request-body "$extra")
 
+# Copies the server's result file out. `exec cat`, not `docker cp`: rootless Docker's cp
+# remounts the container's read-only /models bind mount and fails with EPERM when the host
+# mount is nosuid/nodev ("remount-ro ... operation not permitted").
+save_results() {
+    [[ "$server" == sglang ]] || return 0
+    dc exec -T sglang cat /tmp/bench-serving.jsonl >"$out/.bench-serving.jsonl"
+    mv "$out/.bench-serving.jsonl" "$out/bench-serving.jsonl"
+}
+
 # A scenario fails the script when the client exits non-zero, any request fails, or the server
 # stops answering /health afterwards. Full client output goes to <out-dir>/bench-serving.log.
 run() {
@@ -66,9 +75,7 @@ run() {
         exit 1
     fi
     # Keep finished scenarios even if a later one fails.
-    if [[ "$server" == sglang ]]; then
-        dc cp sglang:/tmp/bench-serving.jsonl "$out/bench-serving.jsonl" >/dev/null
-    fi
+    save_results
 }
 
 if [[ "$server" == sglang ]]; then dc exec -T sglang rm -f /tmp/bench-serving.jsonl; fi
@@ -83,5 +90,5 @@ run long20k_c4 --dataset-name random --random-input-len 20000 --random-output-le
 for k in 40 80 120; do
     run "long${k}k_c1" --dataset-name random --random-input-len "${k}000" --random-output-len 512 --random-range-ratio 1.0 --num-prompts 4 --max-concurrency 1
 done
-if [[ "$server" == sglang ]]; then dc cp sglang:/tmp/bench-serving.jsonl "$out/bench-serving.jsonl"; fi
+save_results
 echo "results: $out/bench-serving.jsonl"

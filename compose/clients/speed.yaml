@@ -1,0 +1,19 @@
+# One-time SPEED-Bench prompt resolution (scripts/speed/prepare.sh). The released parquet masks
+# the rows whose sources forbid redistribution; NVIDIA's own resolver (pinned in
+# scripts/speed/prepare.py) refetches them from the public source datasets.
+# Writes to $DATASETS_DIR/SPEED-Bench-resolved, so $DATASETS_DIR is mounted read-write here.
+# The HF token is passed by name from the caller's environment (cais/hle is gated).
+services:
+  speed-prep:
+    image: python@sha256:dddfd7e07f9d15aeeca61529320492139d21cac7f0070c00609243e51e4e0016
+    profiles: [client]
+    environment:
+      - HF_TOKEN
+      - HF_HOME=/hf
+    volumes:
+      - ${DATASETS_DIR:-./datasets-unset}:/datasets
+      - ../scripts/speed/prepare.py:/prepare.py:ro
+      - speed-prep-hf:/hf
+
+volumes:
+  speed-prep-hf:

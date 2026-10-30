@@ -1,0 +1,32 @@
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 13.0.3
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+WARNING: The NVIDIA Driver was not detected.  GPU functionality will not be available.
+   Use the NVIDIA Container Toolkit to start this container with GPU support; see
+   https://docs.nvidia.com/datacenter/cloud-native/ .
+
+=== qualitative c1: 110 prompts
+    203.3 tok/s, ttft p50 51 ms, accept 4.349881934735204
+=== throughput_1k c1: 12 prompts
+    198.8 tok/s, ttft p50 147 ms, accept 4.305695806843661
+=== throughput_2k c1: 12 prompts
+    187.1 tok/s, ttft p50 247 ms, accept 4.107468565251048
+=== throughput_8k c1: 12 prompts
+    145.8 tok/s, ttft p50 948 ms, accept 4.146026051018347
+=== throughput_16k c1: 12 prompts
+    109.5 tok/s, ttft p50 1984 ms, accept 3.9060969865249398
+=== throughput_32k c1: 12 prompts
+    70.5 tok/s, ttft p50 4492 ms, accept 4.047134164952148
+wrote /out/speed-bench/summary.json

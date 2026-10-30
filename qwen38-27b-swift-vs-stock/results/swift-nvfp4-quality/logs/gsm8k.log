@@ -1,0 +1,15 @@
+gsm8k daily: 100/1319 acc 0.9700
+gsm8k daily: 200/1319 acc 0.9700
+gsm8k daily: 300/1319 acc 0.9800
+gsm8k daily: 400/1319 acc 0.9775
+gsm8k daily: 500/1319 acc 0.9720
+gsm8k daily: 600/1319 acc 0.9750
+gsm8k daily: 700/1319 acc 0.9743
+gsm8k daily: 800/1319 acc 0.9700
+gsm8k daily: 900/1319 acc 0.9711
+gsm8k daily: 1000/1319 acc 0.9700
+gsm8k daily: 1100/1319 acc 0.9673
+gsm8k daily: 1200/1319 acc 0.9683
+gsm8k daily: 1300/1319 acc 0.9708
+gsm8k daily: 1319/1319 acc 0.9704
+gsm8k daily: 1280/1319 = 0.9704 +- 0.0047, truncated 0, 320 tok/q, 424s

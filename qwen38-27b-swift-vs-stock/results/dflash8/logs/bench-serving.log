@@ -1,0 +1,57 @@
+=== sharegpt_c1
+Max request concurrency:                 1         
+Successful requests:                     12        
+Benchmark duration (s):                  69.13     
+Output token throughput (tok/s):         177.75    
+Accept length:                           3.44      
+Median TTFT (ms):                        48.65     
+Median TPOT (ms):                        5.58      
+=== sharegpt_c4
+Max request concurrency:                 4         
+Successful requests:                     32        
+Benchmark duration (s):                  55.43     
+Output token throughput (tok/s):         591.18    
+Accept length:                           3.48      
+Median TTFT (ms):                        83.64     
+Median TPOT (ms):                        5.80      
+=== long20k_c1
+Max request concurrency:                 1         
+Successful requests:                     4         
+Benchmark duration (s):                  20.82     
+Output token throughput (tok/s):         98.38     
+Accept length:                           3.54      
+Median TTFT (ms):                        2353.74   
+Median TPOT (ms):                        5.37      
+=== long20k_c4
+Max request concurrency:                 4         
+Successful requests:                     8         
+Benchmark duration (s):                  29.53     
+Output token throughput (tok/s):         138.70    
+Accept length:                           3.30      
+Median TTFT (ms):                        6068.73   
+Median TPOT (ms):                        15.56     
+=== long40k_c1
+Max request concurrency:                 1         
+Successful requests:                     4         
+Benchmark duration (s):                  34.94     
+Output token throughput (tok/s):         58.61     
+Accept length:                           3.27      
+Median TTFT (ms):                        5572.59   
+Median TPOT (ms):                        5.84      
+=== long80k_c1
+Max request concurrency:                 1         
+Successful requests:                     4         
+Benchmark duration (s):                  71.86     
+Output token throughput (tok/s):         28.50     
+Accept length:                           3.43      
+Median TTFT (ms):                        14784.36  
+Median TPOT (ms):                        5.88      
+=== long120k_c1
+Max request concurrency:                 1         
+Successful requests:                     4         
+Benchmark duration (s):                  124.42    
+Output token throughput (tok/s):         16.46     
+Accept length:                           3.46      
+Median TTFT (ms):                        27786.13  
+Median TPOT (ms):                        6.54      
+results: results/dflash8/bench-serving.jsonl

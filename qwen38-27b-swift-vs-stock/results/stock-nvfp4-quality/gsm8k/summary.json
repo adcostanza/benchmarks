@@ -1,0 +1,40 @@
+{
+  "benchmark": "gsm8k",
+  "suite_version": 1,
+  "dataset": {
+    "repo": "openai/gsm8k",
+    "revision": "740312add88f781978c0658806c59bc2815b9866"
+  },
+  "runs": [
+    {
+      "protocol": "daily",
+      "n": 1319,
+      "metrics": {
+        "accuracy": 0.9681576952236542,
+        "correct": 1277,
+        "truncated": 0,
+        "no_answer": 0,
+        "mean_output_tokens": 348.420773313116,
+        "mean_request_seconds": 11.376308567096286,
+        "wall_seconds": 474.189,
+        "seconds_per_question": 0.3595
+      },
+      "stderr": {
+        "accuracy": 0.004834514871537846
+      },
+      "settings": {
+        "model": "/models/Qwen3.8-27B-NVFP4",
+        "prompt": "sgl-eval generic/math, zero-shot, answer in \\boxed{}",
+        "extraction": "last \\boxed{} of message content; sgl-eval math_equal (math_verify)",
+        "request_fields": {
+          "chat_template_kwargs": {
+            "reasoning_effort": "medium"
+          }
+        },
+        "max_tokens": 32768,
+        "concurrency": 32,
+        "seed": null
+      }
+    }
+  ]
+}
