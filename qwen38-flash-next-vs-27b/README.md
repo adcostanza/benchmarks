@@ -1,6 +1,6 @@
 # Qwen3.8-Flash-Next vs Qwen3.8-27B on one RTX PRO 6000
 
-Question: is Qwen3.8-Flash-Next a better daily driver than the 27B NVFP4 + DFlash2 8 (the daily setup when these runs were made; since 2026-10-30: Swift 1.5 NVFP4 + DFlash2 8) on one 96 GB
+Question: is Qwen3.8-Flash-Next a better daily driver than the 27B NVFP4 + DFlash2 8 on one 96 GB
 card, at the whole card and at the daily driver's 44 GB GPU budget? Answer: no. Hardware:
 [hardware.md](../hardware.md) (400 W). No more Flash-Next 3.8 runs are planned; the tables below
 are final, including the partial llama.cpp row.
