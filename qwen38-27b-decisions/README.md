@@ -85,14 +85,16 @@ cache is warm after pass 1:
 
 | Config | cached prompt tokens: pass 1 / pass 2 / native | top answers changed: pass 2 vs 1 / native vs 1 / native vs 2 | max \|Δp\| pass 2 vs 1 |
 |---|---|---|---|
-| `stock-nvfp4` | 0.9% / 67.9% / 75.4% | 25 / 27 / 8 | 0.388 |
-| `swift-nvfp4` | 0.9% / 67.9% / 75.4% | 34 / 29 / 10 | 0.584 |
+| `stock-nvfp4` | 0.9% / 67.7% / 75.5% | 25 / 27 / 8 | 0.388 |
+| `swift-nvfp4` | 0.9% / 67.7% / 75.5% | 34 / 29 / 10 | 0.584 |
 
-Phase shares are split at the request count, so they are approximate at the boundaries. A cache
+Phase shares are split at the completed-request count, so they are approximate at the boundaries. A cache
 hit changes 10–14% of top answers against a cold prefill of the same prompt; two warm passes
 through different APIs still differ on 3–4%. Aggregate agreement on these 50 cases barely moves
 (0.636 / 0.640 / 0.640 Swift, 0.628 / 0.620 / 0.624 stock), so the headline numbers stand as
-cold-cache numbers, but a single decision on a served model depends on what's in the cache.
+cold-cache numbers, but a single decision on a served model depends on what's in the cache. The
+real-answer runs below were not cold: about 30% of Typed Decision Bench prompt tokens and 16–17%
+of procedural ones came from the cache (none for Calibrated Typed Decisions).
 Whether the warm path is a numerical difference or an SGLang bug in restoring Mamba state is not
 tested here.
 
@@ -129,16 +131,18 @@ minimise it. KL and Brier are the calibration metrics.
 
 ## Datasets with real answers (`results-real/`, `stock-nvfp4`, `swift-nvfp4`)
 
-Run 2026-10-30 14:13–14:55, same server flags, `/v1/systemone`, one pass, concurrency 1. Each set
-is scored with its own scorer (`../scripts/decisions/sets.py`); calibration is the same
-temperature (T) and temperature + bias (T+B) fit as above, fitted on a split the scores don't use.
+Run 2026-10-30 14:13–14:55, same server flags, `/v1/systemone`, one pass, concurrency 1. Typed
+Decision Bench uses its DecisionScore; Procedural Typed Decisions ships no scorer, so it uses
+Typed Decision Bench's per-item proper score; Calibrated Typed Decisions uses accuracy, log loss,
+Brier and ECE (`../scripts/decisions/sets.py`). Calibration is the same temperature (T) and
+temperature + bias (T+B) method as above, fitted separately per set on data the scores don't use.
 Full tables with paired 95% intervals: [`results-real/tables.md`](results-real/tables.md).
 
 | Set (split, cases) | Gold | Metric | `stock-nvfp4` raw / T / T+B | `swift-nvfp4` raw / T / T+B |
 |---|---|---|---|---|
-| Typed Decision Bench (`test`, 5,387) | human labels from 21 datasets + 1 generator | DecisionScore | 77.18 / 80.28 / 83.97 | 76.63 / 80.58 / 84.17 |
-| Procedural Typed Decisions (`test` sample, 874) | exact rules | proper score | 74.28 / 76.46 / 79.64 | 74.38 / 77.41 / 80.30 |
-| Calibrated Typed Decisions (`test`, 1,797) | human labels | accuracy | 0.823 / 0.823 / 0.878 | 0.838 / 0.838 / 0.874 |
+| [Typed Decision Bench](https://huggingface.co/datasets/SamuelChien821/typed-decision-bench) (`test`, 5,387) | human labels from 21 datasets + 1 generator | DecisionScore | 77.18 / 80.28 / 83.97 | 76.63 / 80.58 / 84.17 |
+| [Procedural Typed Decisions](https://huggingface.co/datasets/tasksource/procedural-typed-decisions) (`test` sample, 874) | exact rules | proper score | 74.28 / 76.46 / 79.64 | 74.38 / 77.41 / 80.30 |
+| [Calibrated Typed Decisions](https://huggingface.co/datasets/m-lagnajit/calibrated-typed-decisions) (`test`, 1,797) | human labels | accuracy | 0.823 / 0.823 / 0.878 | 0.838 / 0.838 / 0.874 |
 | Calibrated Typed Decisions (`heldout` PubMedQA, 1,000) | expert labels | accuracy | 0.716 / 0.716 / 0.716 | 0.731 / 0.731 / 0.731 |
 
 - **Swift vs stock, raw:** −0.55 DecisionScore [−0.86, −0.25] on Typed Decision Bench, +0.10
@@ -151,9 +155,10 @@ Full tables with paired 95% intervals: [`results-real/tables.md`](results-real/t
   for PubMedQA, so T+B there is the temperatures plus nothing; accuracy can't change. The fitted
   temperatures still cut log loss 0.90 → 0.69 (stock) and 0.95 → 0.68 (Swift) and ECE
   0.15 → 0.06. T+B's temperatures (fitted jointly with the biases) do worse there than T's
-  (log loss 0.72 / 0.70): the T-only fit is the one that transfers.
-- **Typed Decision Bench vs published systems** (their published answer files, scored here with
-  the same scorer; reproduces the leaderboard exactly): raw, both configs sit between OpenJev 0.1
+  (log loss 0.72 / 0.70): on this one unseen task, the T-only fit transfers better.
+- **Typed Decision Bench vs published systems** ([leaderboard](https://blobfish.ai/leaderboard);
+  its published answer files in the dataset's `results/`, scored here with the same scorer,
+  reproduce the leaderboard to two decimals): raw, both configs sit between OpenJev 0.1
   (75.56) and decider-2b-v8 (77.56) and 4.5–5.1 points under Jev 1.13.0 (81.70). With T+B, both
   are 2.3–2.5 points over Jev, but that fit is cross-fitted on the test items themselves (5 folds
   stratified by task; the set has no other split), so it's a fitted row against zero-shot rows,
