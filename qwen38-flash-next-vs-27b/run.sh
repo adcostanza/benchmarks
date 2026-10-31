@@ -15,9 +15,9 @@
 # Stock SGLang caps the Flash-Next draft block at 4 tokens (QSA compress ratio), for MTP and DFLASH.
 #
 # Whole card: fn-nospec, fn-mtp, fn-dflash2 (SGLang, --mem-fraction-static 0.88).
-# Daily-driver budget: the 27B NVFP4 + DFlash2 8 server uses 43.8 GB of GPU memory after load, 44.0 GB peak
+# 27B + DFlash2 memory comparison: the 27B NVFP4 + DFlash2 8 server uses 42.8 GiB of GPU memory after load, 43.0 GiB peak
 # (../qwen38-27b-swift-vs-stock/results/dflash8/resources.json). fn-gguf-q4 (llama.cpp, experts of 30 of 48
-# layers in host RAM, 44.3 GB after load) is sized to it. SGLang has no config at this budget:
+# layers in host RAM, 43.3 GiB after load) is sized to it. SGLang has no config at this budget:
 # it rejects --cpu-offload-gb and --offload-group-size together with --ple-offload-embedding
 # (srt/arg_groups/memory_hook.py), and KTransformers expert offload has no qwen4_exp support.
 set -euo pipefail
@@ -38,7 +38,7 @@ d2="--speculative-algorithm DFLASH --speculative-draft-model-path /models/Qwen3.
 d2+=" --speculative-draft-model-quantization unquant --linear-attn-verify-backend triton --speculative-num-draft-tokens 4"
 # Prefill CUDA graph off: leaves GPU memory for long prefills (see the plan in README.md).
 lean="--cuda-graph-backend-prefill disabled"
-gguf_ctx=153600  # the daily driver's context length
+gguf_ctx=153600  # the 27B + DFlash2 config's context length
 
 export SCENARIOS="sharegpt_c1 sharegpt_c4 long20k_c1 long20k_c4 long40k_c1 long80k_c1 long120k_c1"
 export EXTRA_BODY='{"chat_template_kwargs":{"reasoning_effort":"medium"}}'

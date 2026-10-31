@@ -5,7 +5,7 @@
 #
 # Every config uses the same server flags (scripts/args/qwen38-27b.sh, FP8 KV cache included), so
 # the weights are the only difference. No speculative decoding (decisions only prefill; SGLang
-# validates them without spec or with NEXTN only), except `swift-nvfp4-dflash8`, the daily setup.
+# validates them without spec or with NEXTN only), except `swift-nvfp4-dflash8`, the Swift NVFP4 + DFlash2 8 config.
 #
 # Needs MODELS_DIR containing:
 #   Qwen3.8-27B                          Qwen/Qwen3.8-27B (BF16)
@@ -14,7 +14,7 @@
 #   Swift-1.5-Qwen3.8-27B                ukisai/Swift-1.5-Qwen3.8-27b (BF16)
 #   Swift-1.5-Qwen3.8-27B-FP8            block FP8 of the above (built locally, see README.md)
 #   Swift-1.5-Qwen3.8-27B-NVFP4-ukisai   ukisai/Swift-1.5-Qwen3.8-27b-NVFP4
-#   Qwen3.8-27B-DFlash2                  z-lab/Qwen3.8-27B-DFlash2 (daily-setup row only)
+#   Qwen3.8-27B-DFlash2                  z-lab/Qwen3.8-27B-DFlash2 (swift-nvfp4-dflash8 row only)
 # and DATASETS_DIR with typed-decisions/ (scripts/decisions.sh), plus the sets named in
 # DECISIONS_RUNS (files per set: scripts/decisions/sets.py).
 #

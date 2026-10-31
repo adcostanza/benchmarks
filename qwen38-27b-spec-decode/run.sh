@@ -46,12 +46,14 @@ set_config dflash8-greedy   "$d2 --speculative-num-draft-tokens 8" "$default_sce
 
 wanted=("$@")
 
+# Each step returns on failure explicitly: callers run this as an `if !` condition, where bash
+# ignores `set -e`, so a failed scenario would otherwise still go on to BFCL.
 run_config() {
     local label="$1"
     export SPEC_ARGS="${spec[$label]}" SCENARIOS="${scenarios[$label]}" EXTRA_BODY="${body[$label]}"
     export LOG_DIR="$out/$label"
-    "$scripts/serve.sh" up
-    "$scripts/bench-serving.sh" "$out/$label"
+    "$scripts/serve.sh" up || return
+    "$scripts/bench-serving.sh" "$out/$label" || return
     if (( ${bfcl[$label]} )); then "$scripts/bfcl.sh" "$out/$label"; fi
 }
 

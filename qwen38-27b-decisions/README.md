@@ -82,10 +82,11 @@ raw, second table in `results/paired-agreement.txt`):
 | `swift-bf16` | `swift-fp8` | 62 (3.1%) |
 | `swift-bf16` | `swift-nvfp4` | 177 (8.8%) |
 
-Read: quantization doesn't measurably change the agreement rate (every BF16 → FP8/NVFP4 interval
-contains 0, every point gap is under 0.01, widest bound +0.021), but NVFP4 changes about 9–10% of
-top answers, gaining about as many matches with the teacher as it loses; the drafter changes nothing (decisions are prefill only);
-with a cold cache the two APIs give the same answers. Swift agrees with the teacher 0.006–0.018 more than stock
+Read: for these separately produced exports (not a controlled isolation of quantization), every
+BF16 → FP8/NVFP4 agreement interval contains 0, every point gap is under 0.01 and the widest
+bound is +0.021; that doesn't establish equivalence, and NVFP4 changes about 9–10% of
+top answers, gaining about as many matches with the teacher as it loses; adding the drafter changed none of 2,000 top answers (decisions are prefill only);
+with a cold cache the two APIs differ on at most 3. Swift agrees with the teacher 0.006–0.018 more than stock
 (interval above 0 at BF16 and NVFP4) and sits further from its distributions (KL 0.66–0.71 vs
 0.54–0.59): sharper, with only a small agreement lead.
 
@@ -261,7 +262,7 @@ which doesn't name the model. Agreement is agreement with that teacher. Card ref
 0.470, perfect factor recovery 0.704, teacher self-agreement 0.735. Differences between our
 configs (same prompts, same scorer) are the result; absolute numbers compare with the Typed Decisions card's
 zero-shot table only loosely (its rows are mostly vLLM or vendor APIs). Calibrated rows are fitted
-on `train` and belong with that card's second table ("fitted or fine-tuned on `train`").
+on `train` and belong with the Typed Decisions card's second table ("fitted or fine-tuned on `train`").
 
 ## Configs
 
@@ -273,7 +274,7 @@ on `train` and belong with that card's second table ("fitted or fine-tuned on `t
 | `swift-bf16` | [ukisai/Swift-1.5-Qwen3.8-27b](https://huggingface.co/ukisai/Swift-1.5-Qwen3.8-27b) | `b4c84d42903a8646b25857eb2827288d92ed85a4` | 0.76 |
 | `swift-fp8` | block FP8 of `swift-bf16`, built locally | 128×128 blocks, stock FP8's layout; public equivalent [realderpz/Swift-1.5-Qwen3.8-27B-FP8](https://huggingface.co/realderpz/Swift-1.5-Qwen3.8-27B-FP8) (llmcompressor `FP8_BLOCK`) | 0.50 |
 | `swift-nvfp4` | [ukisai/Swift-1.5-Qwen3.8-27b-NVFP4](https://huggingface.co/ukisai/Swift-1.5-Qwen3.8-27b-NVFP4) | `25482027debd5485e8108897ba9fed8d3ba16595` (ModelOpt mixed, no KV scales) | 0.41 |
-| `swift-nvfp4-dflash8` | as above + [z-lab/Qwen3.8-27B-DFlash2](https://huggingface.co/z-lab/Qwen3.8-27B-DFlash2) @ `50307d4c4cde6860d4eee73e2547cd786fe8e8a4`, 8 draft tokens | the daily setup | 0.41 |
+| `swift-nvfp4-dflash8` | as above + [z-lab/Qwen3.8-27B-DFlash2](https://huggingface.co/z-lab/Qwen3.8-27B-DFlash2) @ `50307d4c4cde6860d4eee73e2547cd786fe8e8a4`, 8 draft tokens | Swift NVFP4 with the DFlash2 drafter | 0.41 |
 
 - Image: `lmsysorg/sglang:nightly-dev-cu13-20261010-961bcf48` for all.
 - Same server flags everywhere ([../scripts/args/qwen38-27b.sh](../scripts/args/qwen38-27b.sh),
@@ -289,15 +290,14 @@ on `train` and belong with that card's second table ("fitted or fine-tuned on `t
 DATASETS_DIR=/path/to/datasets MODELS_DIR=/path/to/models BENCH_CDI=1 ./run.sh
 
 # train split answers for calibration (NVFP4 configs, one pass, ~15 min)
-OUT=$PWD/results-train DECISIONS_SPLIT=train DECISIONS_PASSES=1 DECISIONS_NATIVE_PASSES=0 \
+OUT=$PWD/results-train DECISIONS_RUNS=typed-decisions:train DECISIONS_PASSES=1 DECISIONS_NATIVE_PASSES=0 \
   DATASETS_DIR=... MODELS_DIR=... BENCH_CDI=1 ./run.sh stock-nvfp4 swift-nvfp4
 
 # calibration (host, CPU only)
 uv run --no-project --with pyarrow --with numpy --with scipy ../scripts/decisions/calibrate.py \
-  --train-answers results-train/swift-nvfp4/decisions/pass1.jsonl \
-  --train-data "$DATASETS_DIR/typed-decisions/all/train-00000-of-00001.parquet" \
-  --test-answers results/swift-nvfp4/decisions/pass1.jsonl \
-  --test-data "$DATASETS_DIR/typed-decisions/all/test-00000-of-00001.parquet" \
+  --data-dir "$DATASETS_DIR" \
+  --fit-answers results-train/swift-nvfp4/decisions/pass1.jsonl --fit-split train \
+  --test-answers results/swift-nvfp4/decisions/pass1.jsonl --test-split test \
   --out results/swift-nvfp4/calibration.json
 
 # real-answer sets (both NVFP4 configs, ~45 min), then calibration and tables (host, CPU)

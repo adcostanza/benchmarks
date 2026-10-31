@@ -1,17 +1,20 @@
 # Swift 1.5 NVFP4 vs stock Qwen3.8-27B NVFP4 on one RTX PRO 6000
 
 Question: does Swift 1.5 cost anything against stock Qwen3.8-27B at NVFP4, in quality, in speed or
-in DFlash2 acceptance, and does the stock drafter leave room for one fine-tuned on Swift? Answer:
-no cost measured except chat at 1 user, which is 4% slower (12 prompts, one run); Swift writes fewer tokens for the same answers; the stock drafter
-already matches the DFlash2 card's accept length on both models, so a Swift-tuned drafter has
-little headroom. Hardware: [hardware.md](../hardware.md) (400 W). One run per config.
+in DFlash2 acceptance? Answer: chat at one user and SPEED-Bench throughput 1k were each about 4%
+slower for Swift in one small run (12 prompts; 198.8 vs 190.8 tok/s on throughput 1k), other measured rows
+varied; [GSM8K](https://huggingface.co/datasets/openai/gsm8k/blob/740312add88f781978c0658806c59bc2815b9866/README.md) (human-authored reference answers, sgl-eval final-answer grading) is 1,280 vs
+1,277 of 1,319 and [BFCL](https://gorilla.cs.berkeley.edu/leaderboard.html) (reference tool calls, checked by BFCL's automatic graders) ties at 168 of 205 (a limited check, not an equivalence test); Swift's recorded mean
+output is shorter; the stock drafter's accept length is within 0.18 of the DFlash2 card's on stock and
+at or above it on Swift for four of five sets. The stock drafter works with both exports; I did not test or estimate the headroom for a Swift-tuned drafter. The two
+NVFP4 exports were converted separately, so this compares the checkpoints, not the fine-tune alone. Hardware: [hardware.md](../hardware.md) (400 W). One run per config.
 
 Tables from `../scripts/compare.py results/dflash8 results/swift-dflash8` and
 `../scripts/compare.py results/stock-nvfp4-quality results/swift-nvfp4-quality`. compare.py
 numbers the accept-sets and SPEED-Bench runs (`ref#2`, `daily#3`); the set or split of each run
 is `settings.set` / `settings.split` in its `summary.json`.
 
-## Quality (`*-quality`, reasoning_effort=medium)
+## Quality (`*-quality`; GSM8K at reasoning_effort=medium, BFCL at its handler's default effort, temperature 0.001)
 
 | Benchmark | Stock NVFP4 | Swift NVFP4 |
 |---|---|---|
@@ -62,8 +65,7 @@ Mean completion tokens per answer (reasoning + answer), share cut off at 4096 in
 | MBPP | 1,551 (19%) | 899 (3%), −42% | 977 (0%) | 895 (0%), −8% |
 | MT-Bench | 1,475 (22%) | 1,163 (19%), −21% | 1,113 (3%) | 1,002 (3%), −10% |
 
-Cut-off answers count as 4096 tokens, so where stock is cut off more often, the reduction is
-understated.
+Capped responses count as 4,096 tokens; the uncapped difference is unknown.
 
 ## Thinking vs answer tokens
 
@@ -132,7 +134,7 @@ writing 3.80 / 3.78.
   `50307d4c4cde6860d4eee73e2547cd786fe8e8a4`, 8 draft tokens, on every config.
 - Flags: [../scripts/args/qwen38-27b.sh](../scripts/args/qwen38-27b.sh) with
   `--mem-fraction-static 0.41`, the same as the earlier posts. KV pool 236,864 tokens on all four
-  (`server.log`); GPU memory after load 43.8 GB on all four (`resources.json`).
+  (`server.log`); GPU memory after load about 42.8 GiB (43,849 / 43,837 MiB for the two DFlash2 configs; `resources.json`).
 - Steps and protocols: `../scripts/{gsm8k,bfcl,accept-sets,speed-bench,bench-serving}.sh` headers;
   sizes in `run.sh`. GSM8K daily: sgl-eval prompt and grader, the model's own sampling,
   max 32,768 tokens, 32 in flight. BFCL: `bfcl-eval` 2026.3.23, `Qwen/Qwen3-32B-FC` handler, the
@@ -141,8 +143,9 @@ writing 3.80 / 3.78.
 ## Caveats
 
 - One run per config. Accept-sets have 32 prompts per set and SPEED-Bench 10–26 turns per domain;
-  gaps under ~2 standard errors are noise. Every Swift-minus-stock accept gap on the five sets is
-  under 2 SE of the gap.
+  gaps under ~2 standard errors can't be told from noise. The standard errors in the accept tables
+  are per model; paired per-prompt Swift-minus-stock gaps at `xhigh` are 2.1–3.4 SE on GSM8K,
+  HumanEval, MBPP and MT-Bench and 0.6 on MATH-500 (exploratory, one run).
 - Token counts include reasoning and answer (`completion_tokens`). The Swift card's claims are
   about thinking tokens only, on other benchmarks, BF16 on vLLM.
 - Swift's card at `medium`: 82.22% vs base 84.14%, 24.8% fewer thinking tokens

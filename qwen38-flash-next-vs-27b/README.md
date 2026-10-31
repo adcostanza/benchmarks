@@ -1,7 +1,7 @@
 # Qwen3.8-Flash-Next vs Qwen3.8-27B on one RTX PRO 6000
 
-Question: is Qwen3.8-Flash-Next a better daily driver than the 27B NVFP4 + DFlash2 8 on one 96 GB
-card, at the whole card and at the daily driver's 44 GB GPU budget? Answer: no. Hardware:
+Question: how do these serving configurations compare on one 96 GB card, whole-card and near the
+27B NVFP4 + DFlash2 8 memory use (43 GiB)? Answer: not in these runs (repeated prompts, 512-token answers, one run per config). Hardware:
 [hardware.md](../hardware.md) (400 W). No more Flash-Next 3.8 runs are planned; the tables below
 are final, including the partial llama.cpp row.
 
@@ -21,16 +21,16 @@ Output tok/s, median time to first token in parentheses:
 | 40k, 1 user | 39.1 (5.53 s) | 58.7 (5.57 s) | 58.3 (3.41 s) |
 | 80k, 1 user | 22.5 (14.7 s) | 28.5 (14.8 s) | 41.4 (6.98 s) |
 | 120k, 1 user | 14.2 (27.6 s) | 16.5 (27.8 s) | 31.9 (10.6 s) |
-| BFCL subset (of 205) | 171 | 176 (other runs of the same config: 168, 174) | 136, see caveats (not used in the post) |
+| [BFCL V4](https://gorilla.cs.berkeley.edu/leaderboard.html) subset of 205 cases, automatic-grader passes | 171 | 176 (other runs of the same config: 168, 174) | 136, see caveats (discussed in the post's caveats; BFCL runs at the handler's default effort, temperature 0.001) |
 
 Resources for `fn-nospec` (`results/fn-nospec/resources.json`): startup 159 s with the checkpoint
-fully in the page cache (warm); GPU memory 87.7 GB after load, 88.1 GB peak; container RAM 70.0 GiB
+fully in the page cache (warm); GPU memory 85.6 GiB (87,663 MiB) after load, 86.0 GiB peak; container RAM 70.0 GiB
 after load, 71.9 GiB peak (the n-gram table is ~48 GiB of it); checkpoint 126.0 GiB on disk.
 
-## 44 GB GPU budget (partial run)
+## About the 27B's GPU memory (43.3 GiB, partial run)
 
-The daily driver (27B NVFP4 + DFlash2 8, `--mem-fraction-static 0.41`) uses 43.8 GB of GPU memory
-after load, 44.0 GB peak (`../qwen38-27b-swift-vs-stock/results/dflash8/resources.json`). SGLang won't start Flash-Next at that budget: `--ple-offload-embedding` is
+The 27B NVFP4 + DFlash2 8 config (`--mem-fraction-static 0.41`) uses 42.8 GiB (43,849 MiB) of GPU memory
+after load, 43.0 GiB peak (`../qwen38-27b-swift-vs-stock/results/dflash8/resources.json`). SGLang won't start Flash-Next at that budget: `--ple-offload-embedding` is
 rejected together with `--cpu-offload-gb` and `--offload-group-size`
 (`srt/arg_groups/memory_hook.py` in the image), and KTransformers expert offload has no `qwen4_exp`
 support ([ktransformers#2179](https://github.com/kvcache-ai/ktransformers/issues/2179), open on
@@ -47,7 +47,7 @@ RAM. Output tok/s, median time to first token in parentheses:
 | 80k, 1 user | 28.5 (14.8 s) | failed, see caveats |
 
 Resources (`results/fn-gguf-q4/resources.json`): startup 32 s (checkpoint 92.5% in the page cache);
-GPU memory 44.3 GB after load, 44.5 GB peak; container RAM 47.3 GiB after load, 64.0 GiB peak;
+GPU memory 43.3 GiB (44,311 MiB) after load, 43.4 GiB peak; container RAM 47.3 GiB after load, 64.0 GiB peak;
 checkpoint 103.7 GiB on disk.
 
 ## Configs
@@ -69,7 +69,7 @@ checkpoint 103.7 GiB on disk.
   @ `766911a6b7369840a91dbcd95f9f997acaab6cd6`, `UD-Q4_K_XL`, on
   `ghcr.io/ggml-org/llama.cpp@sha256:0283744a35a6e7698b4f7a2d63360233dc769ece51e84bdba7aa187a33978276`
   (b11977). Flags: [../scripts/args/qwen38-flash-next-gguf.sh](../scripts/args/qwen38-flash-next-gguf.sh)
-  with `--n-cpu-moe 30`, context 153,600 (the daily driver's), 4 slots, unified KV. The benchmark
+  with `--n-cpu-moe 30`, context 153,600 (the 27B's), 4 slots, unified KV. The benchmark
   client runs in the SGLang image with `--backend vllm-chat` and the NVFP4 tokenizer; each request
   sends `cache_prompt: false` (llama.cpp has no cache-flush endpoint).
 
