@@ -10,7 +10,7 @@ exact rules instead of a teacher model (`results-real/`)?
 
 Run 2026-10-30, one RTX PRO 6000, one config at a time.
 
-[Typed Decisions](https://huggingface.co/datasets/LocalLLaMA/typed-decisions) @ `1415d375`: its
+[Typed Decisions](https://huggingface.co/datasets/LocalLLaMA/typed-decisions/tree/1415d375cb86b418c53abec12795adf5b194e7fc) @ `1415d375`: its
 gold is the mean of three samples from an unnamed "roughly 4B-class" teacher, so these scores
 measure agreement with that teacher, not correctness.
 
@@ -195,9 +195,9 @@ Full tables with paired 95% intervals: [`results-real/tables.md`](results-real/t
 
 | Set (split, cases) | Gold | Metric | `stock-nvfp4` raw / T / T+B | `swift-nvfp4` raw / T / T+B |
 |---|---|---|---|---|
-| [Typed Decision Bench](https://huggingface.co/datasets/SamuelChien821/typed-decision-bench) (`test`, 5,387) | human labels from 21 datasets + 1 generator | DecisionScore | 77.18 / 80.28 / 83.97 | 76.63 / 80.58 / 84.17 |
-| [Procedural Typed Decisions](https://huggingface.co/datasets/tasksource/procedural-typed-decisions) (`test` sample, 874) | exact rules | proper score | 74.28 / 76.46 / 79.64 | 74.38 / 77.41 / 80.30 |
-| [Calibrated Typed Decisions](https://huggingface.co/datasets/m-lagnajit/calibrated-typed-decisions) (`test`, 1,797) | human labels | accuracy | 0.823 / 0.823 / 0.878 | 0.838 / 0.838 / 0.874 |
+| [Typed Decision Bench](https://huggingface.co/datasets/SamuelChien821/typed-decision-bench/tree/79ec2b9bf193d69ceaaaf86ad9d0b79623adb101) (`test`, 5,387) | labels from 21 public datasets (human annotations and automated verifier outcomes) + 1 rule-derived generator | DecisionScore | 77.18 / 80.28 / 83.97 | 76.63 / 80.58 / 84.17 |
+| [Procedural Typed Decisions](https://huggingface.co/datasets/tasksource/procedural-typed-decisions/tree/05ca1d0388f57461a634a7caed67145d28e2eca7) (`test` sample, 874) | exact rules | proper score | 74.28 / 76.46 / 79.64 | 74.38 / 77.41 / 80.30 |
+| [Calibrated Typed Decisions](https://huggingface.co/datasets/m-lagnajit/calibrated-typed-decisions/tree/34189779d116d0523db6af58c0d62538f7e7d07e) (`test`, 1,797) | human labels | accuracy | 0.823 / 0.823 / 0.878 | 0.838 / 0.838 / 0.874 |
 | Calibrated Typed Decisions (`heldout` PubMedQA, 1,000) | expert labels | accuracy | 0.716 / 0.716 / 0.716 | 0.731 / 0.731 / 0.731 |
 
 - **Swift vs stock, raw:** −0.55 DecisionScore [−0.86, −0.25] on Typed Decision Bench, +0.10
@@ -221,20 +221,20 @@ Full tables with paired 95% intervals: [`results-real/tables.md`](results-real/t
 
 Sets:
 
-- [SamuelChien821/typed-decision-bench](https://huggingface.co/datasets/SamuelChien821/typed-decision-bench)
+- [SamuelChien821/typed-decision-bench](https://huggingface.co/datasets/SamuelChien821/typed-decision-bench/tree/79ec2b9bf193d69ceaaaf86ad9d0b79623adb101)
   v0.3.0, revision `79ec2b9bf193d69ceaaaf86ad9d0b79623adb101`: 5,387 items in 25 tasks. The 359
   items it withholds (Abt-Buy, TrialGPT) are rebuilt with its builder
   (`blobfishai/jevfish` @ `80262b5c7049179a5def5e15fc85c51e3f9d7314`, `python -m
   typed_decision_bench.freeze --only abt-buy-product-match,trialgpt-criterion-support --seed
   20260919 --version 0.3.0`); the result matches the dataset's `SHA256SUMS`. Score:
   DecisionScore (mean per-item proper score × 100) and accuracy on each item's primary question.
-- [tasksource/procedural-typed-decisions](https://huggingface.co/datasets/tasksource/procedural-typed-decisions)
+- [tasksource/procedural-typed-decisions](https://huggingface.co/datasets/tasksource/procedural-typed-decisions/tree/05ca1d0388f57461a634a7caed67145d28e2eca7)
   `all`, revision `05ca1d0388f57461a634a7caed67145d28e2eca7`: answers computed from rules stated
   in the state. Fixed stratified sample, up to 10 states per (task, level) by smallest sha256(id):
   874 `test`, 880 `validation` (calibration fit). No scorer ships with it: Typed Decision Bench's
   per-item proper score against the gold as given; accuracy over the 2,787 questions with an
   exact label.
-- [m-lagnajit/calibrated-typed-decisions](https://huggingface.co/datasets/m-lagnajit/calibrated-typed-decisions)
+- [m-lagnajit/calibrated-typed-decisions](https://huggingface.co/datasets/m-lagnajit/calibrated-typed-decisions/tree/34189779d116d0523db6af58c0d62538f7e7d07e)
   v2.1, revision `34189779d116d0523db6af58c0d62538f7e7d07e`: one question per short text, gold
   is the source dataset's human label (its soft teacher labels are not used). `test` six sources
   (CLINC150, GoEmotions, BANKING77, MASSIVE, Amazon polarity, SciCite), `heldout` PubMedQA,
@@ -250,11 +250,11 @@ of a later dataset is not an empty-cache request. Passes 2 and 3 can reuse cache
 are in `results-repeat/{train,test}/`. The earlier one-pass run (`results-real/`, above) is kept.
 Added sets, with where each one's answers come from:
 
-- [ChaosNLI](https://huggingface.co/datasets/earino/chaosnli) (`earino/chaosnli` @
+- [ChaosNLI](https://huggingface.co/datasets/earino/chaosnli/tree/bf8d66a1d3434ac8b90ffc392b1b5e44bdf7e439) (`earino/chaosnli` @
   `bf8d66a1d3434ac8b90ffc392b1b5e44bdf7e439`, mirror of ChaosNLI v1.0): SNLI, MNLI-matched and αNLI
   dev items, gold is the share of 100 human votes per item. One upstream split, so `validation` and
   `test` are halves by sha256 of the item id (2,334 and 2,311 cases).
-- [LeWiDi](https://huggingface.co/datasets/tasksource/lewidi) (`tasksource/lewidi` @
+- [LeWiDi](https://huggingface.co/datasets/tasksource/lewidi/tree/9ba2e83b536ca127fe8b25f2a2725f1e9a489c82) (`tasksource/lewidi` @
   `9ba2e83b536ca127fe8b25f2a2725f1e9a489c82`): sarcasm (`score`, 6 levels), offensiveness and
   Brexit hate speech (`noul`); gold is the share of the annotators' votes (human). `validation` 1,976,
   `test` 3,929 cases.
@@ -301,14 +301,15 @@ Method. Temperatures only (T per question type, as in "Calibration"): the biases
 dataset's questions and can't carry. Names in the tables, with where each dataset's answers come
 from:
 
-- Typed Decisions: the [Typed Decisions](https://huggingface.co/datasets/LocalLLaMA/typed-decisions)
+- Typed Decisions: the [Typed Decisions](https://huggingface.co/datasets/LocalLLaMA/typed-decisions/tree/1415d375cb86b418c53abec12795adf5b194e7fc)
   set, gold from the unnamed ~4B teacher, so its scores are agreement with that teacher. Metric
   KL from gold.
 - procedural: Procedural Typed Decisions, answers computed from rules. Metric Typed Decision
   Bench's per-item proper score.
 - Calibrated TD: Calibrated Typed Decisions `test`, human labels. Metric log loss.
 - PubMedQA: Calibrated Typed Decisions `heldout`, expert labels. Metric log loss.
-- TD Bench: Typed Decision Bench, human labels. Metric DecisionScore.
+- TD Bench: Typed Decision Bench, labels from 21 public datasets (human annotations and automated
+  verifier outcomes) and one rule-derived generator. Metric DecisionScore.
 - ChaosNLI, LeWiDi: human vote shares. Metric KL from gold.
 
 Sources (rows) are fitted on their fit split: Typed Decisions `train`, procedural, Calibrated TD,
@@ -409,7 +410,7 @@ split's own sampling error.
 
 ## Benchmark
 
-[LocalLLaMA/typed-decisions](https://huggingface.co/datasets/LocalLLaMA/typed-decisions), `all`
+[LocalLLaMA/typed-decisions](https://huggingface.co/datasets/LocalLLaMA/typed-decisions/tree/1415d375cb86b418c53abec12795adf5b194e7fc), `all`
 config, revision `1415d375cb86b418c53abec12795adf5b194e7fc` (Apache-2.0): `test` 400 cases in four
 workflows (agent trace observability, customer service, invoice processing, security incidents),
 2,000 typed decisions (`noul`, `choice`, `score`); `train` 1,200 cases from a separate generation
