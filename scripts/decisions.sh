@@ -10,7 +10,8 @@
 #
 # Usage: scripts/decisions.sh <out-dir>
 # Env: DECISIONS_SET          typed-decisions (default), typed-decision-bench,
-#                             procedural-typed-decisions, calibrated-typed-decisions
+#                             procedural-typed-decisions, calibrated-typed-decisions, chaosnli,
+#                             lewidi
 #      DECISIONS_SPLIT        test (default); the set's other splits fit scripts/decisions/calibrate.py
 #      DECISIONS_LIMIT        first N cases only (smoke runs)
 #      DECISIONS_CONCURRENCY  in-flight requests (default 1, so latency is per request)

@@ -454,7 +454,136 @@ class CalibratedTypedDecisions:
         return out
 
 
-SETS = {s.name: s for s in (TypedDecisions, TypedDecisionBench, ProceduralTypedDecisions, CalibratedTypedDecisions)}
+# ------------------------------------------------------------------ human label distributions
+def sha_half(key):
+    """'validation' or 'test' by the parity of sha256(key): a fixed split for sets with one split."""
+    return "validation" if int(hashlib.sha256(key.encode()).hexdigest(), 16) % 2 == 0 else "test"
+
+
+class LabelDistributionSet:
+    """Base for sets whose gold is, per question, a distribution over its answer keys (aligned with
+    answer_keys: human vote shares, or one-hot for a single label). Per decision: accuracy of the
+    top answer against the gold's top answer(s) (a tie in the gold counts any tied answer),
+    KL(gold || pred) (probabilities clipped at 1e-9, as the Typed Decisions scorer; for one-hot gold
+    it is the log loss), multi-class Brier, and ECE over 10 bins of the top probability. Per case
+    (case_scores, paired intervals): mean KL over its decisions."""
+    splits = ("validation", "test")
+
+    @classmethod
+    def targets(cls, case):
+        return [(qid, q["type"], answer_keys(q), case["gold"][qid]) for qid, q in case["questions"].items()]
+
+    @classmethod
+    def _decisions(cls, row, case):
+        out = []
+        for qid, qtype, keys, g in cls.targets(case):
+            p = answer_probs(row, qid)["probabilities"]
+            pv = [float(p.get(k, 0.0)) for k in keys]
+            s = sum(pv)
+            if s <= 0:
+                raise RuntimeError(f"case {row['id']} question {qid}: answer keys {sorted(p)} match none of {keys}")
+            pv = [v / s for v in pv]
+            top = max(range(len(keys)), key=lambda i: (pv[i], -i))
+            hit = g[top] == max(g)
+            kl = sum(gi * math.log(gi / max(pi, 1e-9)) for gi, pi in zip(g, pv) if gi > 0)
+            out.append((qtype, hit, kl, sum((a - b) ** 2 for a, b in zip(pv, g)), pv[top]))
+        return out
+
+    @classmethod
+    def case_scores(cls, rows, cases):
+        by = {c["id"]: c for c in cases}
+        return {r["id"]: statistics.fmean(d[2] for d in cls._decisions(r, by[r["id"]])) for r in rows}
+
+    @classmethod
+    def metrics(cls, rows, cases):
+        by = {c["id"]: c for c in cases}
+        allv, per_type, per_group = [], defaultdict(list), defaultdict(list)
+        for r in rows:
+            for d in cls._decisions(r, by[r["id"]]):
+                allv.append(d)
+                per_type[d[0]].append(d)
+                per_group[by[r["id"]]["group"]].append(d)
+
+        def summarize(ds):
+            return {"n_decisions": len(ds), "accuracy": statistics.fmean(d[1] for d in ds),
+                    "kl_from_gold": statistics.fmean(d[2] for d in ds), "brier": statistics.fmean(d[3] for d in ds),
+                    "ece": ece([d[1] for d in ds], [d[4] for d in ds])}
+
+        out = summarize(allv)
+        out["by_type"] = {t: summarize(v) for t, v in sorted(per_type.items())}
+        out["by_group"] = {g: summarize(v) for g, v in sorted(per_group.items())}
+        out["headline"] = f"acc {out['accuracy']:.4f}, KL {out['kl_from_gold']:.4f}, Brier {out['brier']:.4f}, ECE {out['ece']:.4f}"
+        return out
+
+
+class ChaosNLI(LabelDistributionSet):
+    """earino/chaosnli (mirror of ChaosNLI v1.0, Nie et al. 2020): SNLI and MNLI-matched dev items
+    with 100 new crowd labels each (`label_dist`, order e/n/c), as a 3-option choice; αNLI dev items
+    with 100 labels over its two hypotheses, as a 2-option choice. Gold: the 100-vote distribution.
+    One split upstream, so `validation` (calibration fit) and `test` are the two halves by
+    sha256(uid) parity, per source. Licence cc-by-nc-4.0."""
+    name = "chaosnli"
+    revision = {"repo": "earino/chaosnli", "revision": "bf8d66a1d3434ac8b90ffc392b1b5e44bdf7e439"}
+    gold_source = "human"
+    NLI = {"entailment": "The hypothesis must be true if the premise is true.",
+           "neutral": "The hypothesis may or may not be true given the premise.",
+           "contradiction": "The hypothesis cannot be true if the premise is true."}
+
+    @staticmethod
+    def load(root, split):
+        cases = []
+        for src in ("snli", "mnli_m", "alphanli"):
+            for line in open(Path(root) / "chaosnli" / "raw" / f"chaosNLI_{src}.jsonl"):
+                r = json.loads(line)
+                if sha_half(r["uid"]) != split:
+                    continue
+                ex = r["example"]
+                if src == "alphanli":
+                    state = {"beginning": ex["obs1"], "ending": ex["obs2"]}
+                    q = {"type": "choice", "instructions": "Which explanation best connects the beginning to the ending?",
+                         "criteria": {"hyp1": ex["hyp1"], "hyp2": ex["hyp2"]}}
+                else:
+                    state = {"premise": ex["premise"], "hypothesis": ex["hypothesis"]}
+                    q = {"type": "choice", "instructions": "How does the hypothesis relate to the premise?",
+                         "criteria": dict(ChaosNLI.NLI)}
+                cases.append({"id": f"{src}-{r['uid']}", "group": src, "state": state, "questions": {"answer": q},
+                              "gold": {"answer": [float(x) for x in r["label_dist"]]}, "gold_source": "human"})
+        return cases
+
+
+class LeWiDi(LabelDistributionSet):
+    """tasksource/lewidi (LeWiDi soft labels): three English configs with real splits.
+    `csc` sarcasm rated 1-6 by 4+ annotators -> `score` over 6 levels; `md_agreement` offensiveness
+    (5 annotators) and `hs_brexit` hate speech (6) -> `noul`. Gold: the annotators' label shares
+    (`soft_label`, order no/yes for the binary configs, checked on clear rows). `validation` fits
+    the calibration, `test` is scored. Licence: each source dataset's terms."""
+    name = "lewidi"
+    revision = {"repo": "tasksource/lewidi", "revision": "9ba2e83b536ca127fe8b25f2a2725f1e9a489c82"}
+    gold_source = "human"
+    CSC_LEVELS = ["Not sarcastic at all", "Barely sarcastic", "Slightly sarcastic", "Somewhat sarcastic",
+                  "Clearly sarcastic", "Extremely sarcastic"]
+    BINARY = {"md_agreement": "Is this post offensive?", "hs_brexit": "Is this post hate speech?"}
+
+    @staticmethod
+    def load(root, split):
+        cases = []
+        base = Path(root) / "lewidi"
+        for r in pq.read_table(base / "csc" / f"{split}-00000-of-00001.parquet").to_pylist():
+            cases.append({"id": f"csc-{r['id']}", "group": "csc", "state": {"context": r["context"], "response": r["response"]},
+                          "questions": {"answer": {"type": "score", "instructions": "How sarcastic is the response, given the context?",
+                                                   "criteria": list(LeWiDi.CSC_LEVELS)}},
+                          "gold": {"answer": [float(x) for x in r["soft_label"]]}, "gold_source": "human"})
+        for cfg, question in LeWiDi.BINARY.items():
+            for r in pq.read_table(base / cfg / f"{split}-00000-of-00001.parquet").to_pylist():
+                no, yes = r["soft_label"]
+                cases.append({"id": f"{cfg}-{r['id']}", "group": cfg, "state": r["text"],
+                              "questions": {"answer": {"type": "noul", "instructions": question}},
+                              "gold": {"answer": [float(yes), float(no)]}, "gold_source": "human"})
+        return cases
+
+
+SETS = {s.name: s for s in (TypedDecisions, TypedDecisionBench, ProceduralTypedDecisions, CalibratedTypedDecisions,
+                            ChaosNLI, LeWiDi)}
 
 
 def get(name):

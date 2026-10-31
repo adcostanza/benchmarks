@@ -1,0 +1,195 @@
+{
+  "suite_version": 1,
+  "set": "procedural-typed-decisions",
+  "dataset": {
+    "repo": "tasksource/procedural-typed-decisions",
+    "config": "all",
+    "revision": "05ca1d0388f57461a634a7caed67145d28e2eca7",
+    "split": "validation"
+  },
+  "gold_source": [
+    "rule"
+  ],
+  "n_cases": 880,
+  "limit": 0,
+  "concurrency": 1,
+  "endpoint": "/v1/systemone",
+  "served_model": "/models/Qwen3.8-27B-NVFP4",
+  "proper_score": 75.90618092260851,
+  "accuracy": 0.6434135977337111,
+  "n_exact_questions": 2824,
+  "accuracy_by_type": {
+    "choice": 0.69236700077101,
+    "noul": 0.7128953771289538,
+    "score": 0.4723404255319149
+  },
+  "by_task": {
+    "arithmetic": 71.18014667163193,
+    "entity_belief_tracking": 75.78972954254242,
+    "event_state_reconstruction": 84.54123095992044,
+    "event_triggered_execution": 69.03148857674806,
+    "evidence_sufficiency": 73.41613236348144,
+    "goal_directed_planning": 75.02368803169745,
+    "graph_navigation": 70.27754600921256,
+    "instruction_execution": 79.92293627154939,
+    "multi_view_adjudication": 76.69844718295379,
+    "needle_retrieval": 86.83087238030753,
+    "partial_observation_calibration": 82.0670397059365,
+    "policy_applicability": 58.68153479563261,
+    "policy_under_uncertainty": 73.82030071466684,
+    "record_aggregation": 76.60909016847832,
+    "record_eligibility": 76.40662444780916,
+    "state_perturbation": 72.54883792188343,
+    "table_lookup": 91.72479383591761,
+    "taxonomy_routing": 74.20516053991507
+  },
+  "by_level": {
+    "0": 83.24909001402926,
+    "1": 80.38131797498794,
+    "2": 75.46833219516846,
+    "3": 71.44956626921123,
+    "4": 69.6391562787457
+  },
+  "headline": "proper score 75.91, accuracy 0.6434 (2824 exact questions)",
+  "latency_p50_s": 0.15179903199896216,
+  "latency_p95_s": 0.3611723389767576,
+  "wall_s": 150.62938952445984,
+  "api": "systemone",
+  "passes": {
+    "pass1": {
+      "n_cases": 880,
+      "proper_score": 75.90618092260851,
+      "accuracy": 0.6434135977337111,
+      "n_exact_questions": 2824,
+      "accuracy_by_type": {
+        "choice": 0.69236700077101,
+        "noul": 0.7128953771289538,
+        "score": 0.4723404255319149
+      },
+      "by_task": {
+        "arithmetic": 71.18014667163193,
+        "entity_belief_tracking": 75.78972954254242,
+        "event_state_reconstruction": 84.54123095992044,
+        "event_triggered_execution": 69.03148857674806,
+        "evidence_sufficiency": 73.41613236348144,
+        "goal_directed_planning": 75.02368803169745,
+        "graph_navigation": 70.27754600921256,
+        "instruction_execution": 79.92293627154939,
+        "multi_view_adjudication": 76.69844718295379,
+        "needle_retrieval": 86.83087238030753,
+        "partial_observation_calibration": 82.0670397059365,
+        "policy_applicability": 58.68153479563261,
+        "policy_under_uncertainty": 73.82030071466684,
+        "record_aggregation": 76.60909016847832,
+        "record_eligibility": 76.40662444780916,
+        "state_perturbation": 72.54883792188343,
+        "table_lookup": 91.72479383591761,
+        "taxonomy_routing": 74.20516053991507
+      },
+      "by_level": {
+        "0": 83.24909001402926,
+        "1": 80.38131797498794,
+        "2": 75.46833219516846,
+        "3": 71.44956626921123,
+        "4": 69.6391562787457
+      },
+      "headline": "proper score 75.91, accuracy 0.6434 (2824 exact questions)",
+      "latency_p50_s": 0.15179903199896216,
+      "latency_p95_s": 0.3611723389767576,
+      "wall_s": 150.62938952445984,
+      "api": "systemone"
+    },
+    "pass2": {
+      "n_cases": 880,
+      "proper_score": 75.89430891210694,
+      "accuracy": 0.6405807365439093,
+      "n_exact_questions": 2824,
+      "accuracy_by_type": {
+        "choice": 0.686969930609098,
+        "noul": 0.7116788321167883,
+        "score": 0.4723404255319149
+      },
+      "by_task": {
+        "arithmetic": 71.46692894071047,
+        "entity_belief_tracking": 75.78972954254242,
+        "event_state_reconstruction": 84.54123095992044,
+        "event_triggered_execution": 69.03148857674806,
+        "evidence_sufficiency": 73.86372094380425,
+        "goal_directed_planning": 75.02368803169745,
+        "graph_navigation": 70.27754600921256,
+        "instruction_execution": 79.9173570713697,
+        "multi_view_adjudication": 76.69844718295379,
+        "needle_retrieval": 86.83087238030753,
+        "partial_observation_calibration": 81.50615565654722,
+        "policy_applicability": 58.68153479563261,
+        "policy_under_uncertainty": 73.82030071466684,
+        "record_aggregation": 76.1958675802775,
+        "record_eligibility": 76.21863843159419,
+        "state_perturbation": 72.54883792188343,
+        "table_lookup": 91.72479383591761,
+        "taxonomy_routing": 74.20516053991507
+      },
+      "by_level": {
+        "0": 83.1732665247182,
+        "1": 80.55706213339467,
+        "2": 75.33765135372043,
+        "3": 71.3386757152591,
+        "4": 69.72831721310335
+      },
+      "headline": "proper score 75.89, accuracy 0.6406 (2824 exact questions)",
+      "latency_p50_s": 0.15156198001932353,
+      "latency_p95_s": 0.361405564006418,
+      "wall_s": 148.64472436904907,
+      "api": "systemone"
+    },
+    "pass3": {
+      "n_cases": 880,
+      "proper_score": 75.9880094254356,
+      "accuracy": 0.6423512747875354,
+      "n_exact_questions": 2824,
+      "accuracy_by_type": {
+        "choice": 0.6892829606784888,
+        "noul": 0.7128953771289538,
+        "score": 0.47375886524822697
+      },
+      "by_task": {
+        "arithmetic": 71.46692894071047,
+        "entity_belief_tracking": 75.78972954254242,
+        "event_state_reconstruction": 84.54123095992044,
+        "event_triggered_execution": 69.28948731832398,
+        "evidence_sufficiency": 75.11646100081913,
+        "goal_directed_planning": 75.02368803169745,
+        "graph_navigation": 70.27754600921256,
+        "instruction_execution": 80.0891098542903,
+        "multi_view_adjudication": 76.69844718295379,
+        "needle_retrieval": 86.83087238030753,
+        "partial_observation_calibration": 81.50615565654722,
+        "policy_applicability": 58.68153479563261,
+        "policy_under_uncertainty": 73.82030071466684,
+        "record_aggregation": 76.1958675802775,
+        "record_eligibility": 76.18527588466735,
+        "state_perturbation": 72.54883792188343,
+        "table_lookup": 91.72479383591761,
+        "taxonomy_routing": 74.20516053991507
+      },
+      "by_level": {
+        "0": 83.24914850753466,
+        "1": 80.55706213339467,
+        "2": 75.17651759325092,
+        "3": 71.86145159647792,
+        "4": 69.75310017374535
+      },
+      "headline": "proper score 75.99, accuracy 0.6424 (2824 exact questions)",
+      "latency_p50_s": 0.15235465299338102,
+      "latency_p95_s": 0.34769423698890023,
+      "wall_s": 148.85551810264587,
+      "api": "systemone"
+    }
+  },
+  "pass_drift": {
+    "mean_abs_prob_diff": 0.0021835952052620144,
+    "max_abs_prob_diff": 0.7854476025168414,
+    "top_answer_changed": 26,
+    "n_decisions": 2918
+  }
+}

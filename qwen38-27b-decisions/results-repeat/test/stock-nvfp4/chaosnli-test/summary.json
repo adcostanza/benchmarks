@@ -1,0 +1,199 @@
+{
+  "suite_version": 1,
+  "set": "chaosnli",
+  "dataset": {
+    "repo": "earino/chaosnli",
+    "revision": "bf8d66a1d3434ac8b90ffc392b1b5e44bdf7e439",
+    "split": "test"
+  },
+  "gold_source": [
+    "human"
+  ],
+  "n_cases": 2311,
+  "limit": 0,
+  "concurrency": 1,
+  "endpoint": "/v1/systemone",
+  "served_model": "/models/Qwen3.8-27B-NVFP4",
+  "n_decisions": 2311,
+  "accuracy": 0.7637386412808308,
+  "kl_from_gold": 0.5787537654134758,
+  "brier": 0.1764118211497944,
+  "ece": 0.10548036069064042,
+  "by_type": {
+    "choice": {
+      "n_decisions": 2311,
+      "accuracy": 0.7637386412808308,
+      "kl_from_gold": 0.5787537654134758,
+      "brier": 0.1764118211497944,
+      "ece": 0.10548036069064042
+    }
+  },
+  "by_group": {
+    "alphanli": {
+      "n_decisions": 777,
+      "accuracy": 0.8738738738738738,
+      "kl_from_gold": 0.29085075725702225,
+      "brier": 0.10470770567633671,
+      "ece": 0.04535914648680613
+    },
+    "mnli_m": {
+      "n_decisions": 789,
+      "accuracy": 0.5893536121673004,
+      "kl_from_gold": 0.806941091241039,
+      "brier": 0.2635652843873321,
+      "ece": 0.21166193153612173
+    },
+    "snli": {
+      "n_decisions": 745,
+      "accuracy": 0.8335570469798658,
+      "kl_from_gold": 0.6373589160975254,
+      "brier": 0.1588950630671895,
+      "ece": 0.0732538763843127
+    }
+  },
+  "headline": "acc 0.7637, KL 0.5788, Brier 0.1764, ECE 0.1055",
+  "latency_p50_s": 0.028756198997143656,
+  "latency_p95_s": 0.031717103003757074,
+  "wall_s": 67.89605593681335,
+  "api": "systemone",
+  "passes": {
+    "pass1": {
+      "n_decisions": 2311,
+      "accuracy": 0.7637386412808308,
+      "kl_from_gold": 0.5787537654134758,
+      "brier": 0.1764118211497944,
+      "ece": 0.10548036069064042,
+      "by_type": {
+        "choice": {
+          "n_decisions": 2311,
+          "accuracy": 0.7637386412808308,
+          "kl_from_gold": 0.5787537654134758,
+          "brier": 0.1764118211497944,
+          "ece": 0.10548036069064042
+        }
+      },
+      "by_group": {
+        "alphanli": {
+          "n_decisions": 777,
+          "accuracy": 0.8738738738738738,
+          "kl_from_gold": 0.29085075725702225,
+          "brier": 0.10470770567633671,
+          "ece": 0.04535914648680613
+        },
+        "mnli_m": {
+          "n_decisions": 789,
+          "accuracy": 0.5893536121673004,
+          "kl_from_gold": 0.806941091241039,
+          "brier": 0.2635652843873321,
+          "ece": 0.21166193153612173
+        },
+        "snli": {
+          "n_decisions": 745,
+          "accuracy": 0.8335570469798658,
+          "kl_from_gold": 0.6373589160975254,
+          "brier": 0.1588950630671895,
+          "ece": 0.0732538763843127
+        }
+      },
+      "headline": "acc 0.7637, KL 0.5788, Brier 0.1764, ECE 0.1055",
+      "latency_p50_s": 0.028756198997143656,
+      "latency_p95_s": 0.031717103003757074,
+      "wall_s": 67.89605593681335,
+      "api": "systemone"
+    },
+    "pass2": {
+      "n_decisions": 2311,
+      "accuracy": 0.7637386412808308,
+      "kl_from_gold": 0.5787537654134758,
+      "brier": 0.1764118211497944,
+      "ece": 0.10548036069064042,
+      "by_type": {
+        "choice": {
+          "n_decisions": 2311,
+          "accuracy": 0.7637386412808308,
+          "kl_from_gold": 0.5787537654134758,
+          "brier": 0.1764118211497944,
+          "ece": 0.10548036069064042
+        }
+      },
+      "by_group": {
+        "alphanli": {
+          "n_decisions": 777,
+          "accuracy": 0.8738738738738738,
+          "kl_from_gold": 0.29085075725702225,
+          "brier": 0.10470770567633671,
+          "ece": 0.04535914648680613
+        },
+        "mnli_m": {
+          "n_decisions": 789,
+          "accuracy": 0.5893536121673004,
+          "kl_from_gold": 0.806941091241039,
+          "brier": 0.2635652843873321,
+          "ece": 0.21166193153612173
+        },
+        "snli": {
+          "n_decisions": 745,
+          "accuracy": 0.8335570469798658,
+          "kl_from_gold": 0.6373589160975254,
+          "brier": 0.1588950630671895,
+          "ece": 0.0732538763843127
+        }
+      },
+      "headline": "acc 0.7637, KL 0.5788, Brier 0.1764, ECE 0.1055",
+      "latency_p50_s": 0.02879710600245744,
+      "latency_p95_s": 0.03197386098327115,
+      "wall_s": 68.05631518363953,
+      "api": "systemone"
+    },
+    "pass3": {
+      "n_decisions": 2311,
+      "accuracy": 0.7637386412808308,
+      "kl_from_gold": 0.5787537654134758,
+      "brier": 0.1764118211497944,
+      "ece": 0.10548036069064042,
+      "by_type": {
+        "choice": {
+          "n_decisions": 2311,
+          "accuracy": 0.7637386412808308,
+          "kl_from_gold": 0.5787537654134758,
+          "brier": 0.1764118211497944,
+          "ece": 0.10548036069064042
+        }
+      },
+      "by_group": {
+        "alphanli": {
+          "n_decisions": 777,
+          "accuracy": 0.8738738738738738,
+          "kl_from_gold": 0.29085075725702225,
+          "brier": 0.10470770567633671,
+          "ece": 0.04535914648680613
+        },
+        "mnli_m": {
+          "n_decisions": 789,
+          "accuracy": 0.5893536121673004,
+          "kl_from_gold": 0.806941091241039,
+          "brier": 0.2635652843873321,
+          "ece": 0.21166193153612173
+        },
+        "snli": {
+          "n_decisions": 745,
+          "accuracy": 0.8335570469798658,
+          "kl_from_gold": 0.6373589160975254,
+          "brier": 0.1588950630671895,
+          "ece": 0.0732538763843127
+        }
+      },
+      "headline": "acc 0.7637, KL 0.5788, Brier 0.1764, ECE 0.1055",
+      "latency_p50_s": 0.028824057983001694,
+      "latency_p95_s": 0.03199353802483529,
+      "wall_s": 68.10879945755005,
+      "api": "systemone"
+    }
+  },
+  "pass_drift": {
+    "mean_abs_prob_diff": 0.0,
+    "max_abs_prob_diff": 0.0,
+    "top_answer_changed": 0,
+    "n_decisions": 2311
+  }
+}

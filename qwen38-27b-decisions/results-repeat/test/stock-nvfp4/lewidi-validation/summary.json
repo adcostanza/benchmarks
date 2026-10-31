@@ -1,0 +1,227 @@
+{
+  "suite_version": 1,
+  "set": "lewidi",
+  "dataset": {
+    "repo": "tasksource/lewidi",
+    "revision": "9ba2e83b536ca127fe8b25f2a2725f1e9a489c82",
+    "split": "validation"
+  },
+  "gold_source": [
+    "human"
+  ],
+  "n_cases": 1976,
+  "limit": 0,
+  "concurrency": 1,
+  "endpoint": "/v1/systemone",
+  "served_model": "/models/Qwen3.8-27B-NVFP4",
+  "n_decisions": 1976,
+  "accuracy": 0.6477732793522267,
+  "kl_from_gold": 0.5543547834568691,
+  "brier": 0.21732029245383452,
+  "ece": 0.04603529036228447,
+  "by_type": {
+    "noul": {
+      "n_decisions": 1272,
+      "accuracy": 0.7586477987421384,
+      "kl_from_gold": 0.24422471592802758,
+      "brier": 0.162534982473984,
+      "ece": 0.04189697414853359
+    },
+    "score": {
+      "n_decisions": 704,
+      "accuracy": 0.4474431818181818,
+      "kl_from_gold": 1.1147034281964803,
+      "brier": 0.3163073866219735,
+      "ece": 0.07148678509658814
+    }
+  },
+  "by_group": {
+    "csc": {
+      "n_decisions": 704,
+      "accuracy": 0.4474431818181818,
+      "kl_from_gold": 1.1147034281964803,
+      "brier": 0.3163073866219735,
+      "ece": 0.07148678509658814
+    },
+    "hs_brexit": {
+      "n_decisions": 168,
+      "accuracy": 0.9285714285714286,
+      "kl_from_gold": 0.15108521956635296,
+      "brier": 0.08545600398813086,
+      "ece": 0.031201827822709565
+    },
+    "md_agreement": {
+      "n_decisions": 1104,
+      "accuracy": 0.7327898550724637,
+      "kl_from_gold": 0.2583981175482824,
+      "brier": 0.17426439224357038,
+      "ece": 0.05007161964493168
+    }
+  },
+  "headline": "acc 0.6478, KL 0.5544, Brier 0.2173, ECE 0.0460",
+  "latency_p50_s": 0.028522353997686878,
+  "latency_p95_s": 0.031929896998917684,
+  "wall_s": 55.73954391479492,
+  "api": "systemone",
+  "passes": {
+    "pass1": {
+      "n_decisions": 1976,
+      "accuracy": 0.6477732793522267,
+      "kl_from_gold": 0.5543547834568691,
+      "brier": 0.21732029245383452,
+      "ece": 0.04603529036228447,
+      "by_type": {
+        "noul": {
+          "n_decisions": 1272,
+          "accuracy": 0.7586477987421384,
+          "kl_from_gold": 0.24422471592802758,
+          "brier": 0.162534982473984,
+          "ece": 0.04189697414853359
+        },
+        "score": {
+          "n_decisions": 704,
+          "accuracy": 0.4474431818181818,
+          "kl_from_gold": 1.1147034281964803,
+          "brier": 0.3163073866219735,
+          "ece": 0.07148678509658814
+        }
+      },
+      "by_group": {
+        "csc": {
+          "n_decisions": 704,
+          "accuracy": 0.4474431818181818,
+          "kl_from_gold": 1.1147034281964803,
+          "brier": 0.3163073866219735,
+          "ece": 0.07148678509658814
+        },
+        "hs_brexit": {
+          "n_decisions": 168,
+          "accuracy": 0.9285714285714286,
+          "kl_from_gold": 0.15108521956635296,
+          "brier": 0.08545600398813086,
+          "ece": 0.031201827822709565
+        },
+        "md_agreement": {
+          "n_decisions": 1104,
+          "accuracy": 0.7327898550724637,
+          "kl_from_gold": 0.2583981175482824,
+          "brier": 0.17426439224357038,
+          "ece": 0.05007161964493168
+        }
+      },
+      "headline": "acc 0.6478, KL 0.5544, Brier 0.2173, ECE 0.0460",
+      "latency_p50_s": 0.028522353997686878,
+      "latency_p95_s": 0.031929896998917684,
+      "wall_s": 55.73954391479492,
+      "api": "systemone"
+    },
+    "pass2": {
+      "n_decisions": 1976,
+      "accuracy": 0.6513157894736842,
+      "kl_from_gold": 0.5534320493820436,
+      "brier": 0.21705764147347326,
+      "ece": 0.047483070131634456,
+      "by_type": {
+        "noul": {
+          "n_decisions": 1272,
+          "accuracy": 0.7586477987421384,
+          "kl_from_gold": 0.24422471592802758,
+          "brier": 0.162534982473984,
+          "ece": 0.04189697414853359
+        },
+        "score": {
+          "n_decisions": 704,
+          "accuracy": 0.45738636363636365,
+          "kl_from_gold": 1.112113481418277,
+          "brier": 0.3155701730748231,
+          "ece": 0.06913411548718462
+        }
+      },
+      "by_group": {
+        "csc": {
+          "n_decisions": 704,
+          "accuracy": 0.45738636363636365,
+          "kl_from_gold": 1.112113481418277,
+          "brier": 0.3155701730748231,
+          "ece": 0.06913411548718462
+        },
+        "hs_brexit": {
+          "n_decisions": 168,
+          "accuracy": 0.9285714285714286,
+          "kl_from_gold": 0.15108521956635296,
+          "brier": 0.08545600398813086,
+          "ece": 0.031201827822709565
+        },
+        "md_agreement": {
+          "n_decisions": 1104,
+          "accuracy": 0.7327898550724637,
+          "kl_from_gold": 0.2583981175482824,
+          "brier": 0.17426439224357038,
+          "ece": 0.05007161964493168
+        }
+      },
+      "headline": "acc 0.6513, KL 0.5534, Brier 0.2171, ECE 0.0475",
+      "latency_p50_s": 0.028545859007863328,
+      "latency_p95_s": 0.031854533997830003,
+      "wall_s": 55.69198226928711,
+      "api": "systemone"
+    },
+    "pass3": {
+      "n_decisions": 1976,
+      "accuracy": 0.6513157894736842,
+      "kl_from_gold": 0.5534320493820436,
+      "brier": 0.21705764147347326,
+      "ece": 0.047483070131634456,
+      "by_type": {
+        "noul": {
+          "n_decisions": 1272,
+          "accuracy": 0.7586477987421384,
+          "kl_from_gold": 0.24422471592802758,
+          "brier": 0.162534982473984,
+          "ece": 0.04189697414853359
+        },
+        "score": {
+          "n_decisions": 704,
+          "accuracy": 0.45738636363636365,
+          "kl_from_gold": 1.112113481418277,
+          "brier": 0.3155701730748231,
+          "ece": 0.06913411548718462
+        }
+      },
+      "by_group": {
+        "csc": {
+          "n_decisions": 704,
+          "accuracy": 0.45738636363636365,
+          "kl_from_gold": 1.112113481418277,
+          "brier": 0.3155701730748231,
+          "ece": 0.06913411548718462
+        },
+        "hs_brexit": {
+          "n_decisions": 168,
+          "accuracy": 0.9285714285714286,
+          "kl_from_gold": 0.15108521956635296,
+          "brier": 0.08545600398813086,
+          "ece": 0.031201827822709565
+        },
+        "md_agreement": {
+          "n_decisions": 1104,
+          "accuracy": 0.7327898550724637,
+          "kl_from_gold": 0.2583981175482824,
+          "brier": 0.17426439224357038,
+          "ece": 0.05007161964493168
+        }
+      },
+      "headline": "acc 0.6513, KL 0.5534, Brier 0.2171, ECE 0.0475",
+      "latency_p50_s": 0.028593108989298344,
+      "latency_p95_s": 0.03200159300467931,
+      "wall_s": 55.810462474823,
+      "api": "systemone"
+    }
+  },
+  "pass_drift": {
+    "mean_abs_prob_diff": 0.002895140185920419,
+    "max_abs_prob_diff": 0.2354356061692534,
+    "top_answer_changed": 21,
+    "n_decisions": 1976
+  }
+}

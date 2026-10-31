@@ -1,0 +1,108 @@
+{
+  "suite_version": 1,
+  "set": "calibrated-typed-decisions",
+  "dataset": {
+    "repo": "m-lagnajit/calibrated-typed-decisions",
+    "version": "2.1",
+    "revision": "34189779d116d0523db6af58c0d62538f7e7d07e",
+    "split": "heldout"
+  },
+  "gold_source": [
+    "human"
+  ],
+  "n_cases": 1000,
+  "limit": 0,
+  "concurrency": 1,
+  "endpoint": "/v1/systemone",
+  "served_model": "/models/Qwen3.8-27B-NVFP4",
+  "n": 1000,
+  "accuracy": 0.716,
+  "log_loss": 0.9021971023364518,
+  "brier": 0.4308276794597984,
+  "ece": 0.15383945476937985,
+  "by_group": {
+    "PubMedQA/choice": {
+      "n": 1000,
+      "accuracy": 0.716,
+      "log_loss": 0.9021971023364518,
+      "brier": 0.4308276794597984,
+      "ece": 0.15383945476937985
+    }
+  },
+  "headline": "acc 0.7160, log loss 0.9022, Brier 0.4308, ECE 0.1538",
+  "latency_p50_s": 0.056248509004944935,
+  "latency_p95_s": 0.07167996797943488,
+  "wall_s": 54.856205701828,
+  "api": "systemone",
+  "passes": {
+    "pass1": {
+      "n": 1000,
+      "accuracy": 0.716,
+      "log_loss": 0.9021971023364518,
+      "brier": 0.4308276794597984,
+      "ece": 0.15383945476937985,
+      "by_group": {
+        "PubMedQA/choice": {
+          "n": 1000,
+          "accuracy": 0.716,
+          "log_loss": 0.9021971023364518,
+          "brier": 0.4308276794597984,
+          "ece": 0.15383945476937985
+        }
+      },
+      "headline": "acc 0.7160, log loss 0.9022, Brier 0.4308, ECE 0.1538",
+      "latency_p50_s": 0.056248509004944935,
+      "latency_p95_s": 0.07167996797943488,
+      "wall_s": 54.856205701828,
+      "api": "systemone"
+    },
+    "pass2": {
+      "n": 1000,
+      "accuracy": 0.716,
+      "log_loss": 0.9021971023364518,
+      "brier": 0.4308276794597984,
+      "ece": 0.15383945476937985,
+      "by_group": {
+        "PubMedQA/choice": {
+          "n": 1000,
+          "accuracy": 0.716,
+          "log_loss": 0.9021971023364518,
+          "brier": 0.4308276794597984,
+          "ece": 0.15383945476937985
+        }
+      },
+      "headline": "acc 0.7160, log loss 0.9022, Brier 0.4308, ECE 0.1538",
+      "latency_p50_s": 0.056354154978180304,
+      "latency_p95_s": 0.07183421798981726,
+      "wall_s": 54.88479423522949,
+      "api": "systemone"
+    },
+    "pass3": {
+      "n": 1000,
+      "accuracy": 0.716,
+      "log_loss": 0.9021971023364518,
+      "brier": 0.4308276794597984,
+      "ece": 0.15383945476937985,
+      "by_group": {
+        "PubMedQA/choice": {
+          "n": 1000,
+          "accuracy": 0.716,
+          "log_loss": 0.9021971023364518,
+          "brier": 0.4308276794597984,
+          "ece": 0.15383945476937985
+        }
+      },
+      "headline": "acc 0.7160, log loss 0.9022, Brier 0.4308, ECE 0.1538",
+      "latency_p50_s": 0.056478048994904384,
+      "latency_p95_s": 0.07193989798543043,
+      "wall_s": 54.95160937309265,
+      "api": "systemone"
+    }
+  },
+  "pass_drift": {
+    "mean_abs_prob_diff": 0.0,
+    "max_abs_prob_diff": 0.0,
+    "top_answer_changed": 0,
+    "n_decisions": 1000
+  }
+}

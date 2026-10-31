@@ -240,6 +240,173 @@ Sets:
   (CLINC150, GoEmotions, BANKING77, MASSIVE, Amazon polarity, SciCite), `heldout` PubMedQA,
   `validation` fits the calibration. Score: accuracy, log loss, Brier, ECE (10 bins).
 
+### Three passes, two more sets (`results-repeat/`)
+
+Run overnight 2026-10-30 to 2026-10-31 (`tonight.sh`), `stock-nvfp4` and `swift-nvfp4`, same server
+flags, `/v1/systemone`, concurrency 1, 3 passes per run. Each dataset's passes share one server
+session; `results-repeat/train` and `results-repeat/test` were separate `run.sh` invocations (separate
+server launches), and the test datasets ran one after another in one session per config, so pass 1
+of a later dataset is not an empty-cache request. Passes 2 and 3 can reuse cached prefixes. Answers
+are in `results-repeat/{train,test}/`. The earlier one-pass run (`results-real/`, above) is kept.
+Added sets, with where each one's answers come from:
+
+- [ChaosNLI](https://huggingface.co/datasets/earino/chaosnli) (`earino/chaosnli` @
+  `bf8d66a1d3434ac8b90ffc392b1b5e44bdf7e439`, mirror of ChaosNLI v1.0): SNLI, MNLI-matched and αNLI
+  dev items, gold is the share of 100 human votes per item. One upstream split, so `validation` and
+  `test` are halves by sha256 of the item id (2,334 and 2,311 cases).
+- [LeWiDi](https://huggingface.co/datasets/tasksource/lewidi) (`tasksource/lewidi` @
+  `9ba2e83b536ca127fe8b25f2a2725f1e9a489c82`): sarcasm (`score`, 6 levels), offensiveness and
+  Brexit hate speech (`noul`); gold is the share of the annotators' votes (human). `validation` 1,976,
+  `test` 3,929 cases.
+
+Raw scores, pass 1 (`summary.json` of each run, `test` split; accuracy is the top answer against
+the top gold option, KL is from the gold distribution; `results-repeat/test/<config>/<set>-test/`):
+
+| Set (answers) | `stock-nvfp4` acc / KL / Brier / ECE | `swift-nvfp4` acc / KL / Brier / ECE |
+|---|---|---|
+| ChaosNLI `test` (human vote shares) | 0.7637 / 0.5788 / 0.1764 / 0.1055 | 0.7707 / 0.7500 / 0.1946 / 0.1322 |
+| LeWiDi `test` (human vote shares) | 0.6908 / 0.3935 / 0.1922 / 0.0389 | 0.7182 / 0.4267 / 0.1922 / 0.0501 |
+
+Accuracy differs between the configs by 0.007 on ChaosNLI and 0.027 on LeWiDi (Swift higher on both);
+Swift's KL from the gold distribution is higher on both, and its fitted `noul` temperatures are
+higher at every source (e.g. Typed Decisions 4.96 vs 3.28, below). No paired intervals for these sets.
+
+### Serving noise across passes
+
+`pass_drift` in `summary.json` is pass 2 vs pass 1 (first pass vs a pass that can reuse cached prefixes). Top answers changed
+(`results-repeat/test/<config>/<set>/summary.json`, stock / Swift):
+
+| Set | decisions | stock | Swift |
+|---|---|---|---|
+| Typed Decisions `test` | 2,000 | 2 | 0 |
+| Typed Decision Bench `test` | 10,656 | 104 | 76 |
+| Procedural Typed Decisions `test` | 2,882 | 10 | 13 |
+| Procedural Typed Decisions `validation` | 2,918 | 26 | 18 |
+| LeWiDi `test` | 3,929 | 0 | 2 |
+| LeWiDi `validation` | 1,976 | 21 | 14 |
+| ChaosNLI, Calibrated TD (all splits) | 1,000–2,334 | 0 | 0 |
+
+ChaosNLI and Calibrated TD have no changed top answers between pass 1 and 2. In the transfer
+tables the spread across passes is at most 0.07 points of DecisionScore or proper score (Swift TD
+Bench raw 76.59–76.66) and 0.05 on a fitted `noul` temperature (stock procedural, 3.35–3.40).
+Differences between sources smaller than these are not resolved.
+
+### Temperature transfer across datasets (`results-repeat/transfer.md`)
+
+**Question:** does a per-type temperature fitted on one dataset improve another? Run 2026-10-30 to
+31, CPU only, from the stored answers of the three-pass runs above (`transfer.py`), `stock-nvfp4`
+and `swift-nvfp4`.
+
+Method. Temperatures only (T per question type, as in "Calibration"): the biases are keyed to one
+dataset's questions and can't carry. Names in the tables, with where each dataset's answers come
+from:
+
+- Typed Decisions: the [Typed Decisions](https://huggingface.co/datasets/LocalLLaMA/typed-decisions)
+  set, gold from the unnamed ~4B teacher, so its scores are agreement with that teacher. Metric
+  KL from gold.
+- procedural: Procedural Typed Decisions, answers computed from rules. Metric Typed Decision
+  Bench's per-item proper score.
+- Calibrated TD: Calibrated Typed Decisions `test`, human labels. Metric log loss.
+- PubMedQA: Calibrated Typed Decisions `heldout`, expert labels. Metric log loss.
+- TD Bench: Typed Decision Bench, human labels. Metric DecisionScore.
+- ChaosNLI, LeWiDi: human vote shares. Metric KL from gold.
+
+Sources (rows) are fitted on their fit split: Typed Decisions `train`, procedural, Calibrated TD,
+ChaosNLI and LeWiDi `validation`, TD Bench on all of its `test` (it has no other split). PubMedQA
+is a target only. Targets (columns) are scored on each set's scored split. A type the source has no
+questions of keeps T = 1, and a cell is `-` where the source has none of the target's types (it
+would equal raw). The diagonal (bold) is the in-domain fit; for TD Bench it is the 5-fold cross-fit
+used above (stratified by task), so no target is scored with temperatures fitted on its own
+answers. "pooled text" is one fit on every source except the column's dataset, so it is out of
+sample. Each pass's fit uses the same pass of the fit split; cells are the mean over the three
+passes with [min, max].
+
+Full tables, both configs, with the fitted temperatures: [`results-repeat/transfer.md`](results-repeat/transfer.md).
+Raw, in-domain and pooled text rows, mean over passes (metrics as in the file: KL ↓ for Typed
+Decisions, ChaosNLI, LeWiDi; log loss ↓ for Calibrated TD and PubMedQA; proper score / DecisionScore
+↑ for procedural and TD Bench):
+
+| `stock-nvfp4` | Typed Decisions | procedural | Calibrated TD | PubMedQA | TD Bench | ChaosNLI | LeWiDi |
+|---|---|---|---|---|---|---|---|
+| raw | 0.541 | 74.26 | 0.602 | 0.902 | 77.21 | 0.579 | 0.394 |
+| in-domain | 0.203 | 76.44 | 0.457 | - | 80.28 | 0.194 | 0.327 |
+| pooled text | 0.219 | 75.95 | 0.463 | 0.678 | 79.94 | 0.240 | 0.361 |
+
+| `swift-nvfp4` | Typed Decisions | procedural | Calibrated TD | PubMedQA | TD Bench | ChaosNLI | LeWiDi |
+|---|---|---|---|---|---|---|---|
+| raw | 0.677 | 74.47 | 0.668 | 0.948 | 76.63 | 0.750 | 0.427 |
+| in-domain | 0.198 | 77.46 | 0.438 | - | 80.58 | 0.184 | 0.314 |
+| pooled text | 0.210 | 76.82 | 0.446 | 0.657 | 80.25 | 0.251 | 0.354 |
+
+- **Text to text mostly transfers:** 5 cells in the file are worse than raw in at least one pass
+  (flagged "(worse than raw in a pass)"; stock 3, Swift 2). 4 of them come from the ChaosNLI fit;
+  the fifth is Calibrated TD on LeWiDi, stock.
+- **Worst cells:** the ChaosNLI fit (`choice` T 3.11 stock, 3.71 Swift, the highest of any source)
+  does worse than raw on procedural (73.24 vs 74.26 stock, 72.99 vs 74.47 Swift) and TD Bench
+  (76.90 vs 77.21, 76.04 vs 76.63). One text-to-text case outside ChaosNLI: Calibrated TD on
+  LeWiDi, stock only (0.397 vs raw 0.394).
+- **The pooled text fit** gets close to the in-domain fit on the sets with their own temperature
+  types (Typed Decisions 0.219 vs 0.203 in-domain, raw 0.541, stock) but not all (ChaosNLI 0.240 vs
+  0.194, LeWiDi 0.361 vs 0.327 stock). On PubMedQA, which has no fit of its own, it gives 0.678
+  (stock) and 0.657 (Swift) log loss against raw 0.902 and 0.948.
+- **Fitted `noul` temperatures:** Typed Decisions, procedural, Calibrated TD and TD Bench give
+  2.92–3.83 (stock) and 4.08–5.08 (Swift); LeWiDi (1.58, 2.05) is lower.
+
+Rerun (CPU, from this folder):
+
+```sh
+uv run --no-project --with pyarrow --with numpy --with scipy transfer.py "$DATASETS_DIR" \
+    --td-train results-repeat/train --td-test results-repeat/test --real results-repeat/test \
+    --passes pass1 pass2 pass3 > results-repeat/transfer.md
+```
+
+Caveats: SNLI and MNLI are likely in the model's pretraining data [INFERENCE]. Pooling fits one temperature per question type, weighted by that type's decisions. The pass-to-pass range is variation over three passes of a dataset, not sampling error of the scored split.
+
+### How many labeled cases (`results-repeat/learning_curve.md`)
+
+**Question:** how many labeled cases does "T per type" need? CPU only, from the stored pass-1
+answers of the three-pass run (`learning_curve.py`). For each NVFP4 config and each dataset with a
+fit split separate from its scored split (Typed Decisions `train`, Procedural Typed Decisions
+`validation`, Calibrated Typed Decisions `validation`, ChaosNLI and LeWiDi `validation`), T per
+type is fitted on n cases drawn at random from the fit split and scored on the same scored split as
+above. Each n is drawn 20 times; cells show the median metric over draws with [10th, 90th
+percentile]. "Share" is the median fraction of the full-split fit's gain over raw,
+`(m_n − raw) / (m_full − raw)`: 1 = as good as fitting on the whole split, below 0 = worse than
+raw; the second number is the worst draw. A case can hold several questions, so n counts cases.
+Answers: Typed Decisions is agreement with the unnamed ~4B teacher (KL from gold); Procedural Typed
+Decisions answers are rule-computed (proper score); Calibrated Typed Decisions, ChaosNLI and LeWiDi
+are human labels or vote shares.
+
+Median share at n = 25 / 50 / 100 / 200 (full tables in the file):
+
+| Set | `stock-nvfp4` | `swift-nvfp4` |
+|---|---|---|
+| Typed Decisions | 1.00 / 1.00 / 1.00 / 1.00 | 0.99 / 1.00 / 1.00 / 1.00 |
+| ChaosNLI | 0.99 / 1.00 / 1.00 / 1.00 | 1.00 / 1.00 / 1.00 / 1.00 |
+| LeWiDi | 0.91 / 0.92 / 0.98 / 0.98 | 0.94 / 0.98 / 0.98 / 0.99 |
+| procedural | 0.85 / 0.92 / 0.97 / 1.00 | 0.87 / 0.94 / 0.99 / 1.00 |
+| Calibrated TD | 0.73 / 0.82 / 0.94 / 0.98 | 0.84 / 0.91 / 0.98 / 0.99 |
+
+- **25 cases are enough for 0.9 or more on ChaosNLI, Typed Decisions and LeWiDi**, both configs.
+  Procedural needs 50 (0.92 stock, 0.94 Swift), Calibrated TD 100 on stock (0.94; 0.91 at 50 on
+  Swift).
+- **Worst draws are the risk at small n.** Calibrated TD at n = 25 has a worst-draw share of −5.00
+  (stock) and −6.82 (Swift), still −4.09 and −2.00 at n = 50, and 0.79 at n = 100 on both. LeWiDi
+  at n = 25: −31.83 (stock), −13.17 (Swift). From n = 100 every worst draw is at least 0.79; from
+  n = 200 at least 0.88.
+
+Rerun (CPU, from this folder):
+
+```sh
+uv run --no-project --with pyarrow --with numpy --with scipy learning_curve.py "$DATASETS_DIR" \
+    --td-train results-repeat/train --td-test results-repeat/test --real results-repeat/test \
+    --pass pass1 > results-repeat/learning_curve.md
+```
+
+Caveats: draws come from fit splits of 880–2,334 cases (a 500-case draw covers 21–57% of the fit
+split), NVFP4 configs only, intervals are percentiles over draws and say nothing about the scored
+split's own sampling error.
+
 ## Benchmark
 
 [LocalLLaMA/typed-decisions](https://huggingface.co/datasets/LocalLLaMA/typed-decisions), `all`
@@ -308,6 +475,19 @@ DATASETS_DIR=... ./calibrate-real.sh
 uv run --no-project --with pyarrow --with numpy --with scipy real_answers.py "$DATASETS_DIR" > results-real/tables.md
 ```
 
+Overnight run (three passes of every text run, both NVFP4 configs; needs `chaosnli/` and `lewidi/`
+under `DATASETS_DIR` at the revisions in "Three passes, two more sets"), then the tables (host, CPU):
+
+```sh
+DATASETS_DIR=... MODELS_DIR=... BENCH_CDI=1 ./tonight.sh
+uv run --no-project --with pyarrow --with numpy --with scipy transfer.py "$DATASETS_DIR" \
+    --td-train results-repeat/train --td-test results-repeat/test --real results-repeat/test \
+    --passes pass1 pass2 pass3 > results-repeat/transfer.md
+uv run --no-project --with pyarrow --with numpy --with scipy learning_curve.py "$DATASETS_DIR" \
+    --td-train results-repeat/train --td-test results-repeat/test --real results-repeat/test \
+    --pass pass1 > results-repeat/learning_curve.md
+```
+
 `DATASETS_DIR` needs `typed-decisions/all/{train,test}-00000-of-00001.parquet` at the revision
 above; for `results-real/`, `typed-decision-bench/` (with the rebuilt items merged into
 `bench-complete/`), `procedural-typed-decisions/all/` and `calibrated-typed-decisions/` at the
@@ -324,8 +504,11 @@ BENCH_CDI=1 ./run.sh stock-nvfp4 swift-nvfp4` (default two passes plus native).
 - Gold is an unnamed ~4B-class teacher's soft distribution, not human labels. "Calibrated" means calibrated to
   that teacher.
 - The biases are per workflow, question and option: they only exist for questions with labeled
-  `train` data. The temperatures are per question type; whether they carry over to other
-  questions is not tested here.
+  `train` data. The temperatures are per question type; whether they carry to other datasets is
+  in "Temperature transfer across datasets".
 - Calibration was fitted for the two NVFP4 configs only.
 - `results-real/`: one pass, NVFP4 configs only. Procedural is a 874-state sample of 18,000.
   Typed Decision Bench's calibrated rows are cross-fitted on its test items.
+- `results-repeat/`: three passes per run; each dataset's passes share one server session (train and
+  test were separate launches; pass 1 precedes the cache-reusing passes 2-3); NVFP4 configs only.
+  SNLI and MNLI are likely in the model's pretraining data [INFERENCE].

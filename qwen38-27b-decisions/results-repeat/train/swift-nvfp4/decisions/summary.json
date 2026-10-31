@@ -1,0 +1,196 @@
+{
+  "suite_version": 1,
+  "set": "typed-decisions",
+  "dataset": {
+    "repo": "LocalLLaMA/typed-decisions",
+    "config": "all",
+    "revision": "1415d375cb86b418c53abec12795adf5b194e7fc",
+    "split": "train"
+  },
+  "gold_source": [
+    "model:unnamed"
+  ],
+  "n_cases": 1200,
+  "limit": 0,
+  "concurrency": 1,
+  "endpoint": "/v1/systemone",
+  "served_model": "/models/Swift-1.5-Qwen3.8-27B-NVFP4-ukisai",
+  "n_decisions": 6000,
+  "accuracy": 0.6778333333333333,
+  "kl_from_gold": 0.6573608894397353,
+  "brier": 0.218742794063591,
+  "ece": 0.1452438163332447,
+  "label_mass_mean": 0.9920927134250757,
+  "label_mass_p10": 0.9924054736413327,
+  "by_type": {
+    "choice": {
+      "n_decisions": 1800,
+      "accuracy": 0.645,
+      "kl_from_gold": 0.6771089620103737,
+      "brier": 0.2218695413006681,
+      "ece": 0.14811748366413618,
+      "label_mass_mean": 0.9983908055211201,
+      "label_mass_p10": 0.9964256960771846
+    },
+    "noul": {
+      "n_decisions": 1800,
+      "accuracy": 0.7177777777777777,
+      "kl_from_gold": 0.6578003448149169,
+      "brier": 0.22252435855464736,
+      "ece": 0.19038259805308433,
+      "label_mass_mean": 0.979095927698793,
+      "label_mass_p10": 0.9644565956567898
+    },
+    "score": {
+      "n_decisions": 2400,
+      "accuracy": 0.6725,
+      "kl_from_gold": 0.64222024348037,
+      "brier": 0.21356156026749085,
+      "ece": 0.11008184159180681,
+      "label_mass_mean": 0.9971167336477545,
+      "label_mass_p10": 0.9944386392151969
+    }
+  },
+  "headline": "acc 0.6778, KL 0.6574, Brier 0.2187, ECE 0.1452",
+  "latency_p50_s": 0.17149347299709916,
+  "latency_p95_s": 0.22019043602631427,
+  "wall_s": 187.9642515182495,
+  "api": "systemone",
+  "passes": {
+    "pass1": {
+      "n_decisions": 6000,
+      "accuracy": 0.6778333333333333,
+      "kl_from_gold": 0.6573608894397353,
+      "brier": 0.218742794063591,
+      "ece": 0.1452438163332447,
+      "label_mass_mean": 0.9920927134250757,
+      "label_mass_p10": 0.9924054736413327,
+      "by_type": {
+        "choice": {
+          "n_decisions": 1800,
+          "accuracy": 0.645,
+          "kl_from_gold": 0.6771089620103737,
+          "brier": 0.2218695413006681,
+          "ece": 0.14811748366413618,
+          "label_mass_mean": 0.9983908055211201,
+          "label_mass_p10": 0.9964256960771846
+        },
+        "noul": {
+          "n_decisions": 1800,
+          "accuracy": 0.7177777777777777,
+          "kl_from_gold": 0.6578003448149169,
+          "brier": 0.22252435855464736,
+          "ece": 0.19038259805308433,
+          "label_mass_mean": 0.979095927698793,
+          "label_mass_p10": 0.9644565956567898
+        },
+        "score": {
+          "n_decisions": 2400,
+          "accuracy": 0.6725,
+          "kl_from_gold": 0.64222024348037,
+          "brier": 0.21356156026749085,
+          "ece": 0.11008184159180681,
+          "label_mass_mean": 0.9971167336477545,
+          "label_mass_p10": 0.9944386392151969
+        }
+      },
+      "headline": "acc 0.6778, KL 0.6574, Brier 0.2187, ECE 0.1452",
+      "latency_p50_s": 0.17149347299709916,
+      "latency_p95_s": 0.22019043602631427,
+      "wall_s": 187.9642515182495,
+      "api": "systemone"
+    },
+    "pass2": {
+      "n_decisions": 6000,
+      "accuracy": 0.6776666666666666,
+      "kl_from_gold": 0.6574918167397682,
+      "brier": 0.21886311924361176,
+      "ece": 0.14549041565054788,
+      "label_mass_mean": 0.992092484640921,
+      "label_mass_p10": 0.9924054736413327,
+      "by_type": {
+        "choice": {
+          "n_decisions": 1800,
+          "accuracy": 0.645,
+          "kl_from_gold": 0.6773293524419406,
+          "brier": 0.22188825235034965,
+          "ece": 0.148128995414098,
+          "label_mass_mean": 0.9983896411960926,
+          "label_mass_p10": 0.9964256960771846
+        },
+        "noul": {
+          "n_decisions": 1800,
+          "accuracy": 0.7177777777777777,
+          "kl_from_gold": 0.6579175233849002,
+          "brier": 0.2225270729775686,
+          "ece": 0.19038622904962696,
+          "label_mass_mean": 0.9790960885643737,
+          "label_mass_p10": 0.9644565956567898
+        },
+        "score": {
+          "n_decisions": 2400,
+          "accuracy": 0.6720833333333334,
+          "kl_from_gold": 0.6422943849792899,
+          "brier": 0.21384630411309075,
+          "ece": 0.11068698282518633,
+          "label_mass_mean": 0.9971169142819529,
+          "label_mass_p10": 0.9943933338063581
+        }
+      },
+      "headline": "acc 0.6777, KL 0.6575, Brier 0.2189, ECE 0.1455",
+      "latency_p50_s": 0.17539423101698048,
+      "latency_p95_s": 0.2274447790114209,
+      "wall_s": 191.96995997428894,
+      "api": "systemone"
+    },
+    "pass3": {
+      "n_decisions": 6000,
+      "accuracy": 0.6776666666666666,
+      "kl_from_gold": 0.6574918167397682,
+      "brier": 0.21886311924361176,
+      "ece": 0.14549041565054788,
+      "label_mass_mean": 0.992092484640921,
+      "label_mass_p10": 0.9924054736413327,
+      "by_type": {
+        "choice": {
+          "n_decisions": 1800,
+          "accuracy": 0.645,
+          "kl_from_gold": 0.6773293524419406,
+          "brier": 0.22188825235034965,
+          "ece": 0.148128995414098,
+          "label_mass_mean": 0.9983896411960926,
+          "label_mass_p10": 0.9964256960771846
+        },
+        "noul": {
+          "n_decisions": 1800,
+          "accuracy": 0.7177777777777777,
+          "kl_from_gold": 0.6579175233849002,
+          "brier": 0.2225270729775686,
+          "ece": 0.19038622904962696,
+          "label_mass_mean": 0.9790960885643737,
+          "label_mass_p10": 0.9644565956567898
+        },
+        "score": {
+          "n_decisions": 2400,
+          "accuracy": 0.6720833333333334,
+          "kl_from_gold": 0.6422943849792899,
+          "brier": 0.21384630411309075,
+          "ece": 0.11068698282518633,
+          "label_mass_mean": 0.9971169142819529,
+          "label_mass_p10": 0.9943933338063581
+        }
+      },
+      "headline": "acc 0.6777, KL 0.6575, Brier 0.2189, ECE 0.1455",
+      "latency_p50_s": 0.1762006809876766,
+      "latency_p95_s": 0.22853493300499395,
+      "wall_s": 192.84272837638855,
+      "api": "systemone"
+    }
+  },
+  "pass_drift": {
+    "mean_abs_prob_diff": 0.00044170147396233777,
+    "max_abs_prob_diff": 0.35558534448391976,
+    "top_answer_changed": 5,
+    "n_decisions": 6000
+  }
+}
