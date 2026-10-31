@@ -1,6 +1,6 @@
 # Qwen3.8-27B: NVFP4 vs FP8 on SGLang
 
-Post: [RadixArk's NVFP4 Qwen3.8-27B served 32–37% more tokens/s than Qwen's FP8 on SGLang](https://acostanza.com/blog/qwen38-27b-nvfp4-vs-fp8/) (2026-10-28). Hardware: [hardware.md](../hardware.md).
+Post: [RadixArk's NVFP4 Qwen3.8-27B served 32–37% more tokens/s than Qwen's FP8 on SGLang](https://acostanza.com/benchmarks/qwen38-27b-nvfp4-vs-fp8/) (2026-10-28). Hardware: [hardware.md](../hardware.md).
 
 | | FP8 | NVFP4 | Change |
 |---|---|---|---|

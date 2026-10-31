@@ -1,6 +1,6 @@
 # Qwen3.8-27B NVFP4: which speculative drafter is fastest?
 
-Post: [DFlash2 8 led my Qwen3.8-27B drafter tests on one RTX PRO 6000](https://acostanza.com/blog/qwen38-27b-spec-decode/). Hardware: [hardware.md](../hardware.md).
+Post: [DFlash2 8 led my Qwen3.8-27B drafter tests on one RTX PRO 6000](https://acostanza.com/benchmarks/qwen38-27b-spec-decode/). Hardware: [hardware.md](../hardware.md).
 
 Question: on one RTX PRO 6000 Blackwell (400 W), which drafter gives the highest decode speed for stock Qwen3.8-27B NVFP4 at `reasoning_effort=medium`, and how does acceptance hold as the context grows to 120k tokens?
 

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Reproduces https://acostanza.com/blog/qwen38-27b-swift-vs-stock/
+# Reproduces https://acostanza.com/benchmarks/qwen38-27b-swift-vs-stock/
 # Swift 1.5 NVFP4 (ukisai's official build) vs stock Qwen3.8-27B NVFP4 (RadixArk), both with
 # DFlash2 speculative decoding (8 draft tokens), same flags and memory fraction.
 #   *-quality   GSM8K (all 1,319, daily) and the BFCL subset (1 run)

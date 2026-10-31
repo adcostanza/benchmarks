@@ -1,5 +1,5 @@
 #!/bin/bash
-# Reproduces https://acostanza.com/blog/qwen38-27b-nvfp4-vs-fp8/
+# Reproduces https://acostanza.com/benchmarks/qwen38-27b-nvfp4-vs-fp8/
 # Stock Qwen3.8-27B FP8 vs NVFP4 on SGLang with DFlash2 speculative decoding (8 draft tokens).
 #
 # Needs MODELS_DIR containing (see README.md for the download commands):
