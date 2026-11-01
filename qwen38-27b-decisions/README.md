@@ -521,8 +521,8 @@ the model's expected rating and the gold mean rating, `acc` the top answer again
   still lose to the constant on AVA and KonIQ by KL.
 - Same check on the other score sets, from the same file: AVA own fit 0.517 vs 0.588 uniform vs 0.162
   constant, KonIQ 0.578 vs 0.764 vs 0.334 (stock). On these two a constant beats the fitted model by KL
-  too, while KonIQ's rho is 0.791 / 0.790. The fit moves the model's mean rating most of the way to the voters' (previous bullet),
-  so what remains is in the per-image distributions (their width and shape), not the mean [INFERENCE]. On POPE, VQAv2 and VizWiz the constant is 0.693, 0.480 and 0.317 (stock
+  too, while KonIQ's rho is 0.791 / 0.790. The aggregate fitted means approach the voters' means (previous bullet), but the fitted distributions still lose to
+  the constant by KL; I did not separate per-image mean shifts from other shape errors. On POPE, VQAv2 and VizWiz the constant is 0.693, 0.480 and 0.317 (stock
   table: own fit 0.269, 0.187, 0.259), so the model beats it, though on VizWiz raw (0.315) is at the constant's level.
 
 Serving noise: soft-digits, AVA, KonIQ-10k, VizWiz and Rapidata Likert answers are bit-identical across
