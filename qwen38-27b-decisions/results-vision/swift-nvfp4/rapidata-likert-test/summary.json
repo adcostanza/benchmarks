@@ -1,0 +1,143 @@
+{
+  "suite_version": 1,
+  "set": "rapidata-likert",
+  "dataset": {
+    "repo": "Rapidata/flux1.1-likert-scale-preference",
+    "revision": "a490293a5614b444b317855c7e9dcdd7da91e124",
+    "split": "test"
+  },
+  "gold_source": [
+    "human"
+  ],
+  "n_cases": 528,
+  "limit": 0,
+  "concurrency": 1,
+  "endpoint": "/v1/systemone",
+  "served_model": "/models/Swift-1.5-Qwen3.8-27B-NVFP4-ukisai",
+  "n_decisions": 528,
+  "accuracy": 0.32575757575757575,
+  "kl_from_gold": 2.3013940292661403,
+  "brier": 0.3503162899660787,
+  "ece": 0.36540730909046,
+  "by_type": {
+    "score": {
+      "n_decisions": 528,
+      "accuracy": 0.32575757575757575,
+      "kl_from_gold": 2.3013940292661403,
+      "brier": 0.3503162899660787,
+      "ece": 0.36540730909046
+    }
+  },
+  "by_group": {
+    "likert": {
+      "n_decisions": 528,
+      "accuracy": 0.32575757575757575,
+      "kl_from_gold": 2.3013940292661403,
+      "brier": 0.3503162899660787,
+      "ece": 0.36540730909046
+    }
+  },
+  "headline": "acc 0.3258, KL 2.3014, Brier 0.3503, ECE 0.3654",
+  "latency_p50_s": 0.20440560998395085,
+  "latency_p95_s": 0.2068807079922408,
+  "wall_s": 108.37319898605347,
+  "api": "systemone",
+  "passes": {
+    "pass1": {
+      "n_decisions": 528,
+      "accuracy": 0.32575757575757575,
+      "kl_from_gold": 2.3013940292661403,
+      "brier": 0.3503162899660787,
+      "ece": 0.36540730909046,
+      "by_type": {
+        "score": {
+          "n_decisions": 528,
+          "accuracy": 0.32575757575757575,
+          "kl_from_gold": 2.3013940292661403,
+          "brier": 0.3503162899660787,
+          "ece": 0.36540730909046
+        }
+      },
+      "by_group": {
+        "likert": {
+          "n_decisions": 528,
+          "accuracy": 0.32575757575757575,
+          "kl_from_gold": 2.3013940292661403,
+          "brier": 0.3503162899660787,
+          "ece": 0.36540730909046
+        }
+      },
+      "headline": "acc 0.3258, KL 2.3014, Brier 0.3503, ECE 0.3654",
+      "latency_p50_s": 0.20440560998395085,
+      "latency_p95_s": 0.2068807079922408,
+      "wall_s": 108.37319898605347,
+      "api": "systemone"
+    },
+    "pass2": {
+      "n_decisions": 528,
+      "accuracy": 0.32575757575757575,
+      "kl_from_gold": 2.3013940292661403,
+      "brier": 0.3503162899660787,
+      "ece": 0.36540730909046,
+      "by_type": {
+        "score": {
+          "n_decisions": 528,
+          "accuracy": 0.32575757575757575,
+          "kl_from_gold": 2.3013940292661403,
+          "brier": 0.3503162899660787,
+          "ece": 0.36540730909046
+        }
+      },
+      "by_group": {
+        "likert": {
+          "n_decisions": 528,
+          "accuracy": 0.32575757575757575,
+          "kl_from_gold": 2.3013940292661403,
+          "brier": 0.3503162899660787,
+          "ece": 0.36540730909046
+        }
+      },
+      "headline": "acc 0.3258, KL 2.3014, Brier 0.3503, ECE 0.3654",
+      "latency_p50_s": 0.20572409400483593,
+      "latency_p95_s": 0.20783805602695793,
+      "wall_s": 109.1145691871643,
+      "api": "systemone"
+    },
+    "pass3": {
+      "n_decisions": 528,
+      "accuracy": 0.32575757575757575,
+      "kl_from_gold": 2.3013940292661403,
+      "brier": 0.3503162899660787,
+      "ece": 0.36540730909046,
+      "by_type": {
+        "score": {
+          "n_decisions": 528,
+          "accuracy": 0.32575757575757575,
+          "kl_from_gold": 2.3013940292661403,
+          "brier": 0.3503162899660787,
+          "ece": 0.36540730909046
+        }
+      },
+      "by_group": {
+        "likert": {
+          "n_decisions": 528,
+          "accuracy": 0.32575757575757575,
+          "kl_from_gold": 2.3013940292661403,
+          "brier": 0.3503162899660787,
+          "ece": 0.36540730909046
+        }
+      },
+      "headline": "acc 0.3258, KL 2.3014, Brier 0.3503, ECE 0.3654",
+      "latency_p50_s": 0.20592685003066435,
+      "latency_p95_s": 0.20776737498817965,
+      "wall_s": 109.22789311408997,
+      "api": "systemone"
+    }
+  },
+  "pass_drift": {
+    "mean_abs_prob_diff": 0.0,
+    "max_abs_prob_diff": 0.0,
+    "top_answer_changed": 0,
+    "n_decisions": 528
+  }
+}

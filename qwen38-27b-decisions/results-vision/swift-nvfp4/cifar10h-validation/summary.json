@@ -1,0 +1,143 @@
+{
+  "suite_version": 1,
+  "set": "cifar10h",
+  "dataset": {
+    "repo": "MKZuziak/cifar10h",
+    "revision": "0ec71d3ea7d6b3b9cc4bb03362f1268e9cdf4542",
+    "split": "validation"
+  },
+  "gold_source": [
+    "human"
+  ],
+  "n_cases": 1000,
+  "limit": 0,
+  "concurrency": 1,
+  "endpoint": "/v1/systemone",
+  "served_model": "/models/Swift-1.5-Qwen3.8-27B-NVFP4-ukisai",
+  "n_decisions": 1000,
+  "accuracy": 0.918,
+  "kl_from_gold": 0.30046988600398544,
+  "brier": 0.08564452323268842,
+  "ece": 0.019022105748272383,
+  "by_type": {
+    "choice": {
+      "n_decisions": 1000,
+      "accuracy": 0.918,
+      "kl_from_gold": 0.30046988600398544,
+      "brier": 0.08564452323268842,
+      "ece": 0.019022105748272383
+    }
+  },
+  "by_group": {
+    "cifar10h": {
+      "n_decisions": 1000,
+      "accuracy": 0.918,
+      "kl_from_gold": 0.30046988600398544,
+      "brier": 0.08564452323268842,
+      "ece": 0.019022105748272383
+    }
+  },
+  "headline": "acc 0.9180, KL 0.3005, Brier 0.0856, ECE 0.0190",
+  "latency_p50_s": 0.04289289700682275,
+  "latency_p95_s": 0.04462462698575109,
+  "wall_s": 43.15765857696533,
+  "api": "systemone",
+  "passes": {
+    "pass1": {
+      "n_decisions": 1000,
+      "accuracy": 0.918,
+      "kl_from_gold": 0.30046988600398544,
+      "brier": 0.08564452323268842,
+      "ece": 0.019022105748272383,
+      "by_type": {
+        "choice": {
+          "n_decisions": 1000,
+          "accuracy": 0.918,
+          "kl_from_gold": 0.30046988600398544,
+          "brier": 0.08564452323268842,
+          "ece": 0.019022105748272383
+        }
+      },
+      "by_group": {
+        "cifar10h": {
+          "n_decisions": 1000,
+          "accuracy": 0.918,
+          "kl_from_gold": 0.30046988600398544,
+          "brier": 0.08564452323268842,
+          "ece": 0.019022105748272383
+        }
+      },
+      "headline": "acc 0.9180, KL 0.3005, Brier 0.0856, ECE 0.0190",
+      "latency_p50_s": 0.04289289700682275,
+      "latency_p95_s": 0.04462462698575109,
+      "wall_s": 43.15765857696533,
+      "api": "systemone"
+    },
+    "pass2": {
+      "n_decisions": 1000,
+      "accuracy": 0.918,
+      "kl_from_gold": 0.30046988600398544,
+      "brier": 0.08564452323268842,
+      "ece": 0.019022105748272383,
+      "by_type": {
+        "choice": {
+          "n_decisions": 1000,
+          "accuracy": 0.918,
+          "kl_from_gold": 0.30046988600398544,
+          "brier": 0.08564452323268842,
+          "ece": 0.019022105748272383
+        }
+      },
+      "by_group": {
+        "cifar10h": {
+          "n_decisions": 1000,
+          "accuracy": 0.918,
+          "kl_from_gold": 0.30046988600398544,
+          "brier": 0.08564452323268842,
+          "ece": 0.019022105748272383
+        }
+      },
+      "headline": "acc 0.9180, KL 0.3005, Brier 0.0856, ECE 0.0190",
+      "latency_p50_s": 0.043312444002367556,
+      "latency_p95_s": 0.04453167101019062,
+      "wall_s": 43.534236669540405,
+      "api": "systemone"
+    },
+    "pass3": {
+      "n_decisions": 1000,
+      "accuracy": 0.918,
+      "kl_from_gold": 0.30046988600398544,
+      "brier": 0.08564452323268842,
+      "ece": 0.019022105748272383,
+      "by_type": {
+        "choice": {
+          "n_decisions": 1000,
+          "accuracy": 0.918,
+          "kl_from_gold": 0.30046988600398544,
+          "brier": 0.08564452323268842,
+          "ece": 0.019022105748272383
+        }
+      },
+      "by_group": {
+        "cifar10h": {
+          "n_decisions": 1000,
+          "accuracy": 0.918,
+          "kl_from_gold": 0.30046988600398544,
+          "brier": 0.08564452323268842,
+          "ece": 0.019022105748272383
+        }
+      },
+      "headline": "acc 0.9180, KL 0.3005, Brier 0.0856, ECE 0.0190",
+      "latency_p50_s": 0.04351054600556381,
+      "latency_p95_s": 0.045943461009301245,
+      "wall_s": 43.78413462638855,
+      "api": "systemone"
+    }
+  },
+  "pass_drift": {
+    "mean_abs_prob_diff": 0.0,
+    "max_abs_prob_diff": 0.0,
+    "top_answer_changed": 0,
+    "n_decisions": 1000
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "suite_version": 1,
+  "set": "rapidata-style",
+  "dataset": {
+    "repo": "Rapidata/human-style-preferences-images",
+    "revision": "0b9a8d940f4c8e5307019fb207b5707e1e31716c",
+    "split": "test"
+  },
+  "gold_source": [
+    "human"
+  ],
+  "n_cases": 1500,
+  "limit": 0,
+  "concurrency": 1,
+  "endpoint": "/v1/systemone",
+  "served_model": "/models/Swift-1.5-Qwen3.8-27B-NVFP4-ukisai",
+  "n_decisions": 1500,
+  "accuracy": 0.612,
+  "kl_from_gold": 0.4781564628419479,
+  "brier": 0.22999675501851835,
+  "ece": 0.20188340920489803,
+  "by_type": {
+    "choice": {
+      "n_decisions": 1500,
+      "accuracy": 0.612,
+      "kl_from_gold": 0.4781564628419479,
+      "brier": 0.22999675501851835,
+      "ece": 0.20188340920489803
+    }
+  },
+  "by_group": {
+    "style": {
+      "n_decisions": 1500,
+      "accuracy": 0.612,
+      "kl_from_gold": 0.4781564628419479,
+      "brier": 0.22999675501851835,
+      "ece": 0.20188340920489803
+    }
+  },
+  "headline": "acc 0.6120, KL 0.4782, Brier 0.2300, ECE 0.2019",
+  "latency_p50_s": 0.39636600302765146,
+  "latency_p95_s": 0.40241070999763906,
+  "wall_s": 588.2873814105988,
+  "api": "systemone",
+  "passes": {
+    "pass1": {
+      "n_decisions": 1500,
+      "accuracy": 0.612,
+      "kl_from_gold": 0.4781564628419479,
+      "brier": 0.22999675501851835,
+      "ece": 0.20188340920489803,
+      "by_type": {
+        "choice": {
+          "n_decisions": 1500,
+          "accuracy": 0.612,
+          "kl_from_gold": 0.4781564628419479,
+          "brier": 0.22999675501851835,
+          "ece": 0.20188340920489803
+        }
+      },
+      "by_group": {
+        "style": {
+          "n_decisions": 1500,
+          "accuracy": 0.612,
+          "kl_from_gold": 0.4781564628419479,
+          "brier": 0.22999675501851835,
+          "ece": 0.20188340920489803
+        }
+      },
+      "headline": "acc 0.6120, KL 0.4782, Brier 0.2300, ECE 0.2019",
+      "latency_p50_s": 0.39636600302765146,
+      "latency_p95_s": 0.40241070999763906,
+      "wall_s": 588.2873814105988,
+      "api": "systemone"
+    }
+  }
+}

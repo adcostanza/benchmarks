@@ -1,0 +1,77 @@
+{
+  "suite_version": 1,
+  "set": "rapidata-style",
+  "dataset": {
+    "repo": "Rapidata/human-style-preferences-images",
+    "revision": "0b9a8d940f4c8e5307019fb207b5707e1e31716c",
+    "split": "test"
+  },
+  "gold_source": [
+    "human"
+  ],
+  "n_cases": 1500,
+  "limit": 0,
+  "concurrency": 1,
+  "endpoint": "/v1/systemone",
+  "served_model": "/models/Qwen3.8-27B-NVFP4",
+  "n_decisions": 1500,
+  "accuracy": 0.5913333333333334,
+  "kl_from_gold": 0.4152538989059798,
+  "brier": 0.20932727479822125,
+  "ece": 0.18647846913522073,
+  "by_type": {
+    "choice": {
+      "n_decisions": 1500,
+      "accuracy": 0.5913333333333334,
+      "kl_from_gold": 0.4152538989059798,
+      "brier": 0.20932727479822125,
+      "ece": 0.18647846913522073
+    }
+  },
+  "by_group": {
+    "style": {
+      "n_decisions": 1500,
+      "accuracy": 0.5913333333333334,
+      "kl_from_gold": 0.4152538989059798,
+      "brier": 0.20932727479822125,
+      "ece": 0.18647846913522073
+    }
+  },
+  "headline": "acc 0.5913, KL 0.4153, Brier 0.2093, ECE 0.1865",
+  "latency_p50_s": 0.39652105496497825,
+  "latency_p95_s": 0.4025971249793656,
+  "wall_s": 588.25821352005,
+  "api": "systemone",
+  "passes": {
+    "pass1": {
+      "n_decisions": 1500,
+      "accuracy": 0.5913333333333334,
+      "kl_from_gold": 0.4152538989059798,
+      "brier": 0.20932727479822125,
+      "ece": 0.18647846913522073,
+      "by_type": {
+        "choice": {
+          "n_decisions": 1500,
+          "accuracy": 0.5913333333333334,
+          "kl_from_gold": 0.4152538989059798,
+          "brier": 0.20932727479822125,
+          "ece": 0.18647846913522073
+        }
+      },
+      "by_group": {
+        "style": {
+          "n_decisions": 1500,
+          "accuracy": 0.5913333333333334,
+          "kl_from_gold": 0.4152538989059798,
+          "brier": 0.20932727479822125,
+          "ece": 0.18647846913522073
+        }
+      },
+      "headline": "acc 0.5913, KL 0.4153, Brier 0.2093, ECE 0.1865",
+      "latency_p50_s": 0.39652105496497825,
+      "latency_p95_s": 0.4025971249793656,
+      "wall_s": 588.25821352005,
+      "api": "systemone"
+    }
+  }
+}

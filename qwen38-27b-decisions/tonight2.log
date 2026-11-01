@@ -1,0 +1,185 @@
+ Container bench-sglang-1  Creating
+ Container bench-sglang-1  Created
+ Container bench-sglang-1  Starting
+ Container bench-sglang-1  Started
+sglang ready: Qwen3.8-27B-NVFP4 in 167s
+decisions soft-digits/validation pass1 (systemone): 5 cases, acc 0.6000, KL 0.7629, Brier 0.2728, ECE 0.2615, p50 43 ms, 0s
+wrote /out/summary.json
+decisions soft-digits/test pass1 (systemone): 5 cases, acc 1.0000, KL 0.2421, Brier 0.0799, ECE 0.2659, p50 43 ms, 0s
+wrote /out/summary.json
+decisions vqav2/validation pass1 (systemone): 5 cases, acc 0.8000, KL 0.1484, Brier 0.1082, ECE 0.1021, p50 82 ms, 1s
+wrote /out/summary.json
+decisions vqav2/test pass1 (systemone): 5 cases, acc 0.8824, KL 0.4636, Brier 0.1853, ECE 0.0912, p50 118 ms, 1s
+wrote /out/summary.json
+decisions ava/validation pass1 (systemone): 5 cases, acc 0.0000, KL 0.5596, Brier 0.1290, ECE 0.2737, p50 65 ms, 0s
+wrote /out/summary.json
+decisions ava/test pass1 (systemone): 5 cases, acc 0.2000, KL 0.9137, Brier 0.2126, ECE 0.3882, p50 39 ms, 0s
+wrote /out/summary.json
+decisions koniq10k/validation pass1 (systemone): 5 cases, acc 0.6000, KL 0.6618, Brier 0.2347, ECE 0.2449, p50 131 ms, 1s
+wrote /out/summary.json
+decisions koniq10k/test pass1 (systemone): 5 cases, acc 0.4000, KL 0.5747, Brier 0.2657, ECE 0.1654, p50 130 ms, 1s
+wrote /out/summary.json
+decisions vizwiz/validation pass1 (systemone): 5 cases, acc 0.4000, KL 0.2475, Brier 0.2061, ECE 0.5573, p50 218 ms, 1s
+wrote /out/summary.json
+decisions vizwiz/test pass1 (systemone): 5 cases, acc 0.6000, KL 0.7283, Brier 0.3799, ECE 0.2404, p50 210 ms, 2s
+wrote /out/summary.json
+decisions rapidata-likert/validation pass1 (systemone): 5 cases, acc 0.8000, KL 1.2494, Brier 0.1694, ECE 0.2045, p50 188 ms, 1s
+wrote /out/summary.json
+decisions rapidata-likert/test pass1 (systemone): 5 cases, acc 0.0000, KL 1.5449, Brier 0.3055, ECE 0.5940, p50 188 ms, 1s
+wrote /out/summary.json
+ Container bench-sglang-1  Stopping
+ Container bench-sglang-1  Stopped
+Going to remove bench-sglang-1
+ Container bench-sglang-1  Removing
+ Container bench-sglang-1  Removed
+ Container bench-sglang-1  Creating
+ Container bench-sglang-1  Created
+ Container bench-sglang-1  Starting
+ Container bench-sglang-1  Started
+sglang ready: Swift-1.5-Qwen3.8-27B-NVFP4-ukisai in 167s
+decisions soft-digits/validation pass1 (systemone): 5 cases, acc 0.8000, KL 0.5505, Brier 0.2521, ECE 0.1695, p50 44 ms, 0s
+wrote /out/summary.json
+decisions soft-digits/test pass1 (systemone): 5 cases, acc 1.0000, KL 0.2278, Brier 0.0564, ECE 0.0794, p50 44 ms, 0s
+wrote /out/summary.json
+decisions vqav2/validation pass1 (systemone): 5 cases, acc 0.8000, KL 0.0960, Brier 0.0814, ECE 0.1405, p50 82 ms, 1s
+wrote /out/summary.json
+decisions vqav2/test pass1 (systemone): 5 cases, acc 0.8824, KL 0.5195, Brier 0.1899, ECE 0.1304, p50 120 ms, 1s
+wrote /out/summary.json
+decisions ava/validation pass1 (systemone): 5 cases, acc 0.0000, KL 1.3472, Brier 0.3490, ECE 0.5068, p50 64 ms, 0s
+wrote /out/summary.json
+decisions ava/test pass1 (systemone): 5 cases, acc 0.0000, KL 1.4049, Brier 0.3608, ECE 0.4766, p50 38 ms, 0s
+wrote /out/summary.json
+decisions koniq10k/validation pass1 (systemone): 5 cases, acc 0.4000, KL 1.1723, Brier 0.4306, ECE 0.4626, p50 130 ms, 1s
+wrote /out/summary.json
+decisions koniq10k/test pass1 (systemone): 5 cases, acc 0.6000, KL 0.8836, Brier 0.2692, ECE 0.4458, p50 129 ms, 1s
+wrote /out/summary.json
+decisions vizwiz/validation pass1 (systemone): 5 cases, acc 0.6000, KL 0.1476, Brier 0.1215, ECE 0.3016, p50 220 ms, 1s
+wrote /out/summary.json
+decisions vizwiz/test pass1 (systemone): 5 cases, acc 0.8000, KL 0.2214, Brier 0.1216, ECE 0.1333, p50 207 ms, 2s
+wrote /out/summary.json
+decisions rapidata-likert/validation pass1 (systemone): 5 cases, acc 0.6000, KL 2.3817, Brier 0.3287, ECE 0.3338, p50 187 ms, 1s
+wrote /out/summary.json
+decisions rapidata-likert/test pass1 (systemone): 5 cases, acc 0.0000, KL 2.8768, Brier 0.4725, ECE 0.7106, p50 187 ms, 1s
+wrote /out/summary.json
+ Container bench-sglang-1  Stopping
+ Container bench-sglang-1  Stopped
+Going to remove bench-sglang-1
+ Container bench-sglang-1  Removing
+ Container bench-sglang-1  Removed
+ Container bench-sglang-1  Creating
+ Container bench-sglang-1  Created
+ Container bench-sglang-1  Starting
+ Container bench-sglang-1  Started
+sglang ready: Qwen3.8-27B-NVFP4 in 167s
+decisions soft-digits/validation pass1 (systemone): 830 cases, acc 0.7639, KL 0.7008, Brier 0.2153, ECE 0.0509, p50 44 ms, 37s
+decisions soft-digits/validation pass2 (systemone): 830 cases, acc 0.7639, KL 0.7008, Brier 0.2153, ECE 0.0509, p50 44 ms, 37s
+decisions soft-digits/validation pass3 (systemone): 830 cases, acc 0.7639, KL 0.7008, Brier 0.2153, ECE 0.0509, p50 44 ms, 37s
+wrote /out/summary.json
+decisions soft-digits/test pass1 (systemone): 830 cases, acc 0.7205, KL 0.7980, Brier 0.2396, ECE 0.0282, p50 44 ms, 37s
+decisions soft-digits/test pass2 (systemone): 830 cases, acc 0.7205, KL 0.7980, Brier 0.2396, ECE 0.0282, p50 44 ms, 37s
+decisions soft-digits/test pass3 (systemone): 830 cases, acc 0.7205, KL 0.7980, Brier 0.2396, ECE 0.0282, p50 45 ms, 37s
+wrote /out/summary.json
+decisions vqav2/validation pass1 (systemone): 500 cases, acc 0.8592, KL 0.3243, Brier 0.1425, ECE 0.0581, p50 104 ms, 56s
+decisions vqav2/validation pass2 (systemone): 500 cases, acc 0.8608, KL 0.3207, Brier 0.1414, ECE 0.0554, p50 104 ms, 54s
+decisions vqav2/validation pass3 (systemone): 500 cases, acc 0.8608, KL 0.3207, Brier 0.1414, ECE 0.0554, p50 105 ms, 55s
+wrote /out/summary.json
+decisions vqav2/test pass1 (systemone): 1000 cases, acc 0.8740, KL 0.3113, Brier 0.1357, ECE 0.0533, p50 104 ms, 107s
+decisions vqav2/test pass2 (systemone): 1000 cases, acc 0.8740, KL 0.3134, Brier 0.1365, ECE 0.0519, p50 104 ms, 107s
+decisions vqav2/test pass3 (systemone): 1000 cases, acc 0.8740, KL 0.3134, Brier 0.1365, ECE 0.0519, p50 105 ms, 108s
+wrote /out/summary.json
+decisions ava/validation pass1 (systemone): 1000 cases, acc 0.2620, KL 0.8955, Brier 0.2113, ECE 0.1588, p50 72 ms, 74s
+decisions ava/validation pass2 (systemone): 1000 cases, acc 0.2620, KL 0.8955, Brier 0.2113, ECE 0.1588, p50 73 ms, 75s
+decisions ava/validation pass3 (systemone): 1000 cases, acc 0.2620, KL 0.8955, Brier 0.2113, ECE 0.1588, p50 73 ms, 75s
+wrote /out/summary.json
+decisions ava/test pass1 (systemone): 2000 cases, acc 0.2695, KL 0.8854, Brier 0.2089, ECE 0.1487, p50 73 ms, 149s
+decisions ava/test pass2 (systemone): 2000 cases, acc 0.2695, KL 0.8854, Brier 0.2089, ECE 0.1487, p50 73 ms, 151s
+decisions ava/test pass3 (systemone): 2000 cases, acc 0.2695, KL 0.8854, Brier 0.2089, ECE 0.1487, p50 73 ms, 151s
+wrote /out/summary.json
+decisions koniq10k/validation pass1 (systemone): 1000 cases, acc 0.3690, KL 0.8866, Brier 0.3523, ECE 0.2299, p50 142 ms, 143s
+decisions koniq10k/validation pass2 (systemone): 1000 cases, acc 0.3690, KL 0.8866, Brier 0.3523, ECE 0.2299, p50 143 ms, 144s
+decisions koniq10k/validation pass3 (systemone): 1000 cases, acc 0.3690, KL 0.8866, Brier 0.3523, ECE 0.2299, p50 143 ms, 144s
+wrote /out/summary.json
+decisions koniq10k/test pass1 (systemone): 2000 cases, acc 0.3805, KL 0.8511, Brier 0.3373, ECE 0.2126, p50 143 ms, 288s
+decisions koniq10k/test pass2 (systemone): 2000 cases, acc 0.3805, KL 0.8511, Brier 0.3373, ECE 0.2126, p50 144 ms, 289s
+decisions koniq10k/test pass3 (systemone): 2000 cases, acc 0.3805, KL 0.8511, Brier 0.3373, ECE 0.2126, p50 143 ms, 289s
+wrote /out/summary.json
+decisions vizwiz/validation pass1 (systemone): 1000 cases, acc 0.7930, KL 0.3219, Brier 0.1901, ECE 0.0449, p50 247 ms, 356s
+decisions vizwiz/validation pass2 (systemone): 1000 cases, acc 0.7930, KL 0.3219, Brier 0.1901, ECE 0.0449, p50 248 ms, 358s
+decisions vizwiz/validation pass3 (systemone): 1000 cases, acc 0.7930, KL 0.3219, Brier 0.1901, ECE 0.0449, p50 248 ms, 358s
+wrote /out/summary.json
+decisions vizwiz/test pass1 (systemone): 2000 cases, acc 0.7940, KL 0.3153, Brier 0.1848, ECE 0.0404, p50 418 ms, 746s
+decisions vizwiz/test pass2 (systemone): 2000 cases, acc 0.7940, KL 0.3153, Brier 0.1848, ECE 0.0404, p50 420 ms, 747s
+decisions vizwiz/test pass3 (systemone): 2000 cases, acc 0.7940, KL 0.3153, Brier 0.1848, ECE 0.0404, p50 420 ms, 748s
+wrote /out/summary.json
+decisions rapidata-likert/validation pass1 (systemone): 596 cases, acc 0.4715, KL 1.4254, Brier 0.2378, ECE 0.1355, p50 205 ms, 122s
+decisions rapidata-likert/validation pass2 (systemone): 596 cases, acc 0.4715, KL 1.4254, Brier 0.2378, ECE 0.1355, p50 206 ms, 123s
+decisions rapidata-likert/validation pass3 (systemone): 596 cases, acc 0.4715, KL 1.4254, Brier 0.2378, ECE 0.1355, p50 206 ms, 123s
+wrote /out/summary.json
+decisions rapidata-likert/test pass1 (systemone): 528 cases, acc 0.4356, KL 1.3528, Brier 0.2219, ECE 0.1513, p50 204 ms, 108s
+decisions rapidata-likert/test pass2 (systemone): 528 cases, acc 0.4356, KL 1.3528, Brier 0.2219, ECE 0.1513, p50 206 ms, 109s
+decisions rapidata-likert/test pass3 (systemone): 528 cases, acc 0.4356, KL 1.3528, Brier 0.2219, ECE 0.1513, p50 206 ms, 109s
+wrote /out/summary.json
+ Container bench-sglang-1  Stopping
+ Container bench-sglang-1  Stopped
+Going to remove bench-sglang-1
+ Container bench-sglang-1  Removing
+ Container bench-sglang-1  Removed
+ Container bench-sglang-1  Creating
+ Container bench-sglang-1  Created
+ Container bench-sglang-1  Starting
+ Container bench-sglang-1  Started
+sglang ready: Swift-1.5-Qwen3.8-27B-NVFP4-ukisai in 167s
+decisions soft-digits/validation pass1 (systemone): 830 cases, acc 0.8084, KL 0.6884, Brier 0.1753, ECE 0.0378, p50 44 ms, 37s
+decisions soft-digits/validation pass2 (systemone): 830 cases, acc 0.8084, KL 0.6884, Brier 0.1753, ECE 0.0378, p50 44 ms, 37s
+decisions soft-digits/validation pass3 (systemone): 830 cases, acc 0.8084, KL 0.6884, Brier 0.1753, ECE 0.0378, p50 44 ms, 37s
+wrote /out/summary.json
+decisions soft-digits/test pass1 (systemone): 830 cases, acc 0.7795, KL 0.7980, Brier 0.1990, ECE 0.0338, p50 44 ms, 37s
+decisions soft-digits/test pass2 (systemone): 830 cases, acc 0.7795, KL 0.7980, Brier 0.1990, ECE 0.0338, p50 45 ms, 37s
+decisions soft-digits/test pass3 (systemone): 830 cases, acc 0.7795, KL 0.7980, Brier 0.1990, ECE 0.0338, p50 45 ms, 37s
+wrote /out/summary.json
+decisions vqav2/validation pass1 (systemone): 500 cases, acc 0.8790, KL 0.3690, Brier 0.1331, ECE 0.0538, p50 104 ms, 56s
+decisions vqav2/validation pass2 (systemone): 500 cases, acc 0.8757, KL 0.3731, Brier 0.1360, ECE 0.0563, p50 105 ms, 55s
+decisions vqav2/validation pass3 (systemone): 500 cases, acc 0.8757, KL 0.3731, Brier 0.1360, ECE 0.0563, p50 106 ms, 55s
+wrote /out/summary.json
+decisions vqav2/test pass1 (systemone): 1000 cases, acc 0.8761, KL 0.3800, Brier 0.1415, ECE 0.0552, p50 105 ms, 108s
+decisions vqav2/test pass2 (systemone): 1000 cases, acc 0.8761, KL 0.3806, Brier 0.1412, ECE 0.0543, p50 105 ms, 108s
+decisions vqav2/test pass3 (systemone): 1000 cases, acc 0.8761, KL 0.3803, Brier 0.1412, ECE 0.0542, p50 106 ms, 108s
+wrote /out/summary.json
+decisions ava/validation pass1 (systemone): 1000 cases, acc 0.1340, KL 1.5878, Brier 0.3753, ECE 0.3997, p50 73 ms, 75s
+decisions ava/validation pass2 (systemone): 1000 cases, acc 0.1340, KL 1.5878, Brier 0.3753, ECE 0.3997, p50 73 ms, 75s
+decisions ava/validation pass3 (systemone): 1000 cases, acc 0.1340, KL 1.5878, Brier 0.3753, ECE 0.3997, p50 73 ms, 75s
+wrote /out/summary.json
+decisions ava/test pass1 (systemone): 2000 cases, acc 0.1305, KL 1.5697, Brier 0.3725, ECE 0.4010, p50 73 ms, 150s
+decisions ava/test pass2 (systemone): 2000 cases, acc 0.1305, KL 1.5697, Brier 0.3725, ECE 0.4010, p50 74 ms, 151s
+decisions ava/test pass3 (systemone): 2000 cases, acc 0.1305, KL 1.5697, Brier 0.3725, ECE 0.4010, p50 74 ms, 152s
+wrote /out/summary.json
+decisions koniq10k/validation pass1 (systemone): 1000 cases, acc 0.4670, KL 0.9996, Brier 0.3390, ECE 0.2321, p50 143 ms, 144s
+decisions koniq10k/validation pass2 (systemone): 1000 cases, acc 0.4670, KL 0.9996, Brier 0.3390, ECE 0.2321, p50 144 ms, 145s
+decisions koniq10k/validation pass3 (systemone): 1000 cases, acc 0.4670, KL 0.9996, Brier 0.3390, ECE 0.2321, p50 144 ms, 145s
+wrote /out/summary.json
+decisions koniq10k/test pass1 (systemone): 2000 cases, acc 0.4685, KL 0.9518, Brier 0.3229, ECE 0.2199, p50 143 ms, 289s
+decisions koniq10k/test pass2 (systemone): 2000 cases, acc 0.4685, KL 0.9518, Brier 0.3229, ECE 0.2199, p50 144 ms, 290s
+decisions koniq10k/test pass3 (systemone): 2000 cases, acc 0.4685, KL 0.9518, Brier 0.3229, ECE 0.2199, p50 144 ms, 290s
+wrote /out/summary.json
+decisions vizwiz/validation pass1 (systemone): 1000 cases, acc 0.7820, KL 0.3799, Brier 0.2018, ECE 0.0605, p50 247 ms, 357s
+decisions vizwiz/validation pass2 (systemone): 1000 cases, acc 0.7820, KL 0.3799, Brier 0.2018, ECE 0.0605, p50 249 ms, 359s
+decisions vizwiz/validation pass3 (systemone): 1000 cases, acc 0.7820, KL 0.3799, Brier 0.2018, ECE 0.0605, p50 250 ms, 359s
+wrote /out/summary.json
+decisions vizwiz/test pass1 (systemone): 2000 cases, acc 0.7985, KL 0.3965, Brier 0.2048, ECE 0.0511, p50 418 ms, 746s
+decisions vizwiz/test pass2 (systemone): 2000 cases, acc 0.7985, KL 0.3965, Brier 0.2048, ECE 0.0511, p50 420 ms, 747s
+decisions vizwiz/test pass3 (systemone): 2000 cases, acc 0.7985, KL 0.3965, Brier 0.2048, ECE 0.0511, p50 420 ms, 747s
+wrote /out/summary.json
+decisions rapidata-likert/validation pass1 (systemone): 596 cases, acc 0.3557, KL 2.4684, Brier 0.3633, ECE 0.3455, p50 205 ms, 123s
+decisions rapidata-likert/validation pass2 (systemone): 596 cases, acc 0.3557, KL 2.4684, Brier 0.3633, ECE 0.3455, p50 206 ms, 123s
+decisions rapidata-likert/validation pass3 (systemone): 596 cases, acc 0.3557, KL 2.4684, Brier 0.3633, ECE 0.3455, p50 206 ms, 124s
+wrote /out/summary.json
+decisions rapidata-likert/test pass1 (systemone): 528 cases, acc 0.3258, KL 2.3014, Brier 0.3503, ECE 0.3654, p50 204 ms, 108s
+decisions rapidata-likert/test pass2 (systemone): 528 cases, acc 0.3258, KL 2.3014, Brier 0.3503, ECE 0.3654, p50 206 ms, 109s
+decisions rapidata-likert/test pass3 (systemone): 528 cases, acc 0.3258, KL 2.3014, Brier 0.3503, ECE 0.3654, p50 206 ms, 109s
+wrote /out/summary.json
+ Container bench-sglang-1  Stopping
+ Container bench-sglang-1  Stopped
+Going to remove bench-sglang-1
+ Container bench-sglang-1  Removing
+ Container bench-sglang-1  Removed
+done; failures: 0

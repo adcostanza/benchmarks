@@ -1,0 +1,143 @@
+{
+  "suite_version": 1,
+  "set": "vizwiz",
+  "dataset": {
+    "repo": "lmms-lab-encoder/VizWiz-VQA",
+    "revision": "d428a2dae984f79cf1b9d99467dfa883e0c30686",
+    "split": "test"
+  },
+  "gold_source": [
+    "human"
+  ],
+  "n_cases": 2000,
+  "limit": 0,
+  "concurrency": 1,
+  "endpoint": "/v1/systemone",
+  "served_model": "/models/Swift-1.5-Qwen3.8-27B-NVFP4-ukisai",
+  "n_decisions": 2000,
+  "accuracy": 0.7985,
+  "kl_from_gold": 0.39648496853468407,
+  "brier": 0.20484013868532694,
+  "ece": 0.051111971887838184,
+  "by_type": {
+    "noul": {
+      "n_decisions": 2000,
+      "accuracy": 0.7985,
+      "kl_from_gold": 0.39648496853468407,
+      "brier": 0.20484013868532694,
+      "ece": 0.051111971887838184
+    }
+  },
+  "by_group": {
+    "vizwiz": {
+      "n_decisions": 2000,
+      "accuracy": 0.7985,
+      "kl_from_gold": 0.39648496853468407,
+      "brier": 0.20484013868532694,
+      "ece": 0.051111971887838184
+    }
+  },
+  "headline": "acc 0.7985, KL 0.3965, Brier 0.2048, ECE 0.0511",
+  "latency_p50_s": 0.4182717030053027,
+  "latency_p95_s": 1.5089162249932997,
+  "wall_s": 746.0183615684509,
+  "api": "systemone",
+  "passes": {
+    "pass1": {
+      "n_decisions": 2000,
+      "accuracy": 0.7985,
+      "kl_from_gold": 0.39648496853468407,
+      "brier": 0.20484013868532694,
+      "ece": 0.051111971887838184,
+      "by_type": {
+        "noul": {
+          "n_decisions": 2000,
+          "accuracy": 0.7985,
+          "kl_from_gold": 0.39648496853468407,
+          "brier": 0.20484013868532694,
+          "ece": 0.051111971887838184
+        }
+      },
+      "by_group": {
+        "vizwiz": {
+          "n_decisions": 2000,
+          "accuracy": 0.7985,
+          "kl_from_gold": 0.39648496853468407,
+          "brier": 0.20484013868532694,
+          "ece": 0.051111971887838184
+        }
+      },
+      "headline": "acc 0.7985, KL 0.3965, Brier 0.2048, ECE 0.0511",
+      "latency_p50_s": 0.4182717030053027,
+      "latency_p95_s": 1.5089162249932997,
+      "wall_s": 746.0183615684509,
+      "api": "systemone"
+    },
+    "pass2": {
+      "n_decisions": 2000,
+      "accuracy": 0.7985,
+      "kl_from_gold": 0.39648496853468407,
+      "brier": 0.20484013868532694,
+      "ece": 0.051111971887838184,
+      "by_type": {
+        "noul": {
+          "n_decisions": 2000,
+          "accuracy": 0.7985,
+          "kl_from_gold": 0.39648496853468407,
+          "brier": 0.20484013868532694,
+          "ece": 0.051111971887838184
+        }
+      },
+      "by_group": {
+        "vizwiz": {
+          "n_decisions": 2000,
+          "accuracy": 0.7985,
+          "kl_from_gold": 0.39648496853468407,
+          "brier": 0.20484013868532694,
+          "ece": 0.051111971887838184
+        }
+      },
+      "headline": "acc 0.7985, KL 0.3965, Brier 0.2048, ECE 0.0511",
+      "latency_p50_s": 0.42001362098380923,
+      "latency_p95_s": 1.5087548760348,
+      "wall_s": 746.6639399528503,
+      "api": "systemone"
+    },
+    "pass3": {
+      "n_decisions": 2000,
+      "accuracy": 0.7985,
+      "kl_from_gold": 0.39648496853468407,
+      "brier": 0.20484013868532694,
+      "ece": 0.051111971887838184,
+      "by_type": {
+        "noul": {
+          "n_decisions": 2000,
+          "accuracy": 0.7985,
+          "kl_from_gold": 0.39648496853468407,
+          "brier": 0.20484013868532694,
+          "ece": 0.051111971887838184
+        }
+      },
+      "by_group": {
+        "vizwiz": {
+          "n_decisions": 2000,
+          "accuracy": 0.7985,
+          "kl_from_gold": 0.39648496853468407,
+          "brier": 0.20484013868532694,
+          "ece": 0.051111971887838184
+        }
+      },
+      "headline": "acc 0.7985, KL 0.3965, Brier 0.2048, ECE 0.0511",
+      "latency_p50_s": 0.4195840950123966,
+      "latency_p95_s": 1.510517455986701,
+      "wall_s": 747.1955029964447,
+      "api": "systemone"
+    }
+  },
+  "pass_drift": {
+    "mean_abs_prob_diff": 0.0,
+    "max_abs_prob_diff": 0.0,
+    "top_answer_changed": 0,
+    "n_decisions": 2000
+  }
+}

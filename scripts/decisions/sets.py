@@ -4,7 +4,8 @@ A case is {"id", "group", "state", "questions", "gold", "gold_source"}: `state` 
 go to /v1/systemone as they are (TypeSafe System One shape: `noul`, `choice`, `score`), `group`
 is the workflow, task or source (per-group breakdown and calibration biases), `gold` is the set's
 own answer format, and `gold_source` says where the answers come from:
-`human`, `rule` or `model:<name>` (`model:unnamed` when the dataset doesn't say).
+`human`, `rule` or `model:<name>` (`model:unnamed` when the dataset doesn't say). An image set's
+cases also carry `images`: data URLs sent as the decision routes' top-level `images` field.
 
 Each set provides:
   load(root, split)        cases, from DATASETS_DIR (mounted at /datasets in the client)
@@ -460,6 +461,21 @@ def sha_half(key):
     return "validation" if int(hashlib.sha256(key.encode()).hexdigest(), 16) % 2 == 0 else "test"
 
 
+def sha_sample(cases, n, key=lambda c: c["id"]):
+    """The n cases with the smallest sha256(key), in that order (a fixed sample)."""
+    return sorted(cases, key=lambda c: hashlib.sha256(key(c).encode()).hexdigest())[:n] if n else cases
+
+
+def image_data_url(image):
+    """A parquet image cell ({"bytes", ...}) as a data URL; the type from the file's magic bytes."""
+    import base64
+    b = image["bytes"]
+    mime = "image/png" if b[:8] == b"\x89PNG\r\n\x1a\n" else "image/jpeg" if b[:3] == b"\xff\xd8\xff" else None
+    if mime is None:
+        raise RuntimeError(f"unknown image format (first bytes {b[:8]!r})")
+    return f"data:{mime};base64," + base64.b64encode(b).decode()
+
+
 class LabelDistributionSet:
     """Base for sets whose gold is, per question, a distribution over its answer keys (aligned with
     answer_keys: human vote shares, or one-hot for a single label). Per decision: accuracy of the
@@ -582,8 +598,297 @@ class LeWiDi(LabelDistributionSet):
         return cases
 
 
+class CIFAR10H(LabelDistributionSet):
+    """MKZuziak/cifar10h (CIFAR-10H, Peterson et al. 2019): the 10,000 CIFAR-10 test images
+    (32x32, sent as they are) with about 50 human labels each (`expert_probs`), as a 10-option
+    choice. Gold: the human label distribution. One split upstream: halves by sha256 of the row
+    index, then a fixed sample (smallest sha256) of 1,000 for `validation` and 2,000 for `test`."""
+    name = "cifar10h"
+    revision = {"repo": "MKZuziak/cifar10h", "revision": "0ec71d3ea7d6b3b9cc4bb03362f1268e9cdf4542"}
+    gold_source = "human"
+    CLASSES = {"airplane": None, "automobile": "car, not truck", "bird": None, "cat": None, "deer": None,
+               "dog": None, "frog": None, "horse": None, "ship": None, "truck": "large truck, not car"}
+    SIZES = {"validation": 1000, "test": 2000}
+
+    @staticmethod
+    def load(root, split):
+        t = pq.read_table(Path(root) / "cifar10h" / "data" / "train-00000-of-00001.parquet")
+        keep = sha_sample([{"id": f"cifar10h-{i}", "i": i} for i in range(t.num_rows) if sha_half(f"cifar10h-{i}") == split],
+                          CIFAR10H.SIZES[split])
+        rows = t.take([c["i"] for c in keep]).to_pylist()
+        return [{"id": c["id"], "group": "cifar10h", "state": "The attached image.", "images": [image_data_url(r["image"])],
+                 "questions": {"answer": {"type": "choice", "instructions": "What is the main object in the image?",
+                                          "criteria": dict(CIFAR10H.CLASSES)}},
+                 "gold": {"answer": [float(x) for x in r["expert_probs"]]}, "gold_source": "human"}
+                for c, r in zip(keep, rows)]
+
+
+class POPE(LabelDistributionSet):
+    """lmms-lab-encoder/POPE (Li et al. 2023): yes/no "Is there a <object> in the image?" over 500
+    COCO val2014 images in three settings (random, popular, adversarial negatives), 6 questions per
+    image and setting. Gold: one-hot from COCO's object annotations (rule-derived from human
+    boxes). One case per image and setting (its 6 questions in one request). One split upstream:
+    halves by sha256(image), so no image is in both; then a fixed sample (smallest sha256 of the
+    case id) of 300 cases for `validation` and 600 for `test` (6 questions each)."""
+    name = "pope"
+    revision = {"repo": "lmms-lab-encoder/POPE", "revision": "4db1276663dfa5eb8ad16a52d24c31a09e470896"}
+    gold_source = "rule"
+    SIZES = {"validation": 300, "test": 600}
+
+    @staticmethod
+    def load(root, split):
+        cases = {}
+        for f in sorted((Path(root) / "pope" / "data").glob("test-*.parquet")):
+            for r in pq.read_table(f).to_pylist():
+                if sha_half(r["image_source"]) != split:
+                    continue
+                cid = f"{r['image_source']}-{r['category']}"
+                c = cases.setdefault(cid, {"id": cid, "group": r["category"], "state": "The attached image.",
+                                           "images": [image_data_url(r["image"])], "questions": {}, "gold": {},
+                                           "gold_source": "rule"})
+                qid = f"q{r['question_id']}"
+                c["questions"][qid] = {"type": "noul", "instructions": r["question"]}
+                c["gold"][qid] = [1.0, 0.0] if r["answer"] == "yes" else [0.0, 1.0]
+        return sha_sample(list(cases.values()), POPE.SIZES[split])
+
+
+class SoftDigits(LabelDistributionSet):
+    """majapavlo/image-level-soft-label-digits (soft-digits, arXiv 2605.18648): 5,530 28x28
+    grayscale handwritten digits (MNIST and Ambiguous-MNIST) re-annotated by 3-10 Prolific raters
+    each (6 on average), who marked every digit Yes/No/Unsure. Gold: `soft_label_yes_unc_equal`
+    (the paper's equally weighted soft label: Yes and Unsure both count 1, per rater, averaged) over
+    0-9 plus a "not a digit" class (a rater who rejected all ten), as an 11-option choice. Real
+    splits: `val` (830) fits, `test` (830) is scored. Pixels are floats in [0, 1], sent as a
+    grayscale PNG (run.py converts it to RGB). Licence cc-by-sa-4.0."""
+    name = "soft-digits"
+    revision = {"repo": "majapavlo/image-level-soft-label-digits", "revision": "3f231e9a1481a8b37f7a47e313221f66d9e22639"}
+    gold_source = "human"
+    OPTIONS = {**{str(d): None for d in range(10)}, "not a digit": "none of 0-9"}
+    SPLITS = {"validation": "val", "test": "test"}
+
+    @staticmethod
+    def load(root, split):
+        import base64
+        import io
+        from PIL import Image
+        t = pq.read_table(Path(root) / "soft-digits" / "image_level.parquet",
+                          columns=["images", "indices", "source", "soft_label_yes_unc_equal", "split"])
+        cases = []
+        for r in t.to_pylist():
+            if r["split"] != SoftDigits.SPLITS[split]:
+                continue
+            im = Image.frombytes("L", (28, 28), bytes(round(255 * v) for v in r["images"]))
+            buf = io.BytesIO()
+            im.save(buf, "PNG")
+            cases.append({"id": f"{r['source']}-{r['indices']}", "group": r["source"], "state": "The attached image.",
+                          "images": ["data:image/png;base64," + base64.b64encode(buf.getvalue()).decode()],
+                          "questions": {"answer": {"type": "choice", "instructions": "Which digit is written in the image?",
+                                                   "criteria": dict(SoftDigits.OPTIONS)}},
+                          "gold": {"answer": [float(x) for x in json.loads(r["soft_label_yes_unc_equal"])]},
+                          "gold_source": "human"})
+        return cases
+
+
+class RapidataStyle(LabelDistributionSet):
+    """Rapidata/human-style-preferences-images: text-to-image outputs in pairs, with about 26
+    crowd votes per pair on which image is preferred (`votes_image1/2`, unweighted counts). The
+    first three of 53 shards (3,609 pairs, all DALL-E 3 vs Flux 1 pro, 238 prompts). The card
+    doesn't give the raters' question, so the wording is ours. A 2-option choice over the two
+    images, sent in an order set by sha256(id) parity (the shards always list DALL-E 3 first).
+    Gold: the vote shares. One split upstream: halves by sha256(prompt), so no prompt is in
+    both; then a fixed sample of 1,000 pairs for `validation` and 1,500 for `test`.
+    Licence cdla-permissive-2.0."""
+    name = "rapidata-style"
+    revision = {"repo": "Rapidata/human-style-preferences-images", "revision": "0b9a8d940f4c8e5307019fb207b5707e1e31716c"}
+    gold_source = "human"
+    SHARDS = 3
+    SIZES = {"validation": 1000, "test": 1500}
+
+    @staticmethod
+    def load(root, split):
+        cases = []
+        for k in range(RapidataStyle.SHARDS):
+            t = pq.read_table(Path(root) / "rapidata-style" / "data" / f"train-{k:05d}-of-00053.parquet",
+                              columns=["prompt", "image1", "image2", "votes_image1", "votes_image2", "image1_path", "image2_path"])
+            for r in t.to_pylist():
+                if sha_half(r["prompt"]) != split:
+                    continue
+                cid = f"{r['image1_path']}|{r['image2_path']}"
+                n = r["votes_image1"] + r["votes_image2"]
+                imgs, gold = [r["image1"], r["image2"]], [r["votes_image1"] / n, r["votes_image2"] / n]
+                if int(hashlib.sha256(cid.encode()).hexdigest(), 16) % 2:
+                    imgs, gold = imgs[::-1], gold[::-1]
+                cases.append({"id": cid, "group": "style", "state": {"prompt": r["prompt"]},
+                              "images": [image_data_url(i) for i in imgs],
+                              "questions": {"answer": {"type": "choice",
+                                                       "instructions": "Both attached images were generated from the prompt. Which image do you prefer?",
+                                                       "criteria": {"Image 1": "the first attached image",
+                                                                    "Image 2": "the second attached image"}}},
+                              "gold": {"answer": gold}, "gold_source": "human"})
+        return sha_sample(cases, RapidataStyle.SIZES[split])
+
+
+class VQAv2YesNo(LabelDistributionSet):
+    """lmms-lab-encoder/VQAv2 (Goyal et al. 2017) validation, first six of 68 shards: the
+    `yes/no` questions, each with 10 crowd answers. Gold: the share of `yes` among the `yes` and
+    `no` answers, as a noul; questions with fewer than 8 such answers are dropped. COCO val2014
+    photos, the 30 that are also POPE images left out. One case per image (its questions in one
+    request). One split upstream: halves by sha256(image id); then a fixed sample of 500 images
+    for `validation` and 1,000 for `test`. Licence cc-by-4.0."""
+    name = "vqav2"
+    revision = {"repo": "lmms-lab-encoder/VQAv2", "revision": "32665d35052eb4a6d4414851c3c829a72754915a"}
+    gold_source = "human"
+    SHARDS = 6
+    MIN_YES_NO = 8
+    SIZES = {"validation": 500, "test": 1000}
+
+    @staticmethod
+    def load(root, split):
+        pope = set()
+        for f in (Path(root) / "pope" / "data").glob("test-*.parquet"):
+            pope.update(pq.read_table(f, columns=["image_source"]).column("image_source").to_pylist())
+        cases = {}
+        for k in range(VQAv2YesNo.SHARDS):
+            t = pq.read_table(Path(root) / "vqav2" / "data" / f"validation-{k:05d}-of-00068.parquet",
+                              columns=["answer_type", "answers", "image_id", "question_id", "question", "image"])
+            for r in t.to_pylist():
+                img = f"COCO_val2014_{r['image_id']:012d}"
+                if r["answer_type"] != "yes/no" or img in pope or sha_half(img) != split:
+                    continue
+                a = [x["answer"] for x in r["answers"]]
+                yes, no = a.count("yes"), a.count("no")
+                if yes + no < VQAv2YesNo.MIN_YES_NO:
+                    continue
+                c = cases.setdefault(img, {"id": img, "group": "yes/no", "state": "The attached image.",
+                                           "images": [image_data_url(r["image"])], "questions": {}, "gold": {},
+                                           "gold_source": "human"})
+                qid = f"q{r['question_id']}"
+                c["questions"][qid] = {"type": "noul", "instructions": r["question"]}
+                c["gold"][qid] = [yes / (yes + no), no / (yes + no)]
+        return sha_sample(list(cases.values()), VQAv2YesNo.SIZES[split])
+
+
+class AVA(LabelDistributionSet):
+    """trojblue/AVA-aesthetics-10pct-min50-10bins (a subset of AVA, Murray et al. 2012): photos from
+    DPChallenge.com photo contests, each rated 1-10 by its voters (at least 50, ~200 typical;
+    `rating_counts`), as a 10-level score. Gold: the vote shares. Real splits: a fixed sample of
+    1,000 of `validation` (5,110) fits, 2,000 of `test` (5,110, in `data/test-*`, outside the
+    card's config) are scored. Licence: not stated on the card (AVA / DPChallenge terms)."""
+    name = "ava"
+    revision = {"repo": "trojblue/AVA-aesthetics-10pct-min50-10bins", "revision": "ee09ff2b4151b87c61cfb5165bb46c0ebe39b679"}
+    gold_source = "human"
+    LEVELS = ["1 (lowest)", "2", "3", "4", "5", "6", "7", "8", "9", "10 (highest)"]
+    SIZES = {"validation": 1000, "test": 2000}
+
+    @staticmethod
+    def load(root, split):
+        files = sorted((Path(root) / "ava" / "data").glob(f"{split}-*.parquet"))
+        ids = [i for f in files for i in pq.read_table(f, columns=["image_id"]).column("image_id").to_pylist()]
+        keep = {c["id"] for c in sha_sample([{"id": f"ava-{i}"} for i in ids], AVA.SIZES[split])}
+        cases = []
+        for f in files:
+            for r in pq.read_table(f, columns=["image_id", "image", "total_votes", "rating_counts"]).to_pylist():
+                if f"ava-{r['image_id']}" not in keep:
+                    continue
+                cases.append({"id": f"ava-{r['image_id']}", "group": "ava", "state": "The attached photo, entered in a photography contest.",
+                              "images": [image_data_url(r["image"])],
+                              "questions": {"answer": {"type": "score", "instructions": "How would the contest's voters rate this photo's aesthetic quality?",
+                                                       "criteria": list(AVA.LEVELS)}},
+                              "gold": {"answer": [n / r["total_votes"] for n in r["rating_counts"]]}, "gold_source": "human"})
+        return sha_sample(cases, AVA.SIZES[split])
+
+
+class KonIQ10k(LabelDistributionSet):
+    """KonIQ-10k (Hosu et al. 2020): 10,073 Flickr photos (YFCC100M) at 1024x768, each rated for
+    technical quality on a 5-point scale (bad ... excellent) by ~106 crowd workers. Images from
+    xyliu6/koniq10k-1024x768, labels from chaofengc/IQA-PyTorch-Datasets-metainfo
+    (`meta_info_KonIQ10kDataset.csv`: shares `c1..c5`), as a 5-level score. Gold: the rating
+    shares. Official splits: `val` (1,000) fits, a fixed sample of 2,000 of `test` (2,015) is
+    scored. Licence: images cc-by-4.0 (each its own CC licence), labels cc-by-sa-4.0."""
+    name = "koniq10k"
+    revision = {"repo": "xyliu6/koniq10k-1024x768", "revision": "e06f08f327a532537cdb059a91a07a2cd1f7580f",
+                "labels": {"repo": "chaofengc/IQA-PyTorch-Datasets-metainfo", "revision": "4ee2b4f85138bac8f875d61dc9b4c50e006f8466"}}
+    gold_source = "human"
+    LEVELS = ["bad", "poor", "fair", "good", "excellent"]
+    SPLITS = {"validation": "val", "test": "test"}
+    SIZES = {"validation": 1000, "test": 2000}
+
+    @staticmethod
+    def load(root, split):
+        import csv
+        import zipfile
+        rows = [r for r in csv.DictReader(open(Path(root) / "koniq10k-meta" / "meta_info_KonIQ10kDataset.csv"))
+                if r["official_split"] == KonIQ10k.SPLITS[split]]
+        rows = sha_sample(rows, KonIQ10k.SIZES[split], key=lambda r: r["img_name"])
+        z = zipfile.ZipFile(Path(root) / "koniq10k" / "koniq10k_1024x768.zip")
+        return [{"id": f"koniq-{r['img_name']}", "group": "koniq10k", "state": "The attached photo.",
+                 "images": [image_data_url({"bytes": z.read(f"1024x768/{r['img_name']}")})],
+                 "questions": {"answer": {"type": "score", "instructions": "How would you rate the technical quality of this photo?",
+                                          "criteria": list(KonIQ10k.LEVELS)}},
+                 "gold": {"answer": [float(r[f"c{i}"]) for i in range(1, 6)]}, "gold_source": "human"}
+                for r in rows]
+
+
+class VizWizAnswerable(LabelDistributionSet):
+    """lmms-lab-encoder/VizWiz-VQA (Gurari et al. 2018) `val`: photos taken by blind people, each
+    with the spoken question they asked about it and 10 crowd answers. Asked as a noul: can the
+    question be answered from the photo? Gold: the share of the 10 answers that are not exactly
+    `unanswerable` (the dataset's answerability label). Photos as uploaded (121x162 up to 2592x1936).
+    One split upstream (`test` answers are hidden): halves by sha256(question id), then a fixed
+    sample of 1,000 for `validation` and 2,000 for `test`. Licence: not stated on the mirror; the
+    original is CC BY 4.0 (vizwiz.org)."""
+    name = "vizwiz"
+    revision = {"repo": "lmms-lab-encoder/VizWiz-VQA", "revision": "d428a2dae984f79cf1b9d99467dfa883e0c30686"}
+    gold_source = "human"
+    SIZES = {"validation": 1000, "test": 2000}
+
+    @staticmethod
+    def load(root, split):
+        cases = []
+        for f in sorted((Path(root) / "vizwiz" / "data").glob("val-*.parquet")):
+            for r in pq.read_table(f, columns=["question_id", "image", "question", "answers"]).to_pylist():
+                if sha_half(r["question_id"]) != split:
+                    continue
+                no = r["answers"].count("unanswerable") / len(r["answers"])
+                cases.append({"id": r["question_id"], "group": "vizwiz", "state": {"question": r["question"].strip()},
+                              "images": [image_data_url(r["image"])],
+                              "questions": {"answer": {"type": "noul",
+                                                       "instructions": "A blind person took the attached photo and asked the question above about it. Can the question be answered from the photo?"}},
+                              "gold": {"answer": [1.0 - no, no]}, "gold_source": "human"})
+        return sha_sample(cases, VizWizAnswerable.SIZES[split])
+
+
+class RapidataLikert(LabelDistributionSet):
+    """Rapidata/flux1.1-likert-scale-preference: 1,124 Flux1.1 [pro] images for 280 benchmark
+    prompts (DrawBench, T2I-CompBench and others), each rated by 31-45 crowd annotators on how
+    well the image matches the prompt (1: Not at all ... 5: Perfectly), as a 5-level score. Gold:
+    the rating shares. One split upstream: halves by sha256(prompt), so no prompt is in both; all
+    images of each half (no sample). Licence: none stated on the card."""
+    name = "rapidata-likert"
+    revision = {"repo": "Rapidata/flux1.1-likert-scale-preference", "revision": "a490293a5614b444b317855c7e9dcdd7da91e124"}
+    gold_source = "human"
+    LEVELS = ["1: Not at all", "2: A little", "3: Moderately", "4: Very well", "5: Perfectly"]
+
+    @staticmethod
+    def load(root, split):
+        t = pq.read_table(Path(root) / "rapidata-likert" / "data" / "train-00000-of-00001.parquet",
+                          columns=["image", "prompt", *RapidataLikert.LEVELS])
+        cases = []
+        for i, r in enumerate(t.to_pylist()):
+            if sha_half(r["prompt"]) != split:
+                continue
+            n = sum(r[k] for k in RapidataLikert.LEVELS)
+            cases.append({"id": f"likert-{i}", "group": "likert", "state": {"prompt": r["prompt"]},
+                          "images": [image_data_url(r["image"])],
+                          "questions": {"answer": {"type": "score", "instructions": "The attached image was generated from the prompt. How well does it match the prompt?",
+                                                   "criteria": [k.split(": ", 1)[1] for k in RapidataLikert.LEVELS]}},
+                          "gold": {"answer": [r[k] / n for k in RapidataLikert.LEVELS]}, "gold_source": "human"})
+        return cases
+
+
 SETS = {s.name: s for s in (TypedDecisions, TypedDecisionBench, ProceduralTypedDecisions, CalibratedTypedDecisions,
-                            ChaosNLI, LeWiDi)}
+                            ChaosNLI, LeWiDi, CIFAR10H, POPE, SoftDigits, RapidataStyle, VQAv2YesNo, AVA, KonIQ10k,
+                            VizWizAnswerable, RapidataLikert)}
 
 
 def get(name):

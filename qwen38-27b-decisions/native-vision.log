@@ -1,0 +1,44 @@
+ Container bench-sglang-1  Creating
+ Container bench-sglang-1  Created
+ Container bench-sglang-1  Starting
+ Container bench-sglang-1  Started
+sglang ready: Qwen3.8-27B-NVFP4 in 234s
+decisions cifar10h/validation pass1 (systemone): 1000 cases, acc 0.9090, KL 0.2609, Brier 0.0873, ECE 0.0324, p50 44 ms, 44s
+decisions cifar10h/validation native1 (decisions): 1000 cases, acc 0.9090, KL 0.2609, Brier 0.0873, ECE 0.0324, p50 44 ms, 44s
+wrote /out/summary.json
+decisions cifar10h/test pass1 (systemone): 2000 cases, acc 0.9125, KL 0.2640, Brier 0.0915, ECE 0.0217, p50 44 ms, 89s
+decisions cifar10h/test native1 (decisions): 2000 cases, acc 0.9125, KL 0.2640, Brier 0.0915, ECE 0.0217, p50 44 ms, 89s
+wrote /out/summary.json
+decisions pope/validation pass1 (systemone): 300 cases, acc 0.8839, KL 0.3401, Brier 0.1740, ECE 0.0622, p50 189 ms, 59s
+decisions pope/validation native1 (decisions): 300 cases, acc 0.8867, KL 0.3416, Brier 0.1739, ECE 0.0593, p50 187 ms, 55s
+wrote /out/summary.json
+decisions pope/test pass1 (systemone): 600 cases, acc 0.8886, KL 0.3476, Brier 0.1713, ECE 0.0575, p50 188 ms, 112s
+decisions pope/test native1 (decisions): 600 cases, acc 0.8881, KL 0.3446, Brier 0.1719, ECE 0.0580, p50 185 ms, 107s
+wrote /out/summary.json
+ Container bench-sglang-1  Stopping
+ Container bench-sglang-1  Stopped
+Going to remove bench-sglang-1
+ Container bench-sglang-1  Removing
+ Container bench-sglang-1  Removed
+ Container bench-sglang-1  Creating
+ Container bench-sglang-1  Created
+ Container bench-sglang-1  Starting
+ Container bench-sglang-1  Started
+sglang ready: Swift-1.5-Qwen3.8-27B-NVFP4-ukisai in 187s
+decisions cifar10h/validation pass1 (systemone): 1000 cases, acc 0.9180, KL 0.3005, Brier 0.0856, ECE 0.0190, p50 44 ms, 44s
+decisions cifar10h/validation native1 (decisions): 1000 cases, acc 0.9180, KL 0.3005, Brier 0.0856, ECE 0.0190, p50 44 ms, 44s
+wrote /out/summary.json
+decisions cifar10h/test pass1 (systemone): 2000 cases, acc 0.9150, KL 0.3205, Brier 0.0939, ECE 0.0060, p50 44 ms, 89s
+decisions cifar10h/test native1 (decisions): 2000 cases, acc 0.9150, KL 0.3205, Brier 0.0939, ECE 0.0060, p50 44 ms, 89s
+wrote /out/summary.json
+decisions pope/validation pass1 (systemone): 300 cases, acc 0.8844, KL 0.4387, Brier 0.1901, ECE 0.0723, p50 189 ms, 59s
+decisions pope/validation native1 (decisions): 300 cases, acc 0.8783, KL 0.4395, Brier 0.1929, ECE 0.0778, p50 187 ms, 55s
+wrote /out/summary.json
+decisions pope/test pass1 (systemone): 600 cases, acc 0.8892, KL 0.4001, Brier 0.1782, ECE 0.0657, p50 187 ms, 112s
+decisions pope/test native1 (decisions): 600 cases, acc 0.8850, KL 0.4032, Brier 0.1811, ECE 0.0707, p50 187 ms, 107s
+wrote /out/summary.json
+ Container bench-sglang-1  Stopping
+ Container bench-sglang-1  Stopped
+Going to remove bench-sglang-1
+ Container bench-sglang-1  Removing
+ Container bench-sglang-1  Removed

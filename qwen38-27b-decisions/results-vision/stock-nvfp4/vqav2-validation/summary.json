@@ -1,0 +1,143 @@
+{
+  "suite_version": 1,
+  "set": "vqav2",
+  "dataset": {
+    "repo": "lmms-lab-encoder/VQAv2",
+    "revision": "32665d35052eb4a6d4414851c3c829a72754915a",
+    "split": "validation"
+  },
+  "gold_source": [
+    "human"
+  ],
+  "n_cases": 500,
+  "limit": 0,
+  "concurrency": 1,
+  "endpoint": "/v1/systemone",
+  "served_model": "/models/Qwen3.8-27B-NVFP4",
+  "n_decisions": 1207,
+  "accuracy": 0.8591549295774648,
+  "kl_from_gold": 0.32425856894024535,
+  "brier": 0.1425301217674759,
+  "ece": 0.058081866347123666,
+  "by_type": {
+    "noul": {
+      "n_decisions": 1207,
+      "accuracy": 0.8591549295774648,
+      "kl_from_gold": 0.32425856894024535,
+      "brier": 0.1425301217674759,
+      "ece": 0.058081866347123666
+    }
+  },
+  "by_group": {
+    "yes/no": {
+      "n_decisions": 1207,
+      "accuracy": 0.8591549295774648,
+      "kl_from_gold": 0.32425856894024535,
+      "brier": 0.1425301217674759,
+      "ece": 0.058081866347123666
+    }
+  },
+  "headline": "acc 0.8592, KL 0.3243, Brier 0.1425, ECE 0.0581",
+  "latency_p50_s": 0.10388353001326323,
+  "latency_p95_s": 0.22420285001862794,
+  "wall_s": 55.74106025695801,
+  "api": "systemone",
+  "passes": {
+    "pass1": {
+      "n_decisions": 1207,
+      "accuracy": 0.8591549295774648,
+      "kl_from_gold": 0.32425856894024535,
+      "brier": 0.1425301217674759,
+      "ece": 0.058081866347123666,
+      "by_type": {
+        "noul": {
+          "n_decisions": 1207,
+          "accuracy": 0.8591549295774648,
+          "kl_from_gold": 0.32425856894024535,
+          "brier": 0.1425301217674759,
+          "ece": 0.058081866347123666
+        }
+      },
+      "by_group": {
+        "yes/no": {
+          "n_decisions": 1207,
+          "accuracy": 0.8591549295774648,
+          "kl_from_gold": 0.32425856894024535,
+          "brier": 0.1425301217674759,
+          "ece": 0.058081866347123666
+        }
+      },
+      "headline": "acc 0.8592, KL 0.3243, Brier 0.1425, ECE 0.0581",
+      "latency_p50_s": 0.10388353001326323,
+      "latency_p95_s": 0.22420285001862794,
+      "wall_s": 55.74106025695801,
+      "api": "systemone"
+    },
+    "pass2": {
+      "n_decisions": 1207,
+      "accuracy": 0.8608119304059652,
+      "kl_from_gold": 0.32074706553158194,
+      "brier": 0.14140603972847007,
+      "ece": 0.05544364963150276,
+      "by_type": {
+        "noul": {
+          "n_decisions": 1207,
+          "accuracy": 0.8608119304059652,
+          "kl_from_gold": 0.32074706553158194,
+          "brier": 0.14140603972847007,
+          "ece": 0.05544364963150276
+        }
+      },
+      "by_group": {
+        "yes/no": {
+          "n_decisions": 1207,
+          "accuracy": 0.8608119304059652,
+          "kl_from_gold": 0.32074706553158194,
+          "brier": 0.14140603972847007,
+          "ece": 0.05544364963150276
+        }
+      },
+      "headline": "acc 0.8608, KL 0.3207, Brier 0.1414, ECE 0.0554",
+      "latency_p50_s": 0.10420398897258565,
+      "latency_p95_s": 0.21974044997477904,
+      "wall_s": 54.30399036407471,
+      "api": "systemone"
+    },
+    "pass3": {
+      "n_decisions": 1207,
+      "accuracy": 0.8608119304059652,
+      "kl_from_gold": 0.32074706553158194,
+      "brier": 0.14140603972847007,
+      "ece": 0.05544364963150276,
+      "by_type": {
+        "noul": {
+          "n_decisions": 1207,
+          "accuracy": 0.8608119304059652,
+          "kl_from_gold": 0.32074706553158194,
+          "brier": 0.14140603972847007,
+          "ece": 0.05544364963150276
+        }
+      },
+      "by_group": {
+        "yes/no": {
+          "n_decisions": 1207,
+          "accuracy": 0.8608119304059652,
+          "kl_from_gold": 0.32074706553158194,
+          "brier": 0.14140603972847007,
+          "ece": 0.05544364963150276
+        }
+      },
+      "headline": "acc 0.8608, KL 0.3207, Brier 0.1414, ECE 0.0554",
+      "latency_p50_s": 0.10489889903692529,
+      "latency_p95_s": 0.2193963080062531,
+      "wall_s": 54.584651708602905,
+      "api": "systemone"
+    }
+  },
+  "pass_drift": {
+    "mean_abs_prob_diff": 0.0029905751320649576,
+    "max_abs_prob_diff": 0.7014416863765812,
+    "top_answer_changed": 6,
+    "n_decisions": 1207
+  }
+}

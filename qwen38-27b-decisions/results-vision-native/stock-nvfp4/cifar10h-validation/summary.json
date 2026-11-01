@@ -1,0 +1,113 @@
+{
+  "suite_version": 1,
+  "set": "cifar10h",
+  "dataset": {
+    "repo": "MKZuziak/cifar10h",
+    "revision": "0ec71d3ea7d6b3b9cc4bb03362f1268e9cdf4542",
+    "split": "validation"
+  },
+  "gold_source": [
+    "human"
+  ],
+  "n_cases": 1000,
+  "limit": 0,
+  "concurrency": 1,
+  "endpoint": "/v1/systemone",
+  "served_model": "/models/Qwen3.8-27B-NVFP4",
+  "n_decisions": 1000,
+  "accuracy": 0.909,
+  "kl_from_gold": 0.26094878569696944,
+  "brier": 0.08727925933094095,
+  "ece": 0.03238791230646353,
+  "by_type": {
+    "choice": {
+      "n_decisions": 1000,
+      "accuracy": 0.909,
+      "kl_from_gold": 0.26094878569696944,
+      "brier": 0.08727925933094095,
+      "ece": 0.03238791230646353
+    }
+  },
+  "by_group": {
+    "cifar10h": {
+      "n_decisions": 1000,
+      "accuracy": 0.909,
+      "kl_from_gold": 0.26094878569696944,
+      "brier": 0.08727925933094095,
+      "ece": 0.03238791230646353
+    }
+  },
+  "headline": "acc 0.9090, KL 0.2609, Brier 0.0873, ECE 0.0324",
+  "latency_p50_s": 0.04403773898957297,
+  "latency_p95_s": 0.047013610950671136,
+  "wall_s": 44.480257511138916,
+  "api": "systemone",
+  "passes": {
+    "pass1": {
+      "n_decisions": 1000,
+      "accuracy": 0.909,
+      "kl_from_gold": 0.26094878569696944,
+      "brier": 0.08727925933094095,
+      "ece": 0.03238791230646353,
+      "by_type": {
+        "choice": {
+          "n_decisions": 1000,
+          "accuracy": 0.909,
+          "kl_from_gold": 0.26094878569696944,
+          "brier": 0.08727925933094095,
+          "ece": 0.03238791230646353
+        }
+      },
+      "by_group": {
+        "cifar10h": {
+          "n_decisions": 1000,
+          "accuracy": 0.909,
+          "kl_from_gold": 0.26094878569696944,
+          "brier": 0.08727925933094095,
+          "ece": 0.03238791230646353
+        }
+      },
+      "headline": "acc 0.9090, KL 0.2609, Brier 0.0873, ECE 0.0324",
+      "latency_p50_s": 0.04403773898957297,
+      "latency_p95_s": 0.047013610950671136,
+      "wall_s": 44.480257511138916,
+      "api": "systemone"
+    },
+    "native1": {
+      "n_decisions": 1000,
+      "accuracy": 0.909,
+      "kl_from_gold": 0.26094878569696944,
+      "brier": 0.08727925933094095,
+      "ece": 0.03238791230646353,
+      "by_type": {
+        "choice": {
+          "n_decisions": 1000,
+          "accuracy": 0.909,
+          "kl_from_gold": 0.26094878569696944,
+          "brier": 0.08727925933094095,
+          "ece": 0.03238791230646353
+        }
+      },
+      "by_group": {
+        "cifar10h": {
+          "n_decisions": 1000,
+          "accuracy": 0.909,
+          "kl_from_gold": 0.26094878569696944,
+          "brier": 0.08727925933094095,
+          "ece": 0.03238791230646353
+        }
+      },
+      "headline": "acc 0.9090, KL 0.2609, Brier 0.0873, ECE 0.0324",
+      "latency_p50_s": 0.044094763987232,
+      "latency_p95_s": 0.045396308007184416,
+      "wall_s": 44.32217311859131,
+      "api": "decisions"
+    }
+  },
+  "native_vs_systemone": {
+    "mean_abs_prob_diff": 0.0,
+    "max_abs_prob_diff": 0.0,
+    "top_answer_changed": 0,
+    "n_decisions": 1000
+  }
+}

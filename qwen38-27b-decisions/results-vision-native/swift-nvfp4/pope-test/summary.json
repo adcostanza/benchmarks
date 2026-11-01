@@ -1,0 +1,155 @@
+{
+  "suite_version": 1,
+  "set": "pope",
+  "dataset": {
+    "repo": "lmms-lab-encoder/POPE",
+    "revision": "4db1276663dfa5eb8ad16a52d24c31a09e470896",
+    "split": "test"
+  },
+  "gold_source": [
+    "rule"
+  ],
+  "n_cases": 600,
+  "limit": 0,
+  "concurrency": 1,
+  "endpoint": "/v1/systemone",
+  "served_model": "/models/Swift-1.5-Qwen3.8-27B-NVFP4-ukisai",
+  "n_decisions": 3600,
+  "accuracy": 0.8891666666666667,
+  "kl_from_gold": 0.400119533582096,
+  "brier": 0.1781661693747313,
+  "ece": 0.06572866518995346,
+  "by_type": {
+    "noul": {
+      "n_decisions": 3600,
+      "accuracy": 0.8891666666666667,
+      "kl_from_gold": 0.400119533582096,
+      "brier": 0.1781661693747313,
+      "ece": 0.06572866518995346
+    }
+  },
+  "by_group": {
+    "adversarial": {
+      "n_decisions": 1218,
+      "accuracy": 0.8711001642036125,
+      "kl_from_gold": 0.4478896209230278,
+      "brier": 0.20423277787948435,
+      "ece": 0.07383916056435455
+    },
+    "popular": {
+      "n_decisions": 1236,
+      "accuracy": 0.8851132686084142,
+      "kl_from_gold": 0.4264582028793214,
+      "brier": 0.18466528138915594,
+      "ece": 0.07017279374387513
+    },
+    "random": {
+      "n_decisions": 1146,
+      "accuracy": 0.912739965095986,
+      "kl_from_gold": 0.3209410330300668,
+      "brier": 0.14345235470752526,
+      "ece": 0.05250097813411259
+    }
+  },
+  "headline": "acc 0.8892, KL 0.4001, Brier 0.1782, ECE 0.0657",
+  "latency_p50_s": 0.18723324703751132,
+  "latency_p95_s": 0.2522769040078856,
+  "wall_s": 111.77710223197937,
+  "api": "systemone",
+  "passes": {
+    "pass1": {
+      "n_decisions": 3600,
+      "accuracy": 0.8891666666666667,
+      "kl_from_gold": 0.400119533582096,
+      "brier": 0.1781661693747313,
+      "ece": 0.06572866518995346,
+      "by_type": {
+        "noul": {
+          "n_decisions": 3600,
+          "accuracy": 0.8891666666666667,
+          "kl_from_gold": 0.400119533582096,
+          "brier": 0.1781661693747313,
+          "ece": 0.06572866518995346
+        }
+      },
+      "by_group": {
+        "adversarial": {
+          "n_decisions": 1218,
+          "accuracy": 0.8711001642036125,
+          "kl_from_gold": 0.4478896209230278,
+          "brier": 0.20423277787948435,
+          "ece": 0.07383916056435455
+        },
+        "popular": {
+          "n_decisions": 1236,
+          "accuracy": 0.8851132686084142,
+          "kl_from_gold": 0.4264582028793214,
+          "brier": 0.18466528138915594,
+          "ece": 0.07017279374387513
+        },
+        "random": {
+          "n_decisions": 1146,
+          "accuracy": 0.912739965095986,
+          "kl_from_gold": 0.3209410330300668,
+          "brier": 0.14345235470752526,
+          "ece": 0.05250097813411259
+        }
+      },
+      "headline": "acc 0.8892, KL 0.4001, Brier 0.1782, ECE 0.0657",
+      "latency_p50_s": 0.18723324703751132,
+      "latency_p95_s": 0.2522769040078856,
+      "wall_s": 111.77710223197937,
+      "api": "systemone"
+    },
+    "native1": {
+      "n_decisions": 3600,
+      "accuracy": 0.885,
+      "kl_from_gold": 0.40320350471975114,
+      "brier": 0.18105308766300576,
+      "ece": 0.07070889616866596,
+      "by_type": {
+        "noul": {
+          "n_decisions": 3600,
+          "accuracy": 0.885,
+          "kl_from_gold": 0.40320350471975114,
+          "brier": 0.18105308766300576,
+          "ece": 0.07070889616866596
+        }
+      },
+      "by_group": {
+        "adversarial": {
+          "n_decisions": 1218,
+          "accuracy": 0.8637110016420362,
+          "kl_from_gold": 0.4551560386710704,
+          "brier": 0.21063220640936242,
+          "ece": 0.08276278094260185
+        },
+        "popular": {
+          "n_decisions": 1236,
+          "accuracy": 0.883495145631068,
+          "kl_from_gold": 0.43070014696762543,
+          "brier": 0.18863597886135752,
+          "ece": 0.07386990421406298
+        },
+        "random": {
+          "n_decisions": 1146,
+          "accuracy": 0.9092495636998255,
+          "kl_from_gold": 0.3183308728078145,
+          "brier": 0.1414371887500693,
+          "ece": 0.05549332780351857
+        }
+      },
+      "headline": "acc 0.8850, KL 0.4032, Brier 0.1811, ECE 0.0707",
+      "latency_p50_s": 0.18678346602246165,
+      "latency_p95_s": 0.2533510299981572,
+      "wall_s": 107.42433738708496,
+      "api": "decisions"
+    }
+  },
+  "native_vs_systemone": {
+    "mean_abs_prob_diff": 0.015207579599181339,
+    "max_abs_prob_diff": 0.8924874766484258,
+    "top_answer_changed": 55,
+    "n_decisions": 3600
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "suite_version": 1,
+  "set": "cifar10h",
+  "dataset": {
+    "repo": "MKZuziak/cifar10h",
+    "revision": "0ec71d3ea7d6b3b9cc4bb03362f1268e9cdf4542",
+    "split": "validation"
+  },
+  "gold_source": [
+    "human"
+  ],
+  "n_cases": 1000,
+  "limit": 0,
+  "concurrency": 1,
+  "endpoint": "/v1/systemone",
+  "served_model": "/models/Qwen3.8-27B-NVFP4",
+  "n_decisions": 1000,
+  "accuracy": 0.909,
+  "kl_from_gold": 0.26094878569696944,
+  "brier": 0.08727925933094095,
+  "ece": 0.03238791230646353,
+  "by_type": {
+    "choice": {
+      "n_decisions": 1000,
+      "accuracy": 0.909,
+      "kl_from_gold": 0.26094878569696944,
+      "brier": 0.08727925933094095,
+      "ece": 0.03238791230646353
+    }
+  },
+  "by_group": {
+    "cifar10h": {
+      "n_decisions": 1000,
+      "accuracy": 0.909,
+      "kl_from_gold": 0.26094878569696944,
+      "brier": 0.08727925933094095,
+      "ece": 0.03238791230646353
+    }
+  },
+  "headline": "acc 0.9090, KL 0.2609, Brier 0.0873, ECE 0.0324",
+  "latency_p50_s": 0.042849399003898725,
+  "latency_p95_s": 0.0444921420130413,
+  "wall_s": 43.076520681381226,
+  "api": "systemone",
+  "passes": {
+    "pass1": {
+      "n_decisions": 1000,
+      "accuracy": 0.909,
+      "kl_from_gold": 0.26094878569696944,
+      "brier": 0.08727925933094095,
+      "ece": 0.03238791230646353,
+      "by_type": {
+        "choice": {
+          "n_decisions": 1000,
+          "accuracy": 0.909,
+          "kl_from_gold": 0.26094878569696944,
+          "brier": 0.08727925933094095,
+          "ece": 0.03238791230646353
+        }
+      },
+      "by_group": {
+        "cifar10h": {
+          "n_decisions": 1000,
+          "accuracy": 0.909,
+          "kl_from_gold": 0.26094878569696944,
+          "brier": 0.08727925933094095,
+          "ece": 0.03238791230646353
+        }
+      },
+      "headline": "acc 0.9090, KL 0.2609, Brier 0.0873, ECE 0.0324",
+      "latency_p50_s": 0.042849399003898725,
+      "latency_p95_s": 0.0444921420130413,
+      "wall_s": 43.076520681381226,
+      "api": "systemone"
+    },
+    "pass2": {
+      "n_decisions": 1000,
+      "accuracy": 0.909,
+      "kl_from_gold": 0.26094878569696944,
+      "brier": 0.08727925933094095,
+      "ece": 0.03238791230646353,
+      "by_type": {
+        "choice": {
+          "n_decisions": 1000,
+          "accuracy": 0.909,
+          "kl_from_gold": 0.26094878569696944,
+          "brier": 0.08727925933094095,
+          "ece": 0.03238791230646353
+        }
+      },
+      "by_group": {
+        "cifar10h": {
+          "n_decisions": 1000,
+          "accuracy": 0.909,
+          "kl_from_gold": 0.26094878569696944,
+          "brier": 0.08727925933094095,
+          "ece": 0.03238791230646353
+        }
+      },
+      "headline": "acc 0.9090, KL 0.2609, Brier 0.0873, ECE 0.0324",
+      "latency_p50_s": 0.043326515005901456,
+      "latency_p95_s": 0.0458542279957328,
+      "wall_s": 43.59929323196411,
+      "api": "systemone"
+    },
+    "pass3": {
+      "n_decisions": 1000,
+      "accuracy": 0.909,
+      "kl_from_gold": 0.26094878569696944,
+      "brier": 0.08727925933094095,
+      "ece": 0.03238791230646353,
+      "by_type": {
+        "choice": {
+          "n_decisions": 1000,
+          "accuracy": 0.909,
+          "kl_from_gold": 0.26094878569696944,
+          "brier": 0.08727925933094095,
+          "ece": 0.03238791230646353
+        }
+      },
+      "by_group": {
+        "cifar10h": {
+          "n_decisions": 1000,
+          "accuracy": 0.909,
+          "kl_from_gold": 0.26094878569696944,
+          "brier": 0.08727925933094095,
+          "ece": 0.03238791230646353
+        }
+      },
+      "headline": "acc 0.9090, KL 0.2609, Brier 0.0873, ECE 0.0324",
+      "latency_p50_s": 0.04348497500177473,
+      "latency_p95_s": 0.04705452700727619,
+      "wall_s": 43.89389681816101,
+      "api": "systemone"
+    }
+  },
+  "pass_drift": {
+    "mean_abs_prob_diff": 0.0,
+    "max_abs_prob_diff": 0.0,
+    "top_answer_changed": 0,
+    "n_decisions": 1000
+  }
+}

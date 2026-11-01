@@ -11,7 +11,8 @@ source dataset's fit split, then applies it to every target's scored split:
 A type the source has no questions of keeps T = 1 (calibrated-typed-decisions has no `score`).
 The diagonal is the in-domain fit (typed-decision-bench: 5-fold cross-fit stratified by group, as
 calibrate.py --folds 5), so no target is scored with temperatures fitted on its own answers.
-"pooled text" fits one set on all sources except the target, so it is out of sample too; it is
+"pooled others" fits one set on all sources except the target ("pooled text" / "pooled images":
+text or image sources only), so it is out of sample too; it is
 the best case for a single server-side default.
 
 Passes: with several `--passes`, each pass's fits use the same pass of the fit split, and every
@@ -44,6 +45,15 @@ SOURCES = {
     "TD Bench": ("typed-decision-bench", "typed-decision-bench-test", "real", "test"),
     "ChaosNLI": ("chaosnli", "chaosnli-validation", "real", "validation"),
     "LeWiDi": ("lewidi", "lewidi-validation", "real", "validation"),
+    "CIFAR-10H": ("cifar10h", "cifar10h-validation", "vision", "validation"),
+    "POPE": ("pope", "pope-validation", "vision", "validation"),
+    "soft-digits": ("soft-digits", "soft-digits-validation", "vision", "validation"),
+    "Rapidata": ("rapidata-style", "rapidata-style-validation", "vision", "validation"),
+    "VQAv2": ("vqav2", "vqav2-validation", "vision", "validation"),
+    "AVA": ("ava", "ava-validation", "vision", "validation"),
+    "KonIQ": ("koniq10k", "koniq10k-validation", "vision", "validation"),
+    "VizWiz": ("vizwiz", "vizwiz-validation", "vision", "validation"),
+    "Rapidata Likert": ("rapidata-likert", "rapidata-likert-validation", "vision", "validation"),
 }
 # name: (set, answers dir, root key, split, home source, metric key, higher is better)
 TARGETS = {
@@ -54,8 +64,18 @@ TARGETS = {
     "TD Bench": ("typed-decision-bench", "typed-decision-bench-test", "real", "test", "TD Bench", "decision_score", True),
     "ChaosNLI": ("chaosnli", "chaosnli-test", "real", "test", "ChaosNLI", "kl_from_gold", False),
     "LeWiDi": ("lewidi", "lewidi-test", "real", "test", "LeWiDi", "kl_from_gold", False),
+    "CIFAR-10H": ("cifar10h", "cifar10h-test", "vision", "test", "CIFAR-10H", "kl_from_gold", False),
+    "POPE": ("pope", "pope-test", "vision", "test", "POPE", "kl_from_gold", False),
+    "soft-digits": ("soft-digits", "soft-digits-test", "vision", "test", "soft-digits", "kl_from_gold", False),
+    "Rapidata": ("rapidata-style", "rapidata-style-test", "vision", "test", "Rapidata", "kl_from_gold", False),
+    "VQAv2": ("vqav2", "vqav2-test", "vision", "test", "VQAv2", "kl_from_gold", False),
+    "AVA": ("ava", "ava-test", "vision", "test", "AVA", "kl_from_gold", False),
+    "KonIQ": ("koniq10k", "koniq10k-test", "vision", "test", "KonIQ", "kl_from_gold", False),
+    "VizWiz": ("vizwiz", "vizwiz-test", "vision", "test", "VizWiz", "kl_from_gold", False),
+    "Rapidata Likert": ("rapidata-likert", "rapidata-likert-test", "vision", "test", "Rapidata Likert", "kl_from_gold", False),
 }
 METRIC = {"kl_from_gold": "KL ↓", "proper_score": "proper score ↑", "log_loss": "log loss ↓", "decision_score": "DecisionScore ↑"}
+VISION = {"CIFAR-10H", "POPE", "soft-digits", "Rapidata", "VQAv2", "AVA", "KonIQ", "VizWiz", "Rapidata Likert"}
 
 
 def one_pass(roots, c, pas, load, sources, targets):
@@ -85,8 +105,10 @@ def one_pass(roots, c, pas, load, sources, targets):
                 col[sname] = score(ds, trows, tc, lambda cid: (per_fold[fold_of[cid]], {}))[metric]
             else:
                 col[sname] = score(ds, trows, tc, lambda cid, t=temps[sname]: (t, {}))[metric]
-        pooled = calibrate.fit([i for s, its in items.items() if s != home for i in its], False)[0]
-        col["pooled text"] = score(ds, trows, tc, lambda cid, t=pooled: (t, {}))[metric]
+        for row, keep in (("pooled others", lambda s: True), ("pooled text", lambda s: s not in VISION),
+                          ("pooled images", lambda s: s in VISION)):
+            pooled = calibrate.fit([i for s, its in items.items() if s != home and keep(s) for i in its], False)[0]
+            col[row] = score(ds, trows, tc, lambda cid, t=pooled: (t, {}))[metric]
         table[tname] = col
     return temps, table, ttypes
 
@@ -103,9 +125,11 @@ def main():
     ap.add_argument("--td-train", default="results-train", help="root with <config>/decisions/ (Typed Decisions train)")
     ap.add_argument("--td-test", default="results", help="root with <config>/decisions/ (Typed Decisions test)")
     ap.add_argument("--real", default="results-real", help="root with <config>/<set>-<split>/")
+    ap.add_argument("--vision", default="results-vision", help="root with <config>/<set>-<split>/ (image sets)")
     ap.add_argument("--passes", nargs="+", default=["pass1"])
     args = ap.parse_args()
-    roots = {"td_train": here / args.td_train, "td_test": here / args.td_test, "real": here / args.real}
+    roots = {"td_train": here / args.td_train, "td_test": here / args.td_test, "real": here / args.real,
+             "vision": here / args.vision}
     cases = {}
 
     def load(set_name, split):
@@ -117,8 +141,8 @@ def main():
     print(f"Answers: Typed Decisions `{args.td_train}` (train) and `{args.td_test}` (test), the rest "
           f"`{args.real}`; passes: {', '.join(args.passes)}. Rows: where the temperatures were fitted. "
           "Columns: where they are scored. `raw` is T = 1; the diagonal (bold) is the in-domain fit "
-          "(Typed Decision Bench: 5-fold cross-fit); `pooled text` is one fit on every source except "
-          "the column's dataset (`pooled text`). Sets without answers "
+          "(Typed Decision Bench: 5-fold cross-fit); `pooled others` is one fit on every source except "
+          "the column's dataset, `pooled text` and `pooled images` the same over text or image sources only. Sets without answers "
           "in these roots are left out."
           + (" Cells: mean over passes [min, max]." if len(args.passes) > 1 else "")
           + " Generated by `transfer.py`.\n")
@@ -128,7 +152,7 @@ def main():
     for c in CONFIGS:
         sources = {n: v for n, v in SOURCES.items() if have(c, v[2], v[1])}
         targets = {n: v for n, v in TARGETS.items() if have(c, v[2], v[1])}
-        rows_order = ["raw", *sources, "pooled text"]
+        rows_order = ["raw", *sources, "pooled others", "pooled text", "pooled images"]
         runs = [one_pass(roots, c, p, load, sources, targets) for p in args.passes]
         print(f"## `{c}`\n")
         print("Fitted temperatures (choice / noul / score; `-` = no questions of that type, T = 1). "

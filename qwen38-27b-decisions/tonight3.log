@@ -1,0 +1,57 @@
+ Container bench-sglang-1  Creating
+ Container bench-sglang-1  Created
+ Container bench-sglang-1  Starting
+ Container bench-sglang-1  Started
+sglang ready: Qwen3.8-27B-NVFP4 in 169s
+decisions rapidata-style/validation pass1 (systemone): 5 cases, acc 0.8000, KL 0.2323, Brier 0.0486, ECE 0.3810, p50 371 ms, 3s
+wrote /out/summary.json
+decisions rapidata-style/test pass1 (systemone): 5 cases, acc 0.4000, KL 0.4229, Brier 0.3253, ECE 0.4526, p50 372 ms, 2s
+wrote /out/summary.json
+ Container bench-sglang-1  Stopping
+ Container bench-sglang-1  Stopped
+Going to remove bench-sglang-1
+ Container bench-sglang-1  Removing
+ Container bench-sglang-1  Removed
+ Container bench-sglang-1  Creating
+ Container bench-sglang-1  Created
+ Container bench-sglang-1  Starting
+ Container bench-sglang-1  Started
+sglang ready: Swift-1.5-Qwen3.8-27B-NVFP4-ukisai in 166s
+decisions rapidata-style/validation pass1 (systemone): 5 cases, acc 0.4000, KL 0.5340, Brier 0.2873, ECE 0.4451, p50 369 ms, 3s
+wrote /out/summary.json
+decisions rapidata-style/test pass1 (systemone): 5 cases, acc 0.8000, KL 0.1401, Brier 0.1267, ECE 0.2529, p50 367 ms, 2s
+wrote /out/summary.json
+ Container bench-sglang-1  Stopping
+ Container bench-sglang-1  Stopped
+Going to remove bench-sglang-1
+ Container bench-sglang-1  Removing
+ Container bench-sglang-1  Removed
+ Container bench-sglang-1  Creating
+ Container bench-sglang-1  Created
+ Container bench-sglang-1  Starting
+ Container bench-sglang-1  Started
+sglang ready: Qwen3.8-27B-NVFP4 in 167s
+decisions rapidata-style/validation pass1 (systemone): 1000 cases, acc 0.6040, KL 0.4351, Brier 0.2107, ECE 0.1757, p50 391 ms, 387s
+wrote /out/summary.json
+decisions rapidata-style/test pass1 (systemone): 1500 cases, acc 0.5913, KL 0.4153, Brier 0.2093, ECE 0.1865, p50 397 ms, 588s
+wrote /out/summary.json
+ Container bench-sglang-1  Stopping
+ Container bench-sglang-1  Stopped
+Going to remove bench-sglang-1
+ Container bench-sglang-1  Removing
+ Container bench-sglang-1  Removed
+ Container bench-sglang-1  Creating
+ Container bench-sglang-1  Created
+ Container bench-sglang-1  Starting
+ Container bench-sglang-1  Started
+sglang ready: Swift-1.5-Qwen3.8-27B-NVFP4-ukisai in 169s
+decisions rapidata-style/validation pass1 (systemone): 1000 cases, acc 0.6360, KL 0.4602, Brier 0.2200, ECE 0.1653, p50 393 ms, 389s
+wrote /out/summary.json
+decisions rapidata-style/test pass1 (systemone): 1500 cases, acc 0.6120, KL 0.4782, Brier 0.2300, ECE 0.2019, p50 396 ms, 588s
+wrote /out/summary.json
+ Container bench-sglang-1  Stopping
+ Container bench-sglang-1  Stopped
+Going to remove bench-sglang-1
+ Container bench-sglang-1  Removing
+ Container bench-sglang-1  Removed
+done; failures: 0

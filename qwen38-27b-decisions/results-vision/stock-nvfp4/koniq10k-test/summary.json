@@ -1,0 +1,147 @@
+{
+  "suite_version": 1,
+  "set": "koniq10k",
+  "dataset": {
+    "repo": "xyliu6/koniq10k-1024x768",
+    "revision": "e06f08f327a532537cdb059a91a07a2cd1f7580f",
+    "labels": {
+      "repo": "chaofengc/IQA-PyTorch-Datasets-metainfo",
+      "revision": "4ee2b4f85138bac8f875d61dc9b4c50e006f8466"
+    },
+    "split": "test"
+  },
+  "gold_source": [
+    "human"
+  ],
+  "n_cases": 2000,
+  "limit": 0,
+  "concurrency": 1,
+  "endpoint": "/v1/systemone",
+  "served_model": "/models/Qwen3.8-27B-NVFP4",
+  "n_decisions": 2000,
+  "accuracy": 0.3805,
+  "kl_from_gold": 0.8511411868847236,
+  "brier": 0.33731114733379686,
+  "ece": 0.21259327021210467,
+  "by_type": {
+    "score": {
+      "n_decisions": 2000,
+      "accuracy": 0.3805,
+      "kl_from_gold": 0.8511411868847236,
+      "brier": 0.33731114733379686,
+      "ece": 0.21259327021210467
+    }
+  },
+  "by_group": {
+    "koniq10k": {
+      "n_decisions": 2000,
+      "accuracy": 0.3805,
+      "kl_from_gold": 0.8511411868847236,
+      "brier": 0.33731114733379686,
+      "ece": 0.21259327021210467
+    }
+  },
+  "headline": "acc 0.3805, KL 0.8511, Brier 0.3373, ECE 0.2126",
+  "latency_p50_s": 0.14312739501474425,
+  "latency_p95_s": 0.14439540897728875,
+  "wall_s": 288.4053475856781,
+  "api": "systemone",
+  "passes": {
+    "pass1": {
+      "n_decisions": 2000,
+      "accuracy": 0.3805,
+      "kl_from_gold": 0.8511411868847236,
+      "brier": 0.33731114733379686,
+      "ece": 0.21259327021210467,
+      "by_type": {
+        "score": {
+          "n_decisions": 2000,
+          "accuracy": 0.3805,
+          "kl_from_gold": 0.8511411868847236,
+          "brier": 0.33731114733379686,
+          "ece": 0.21259327021210467
+        }
+      },
+      "by_group": {
+        "koniq10k": {
+          "n_decisions": 2000,
+          "accuracy": 0.3805,
+          "kl_from_gold": 0.8511411868847236,
+          "brier": 0.33731114733379686,
+          "ece": 0.21259327021210467
+        }
+      },
+      "headline": "acc 0.3805, KL 0.8511, Brier 0.3373, ECE 0.2126",
+      "latency_p50_s": 0.14312739501474425,
+      "latency_p95_s": 0.14439540897728875,
+      "wall_s": 288.4053475856781,
+      "api": "systemone"
+    },
+    "pass2": {
+      "n_decisions": 2000,
+      "accuracy": 0.3805,
+      "kl_from_gold": 0.8511411868847236,
+      "brier": 0.33731114733379686,
+      "ece": 0.21259327021210467,
+      "by_type": {
+        "score": {
+          "n_decisions": 2000,
+          "accuracy": 0.3805,
+          "kl_from_gold": 0.8511411868847236,
+          "brier": 0.33731114733379686,
+          "ece": 0.21259327021210467
+        }
+      },
+      "by_group": {
+        "koniq10k": {
+          "n_decisions": 2000,
+          "accuracy": 0.3805,
+          "kl_from_gold": 0.8511411868847236,
+          "brier": 0.33731114733379686,
+          "ece": 0.21259327021210467
+        }
+      },
+      "headline": "acc 0.3805, KL 0.8511, Brier 0.3373, ECE 0.2126",
+      "latency_p50_s": 0.14357659098459408,
+      "latency_p95_s": 0.1447681919671595,
+      "wall_s": 289.4721086025238,
+      "api": "systemone"
+    },
+    "pass3": {
+      "n_decisions": 2000,
+      "accuracy": 0.3805,
+      "kl_from_gold": 0.8511411868847236,
+      "brier": 0.33731114733379686,
+      "ece": 0.21259327021210467,
+      "by_type": {
+        "score": {
+          "n_decisions": 2000,
+          "accuracy": 0.3805,
+          "kl_from_gold": 0.8511411868847236,
+          "brier": 0.33731114733379686,
+          "ece": 0.21259327021210467
+        }
+      },
+      "by_group": {
+        "koniq10k": {
+          "n_decisions": 2000,
+          "accuracy": 0.3805,
+          "kl_from_gold": 0.8511411868847236,
+          "brier": 0.33731114733379686,
+          "ece": 0.21259327021210467
+        }
+      },
+      "headline": "acc 0.3805, KL 0.8511, Brier 0.3373, ECE 0.2126",
+      "latency_p50_s": 0.14329869800712913,
+      "latency_p95_s": 0.14440606901189312,
+      "wall_s": 288.86655259132385,
+      "api": "systemone"
+    }
+  },
+  "pass_drift": {
+    "mean_abs_prob_diff": 0.0,
+    "max_abs_prob_diff": 0.0,
+    "top_answer_changed": 0,
+    "n_decisions": 2000
+  }
+}

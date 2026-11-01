@@ -55,6 +55,22 @@ def post(base_url, path, body):
     raise RuntimeError(f"request failed after {RETRIES} attempts: {last}")
 
 
+def rgb_data_url(url):
+    """The image data URL unchanged if RGB, else converted to an RGB PNG: SGLang's Qwen3.8 image
+    processor rejects 1-channel input (HTTP 500 on COCO's grayscale JPEGs in POPE)."""
+    import base64
+    import io
+
+    from PIL import Image
+    b64 = url.split(",", 1)[1]
+    im = Image.open(io.BytesIO(base64.b64decode(b64)))
+    if im.mode == "RGB":
+        return url
+    buf = io.BytesIO()
+    im.convert("RGB").save(buf, "PNG")
+    return "data:image/png;base64," + base64.b64encode(buf.getvalue()).decode()
+
+
 def to_native(case):
     """The case as a native /v1/decisions request: noul -> yes_no (criteria true/false become the
     yes/no descriptions), choice criteria -> options, score criteria (lowest first) -> levels.
@@ -77,7 +93,10 @@ def to_native(case):
         else:
             raise RuntimeError(f"case {case['id']}: unknown question type {q['type']!r}")
         questions.append(nq)
-    return {"model": "decisions-bench", "input": case["state"], "questions": questions}
+    body = {"model": "decisions-bench", "input": case["state"], "questions": questions}
+    if case.get("images"):
+        body["images"] = case["images"]
+    return body
 
 
 def run_pass(base_url, cases, concurrency, api):
@@ -85,6 +104,9 @@ def run_pass(base_url, cases, concurrency, api):
         if api == "systemone":
             path, body = "/v1/systemone", {"model": "decisions-bench", "state": case["state"],
                                            "questions": case["questions"]}
+            if case.get("images"):
+                # SGLang extension on /v1/systemone (System One itself is text only)
+                body["images"] = case["images"]
         else:
             path, body = "/v1/decisions", to_native(case)
         resp, latency = post(base_url, path, body)
@@ -151,6 +173,9 @@ def main():
     cases = dataset.load(args.data_dir, args.split)
     if args.limit:
         cases = cases[: args.limit]
+    for c in cases:
+        if c.get("images"):
+            c["images"] = [rgb_data_url(u) for u in c["images"]]
 
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)

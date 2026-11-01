@@ -1,0 +1,77 @@
+{
+  "suite_version": 1,
+  "set": "rapidata-style",
+  "dataset": {
+    "repo": "Rapidata/human-style-preferences-images",
+    "revision": "0b9a8d940f4c8e5307019fb207b5707e1e31716c",
+    "split": "validation"
+  },
+  "gold_source": [
+    "human"
+  ],
+  "n_cases": 1000,
+  "limit": 0,
+  "concurrency": 1,
+  "endpoint": "/v1/systemone",
+  "served_model": "/models/Qwen3.8-27B-NVFP4",
+  "n_decisions": 1000,
+  "accuracy": 0.604,
+  "kl_from_gold": 0.4350897858213766,
+  "brier": 0.21069045106009593,
+  "ece": 0.17567169566407015,
+  "by_type": {
+    "choice": {
+      "n_decisions": 1000,
+      "accuracy": 0.604,
+      "kl_from_gold": 0.4350897858213766,
+      "brier": 0.21069045106009593,
+      "ece": 0.17567169566407015
+    }
+  },
+  "by_group": {
+    "style": {
+      "n_decisions": 1000,
+      "accuracy": 0.604,
+      "kl_from_gold": 0.4350897858213766,
+      "brier": 0.21069045106009593,
+      "ece": 0.17567169566407015
+    }
+  },
+  "headline": "acc 0.6040, KL 0.4351, Brier 0.2107, ECE 0.1757",
+  "latency_p50_s": 0.39106010796967894,
+  "latency_p95_s": 0.3989361579879187,
+  "wall_s": 387.07364082336426,
+  "api": "systemone",
+  "passes": {
+    "pass1": {
+      "n_decisions": 1000,
+      "accuracy": 0.604,
+      "kl_from_gold": 0.4350897858213766,
+      "brier": 0.21069045106009593,
+      "ece": 0.17567169566407015,
+      "by_type": {
+        "choice": {
+          "n_decisions": 1000,
+          "accuracy": 0.604,
+          "kl_from_gold": 0.4350897858213766,
+          "brier": 0.21069045106009593,
+          "ece": 0.17567169566407015
+        }
+      },
+      "by_group": {
+        "style": {
+          "n_decisions": 1000,
+          "accuracy": 0.604,
+          "kl_from_gold": 0.4350897858213766,
+          "brier": 0.21069045106009593,
+          "ece": 0.17567169566407015
+        }
+      },
+      "headline": "acc 0.6040, KL 0.4351, Brier 0.2107, ECE 0.1757",
+      "latency_p50_s": 0.39106010796967894,
+      "latency_p95_s": 0.3989361579879187,
+      "wall_s": 387.07364082336426,
+      "api": "systemone"
+    }
+  }
+}

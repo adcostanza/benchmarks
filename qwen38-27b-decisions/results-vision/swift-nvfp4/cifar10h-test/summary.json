@@ -1,0 +1,143 @@
+{
+  "suite_version": 1,
+  "set": "cifar10h",
+  "dataset": {
+    "repo": "MKZuziak/cifar10h",
+    "revision": "0ec71d3ea7d6b3b9cc4bb03362f1268e9cdf4542",
+    "split": "test"
+  },
+  "gold_source": [
+    "human"
+  ],
+  "n_cases": 2000,
+  "limit": 0,
+  "concurrency": 1,
+  "endpoint": "/v1/systemone",
+  "served_model": "/models/Swift-1.5-Qwen3.8-27B-NVFP4-ukisai",
+  "n_decisions": 2000,
+  "accuracy": 0.915,
+  "kl_from_gold": 0.3204765434934193,
+  "brier": 0.09393986589494312,
+  "ece": 0.005962540624963308,
+  "by_type": {
+    "choice": {
+      "n_decisions": 2000,
+      "accuracy": 0.915,
+      "kl_from_gold": 0.3204765434934193,
+      "brier": 0.09393986589494312,
+      "ece": 0.005962540624963308
+    }
+  },
+  "by_group": {
+    "cifar10h": {
+      "n_decisions": 2000,
+      "accuracy": 0.915,
+      "kl_from_gold": 0.3204765434934193,
+      "brier": 0.09393986589494312,
+      "ece": 0.005962540624963308
+    }
+  },
+  "headline": "acc 0.9150, KL 0.3205, Brier 0.0939, ECE 0.0060",
+  "latency_p50_s": 0.04357887100195512,
+  "latency_p95_s": 0.04500860799453221,
+  "wall_s": 87.55843138694763,
+  "api": "systemone",
+  "passes": {
+    "pass1": {
+      "n_decisions": 2000,
+      "accuracy": 0.915,
+      "kl_from_gold": 0.3204765434934193,
+      "brier": 0.09393986589494312,
+      "ece": 0.005962540624963308,
+      "by_type": {
+        "choice": {
+          "n_decisions": 2000,
+          "accuracy": 0.915,
+          "kl_from_gold": 0.3204765434934193,
+          "brier": 0.09393986589494312,
+          "ece": 0.005962540624963308
+        }
+      },
+      "by_group": {
+        "cifar10h": {
+          "n_decisions": 2000,
+          "accuracy": 0.915,
+          "kl_from_gold": 0.3204765434934193,
+          "brier": 0.09393986589494312,
+          "ece": 0.005962540624963308
+        }
+      },
+      "headline": "acc 0.9150, KL 0.3205, Brier 0.0939, ECE 0.0060",
+      "latency_p50_s": 0.04357887100195512,
+      "latency_p95_s": 0.04500860799453221,
+      "wall_s": 87.55843138694763,
+      "api": "systemone"
+    },
+    "pass2": {
+      "n_decisions": 2000,
+      "accuracy": 0.915,
+      "kl_from_gold": 0.3204765434934193,
+      "brier": 0.09393986589494312,
+      "ece": 0.005962540624963308,
+      "by_type": {
+        "choice": {
+          "n_decisions": 2000,
+          "accuracy": 0.915,
+          "kl_from_gold": 0.3204765434934193,
+          "brier": 0.09393986589494312,
+          "ece": 0.005962540624963308
+        }
+      },
+      "by_group": {
+        "cifar10h": {
+          "n_decisions": 2000,
+          "accuracy": 0.915,
+          "kl_from_gold": 0.3204765434934193,
+          "brier": 0.09393986589494312,
+          "ece": 0.005962540624963308
+        }
+      },
+      "headline": "acc 0.9150, KL 0.3205, Brier 0.0939, ECE 0.0060",
+      "latency_p50_s": 0.043692440987797454,
+      "latency_p95_s": 0.04505437801708467,
+      "wall_s": 87.76750612258911,
+      "api": "systemone"
+    },
+    "pass3": {
+      "n_decisions": 2000,
+      "accuracy": 0.915,
+      "kl_from_gold": 0.3204765434934193,
+      "brier": 0.09393986589494312,
+      "ece": 0.005962540624963308,
+      "by_type": {
+        "choice": {
+          "n_decisions": 2000,
+          "accuracy": 0.915,
+          "kl_from_gold": 0.3204765434934193,
+          "brier": 0.09393986589494312,
+          "ece": 0.005962540624963308
+        }
+      },
+      "by_group": {
+        "cifar10h": {
+          "n_decisions": 2000,
+          "accuracy": 0.915,
+          "kl_from_gold": 0.3204765434934193,
+          "brier": 0.09393986589494312,
+          "ece": 0.005962540624963308
+        }
+      },
+      "headline": "acc 0.9150, KL 0.3205, Brier 0.0939, ECE 0.0060",
+      "latency_p50_s": 0.043865599000127986,
+      "latency_p95_s": 0.04524251399561763,
+      "wall_s": 88.14084267616272,
+      "api": "systemone"
+    }
+  },
+  "pass_drift": {
+    "mean_abs_prob_diff": 0.0,
+    "max_abs_prob_diff": 0.0,
+    "top_answer_changed": 0,
+    "n_decisions": 2000
+  }
+}

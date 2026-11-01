@@ -1,0 +1,14 @@
+ Container bench-sglang-1  Creating
+ Container bench-sglang-1  Created
+ Container bench-sglang-1  Starting
+ Container bench-sglang-1  Started
+sglang ready: Qwen3.8-27B-NVFP4 in 169s
+decisions pope/validation pass1 (systemone): 300 cases, acc 0.8839, KL 0.3405, Brier 0.1746, ECE 0.0622, p50 184 ms, 58s
+decisions pope/validation pass2 (systemone): 300 cases, acc 0.8867, KL 0.3407, Brier 0.1732, ECE 0.0584, p50 185 ms, 54s
+decisions pope/validation pass3 (systemone): 300 cases, acc 0.8872, KL 0.3387, Brier 0.1715, ECE 0.0580, p50 186 ms, 54s
+wrote /out/summary.json
+ Container bench-sglang-1  Stopping
+ Container bench-sglang-1  Stopped
+Going to remove bench-sglang-1
+ Container bench-sglang-1  Removing
+ Container bench-sglang-1  Removed
