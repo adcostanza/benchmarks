@@ -87,3 +87,76 @@ Run: `./run.sh` (all configs, retries a failed config once) or `./run.sh dflash8
 `results/<label>/`: `bench-serving.jsonl` (scenarios `sharegpt_c1`, `sharegpt_c4`, `long20k_c1`, `long20k_c4`, plus `long40k_c1`, `long80k_c1`, `long120k_c1` with 4 prompts of 512 output tokens each, except the diagnosis configs), `server.log`, and for the six main configs `bfcl/`. No config failed.
 
 One run per config. The 40k–120k scenarios have 4 prompts each, so their rates carry a few percent of noise, and `dflash8`'s measured leads over the nearest drafter were 3.2% at 40k, 3.8% at 80k and 3.4% at 120k; one run per config can't distinguish leads that small from run-to-run variation.
+
+## DSpark with its card's server flags
+
+Question: the main runs gave `dspark` the card's drafter flags but this benchmark's shared server flags. Does DSpark do better with the [DSpark card](https://huggingface.co/RadixArk/Qwen3.8-27B-DSpark)'s server flags (@ `b9a5dbdf`), and is that specific to DSpark? `dspark-cardflags` is `dspark` with the card's server flags; `dflash8-cardflags` is `dflash8` with the same server flags, as a control. Run 2026-11-01, one run per label, same image, target and drafters as above, default scenarios plus 40k/80k/120k, no BFCL (`bfcl=0` in `run.sh`; the BFCL table at the end of `cardflags.log` is `compare.py` printing the old labels, and `results/*-cardflags/` has no `bfcl/`). Run log: `cardflags.log`; comparisons: `compare-cardflags.md`.
+
+Output tokens/s (higher is better):
+
+| Scenario | dspark | dspark-cardflags | dflash8 | dflash8-cardflags |
+|---|---|---|---|---|
+| Chat, 1 user | 148.1 | 146.3 | 178.0 | 167.8 |
+| Chat, 4 users | 503.8 | 474.6 | 592.5 | 520.2 |
+| 20k prompt, 1 user | 88.8 | 87.4 | 98.4 | 94.6 |
+| 20k prompt, 4 users | 131.2 | 136.1 | 137.5 | 144.3 |
+| 40k prompt, 1 user | 56.9 | 56.2 | 58.7 | 59.2 |
+| 80k prompt, 1 user | 27.5 | 28.0 | 28.5 | 29.1 |
+| 120k prompt, 1 user | 15.9 | **rejected** | 16.5 | **rejected** |
+
+Card flags vs original flags: `dspark` -1.2%, -5.8%, -1.6%, +3.8%, -1.3%, +2.0% (rows in the order above, 120k excluded); `dflash8` -5.7%, -12.2%, -3.9%, +4.9%, +0.8%, +2.2%. DFlash2 8 vs DSpark on the card flags: +14.7%, +9.6%, +8.3%, +6.0%, +5.5%, +4.0%.
+
+Median time per output token (ms) and mean accept length:
+
+| Scenario | TPOT dspark | TPOT dspark-cardflags | TPOT dflash8 | TPOT dflash8-cardflags | accept dspark | accept dspark-cardflags | accept dflash8 | accept dflash8-cardflags |
+|---|---|---|---|---|---|---|---|---|
+| Chat, 1 user | 6.92 | 6.33 | 5.57 | 5.73 | 2.84 | 2.89 | 3.43 | 3.35 |
+| Chat, 4 users | 7.28 | 7.78 | 5.91 | 7.15 | 2.90 | 2.93 | 3.49 | 3.28 |
+| 20k prompt, 1 user | 6.89 | 6.34 | 5.37 | 5.73 | 2.95 | 3.01 | 3.54 | 3.39 |
+| 20k prompt, 4 users | 16.57 | 17.06 | 15.27 | 15.80 | 2.93 | 2.98 | 3.02 | 3.27 |
+| 40k prompt, 1 user | 6.79 | 7.38 | 5.76 | 6.23 | 3.07 | 3.00 | 3.28 | 3.45 |
+| 80k prompt, 1 user | 7.49 | 7.70 | 5.88 | 6.20 | 2.88 | 3.01 | 3.43 | 3.61 |
+
+**Reading.** DSpark did not get meaningfully faster with its card's server flags: six rows between -5.8% and +3.8%, no sign pattern, accept length within ±5% (2.84 to 2.89 on chat, 2.88 to 3.01 at 80k). The control moved the same size and mostly the other way: DFlash2 8 lost 5.7% and 12.2% on chat and 3.9% at 20k with one user, and gained 0.8–4.9% on the rest. So the flags don't help either drafter, and may cost a few percent on chat decode (TPOT up 2.8% at 1 user and 21% at 4 users for DFlash2 8, the largest move in the table; one run each, so a real effect is not separated from noise: the main post's same-config reruns of 20k at 4 users differed by about 3%). DFlash2 8 stays ahead of DSpark in every scenario that ran, by 4.0–14.7% on the card flags, and its original-flags lead was 3.2–20.2%. The DSpark-vs-DFlash2 conclusion of the post does not change.
+
+**120k did not fit.** Both card-flags servers rejected every 120k request: "Input length (120010 tokens) exceeds the maximum allowed length (110330 tokens)" for `dspark-cardflags` and "(108026 tokens)" for `dflash8-cardflags` (`server.log`). The `compare.py` 120k rows (about 3,000 tok/s, TTFT 0) are the 0.7 s it took to reject four requests, not throughput, and `bench-serving.sh` counted them as "Successful requests: 4" (the client treats the HTTP 400 as a completed request with no output tokens; `total_output_tokens_retokenized` is 0). Ignore those rows. The 80k scenario (about 80k + 512 tokens) fit. Flags were not changed, as planned.
+
+Memory, from each `server.log` and `resources.json` (`resources.json` only exists for the new labels; the main runs predate it):
+
+| | dspark | dspark-cardflags | dflash8 | dflash8-cardflags |
+|---|---|---|---|---|
+| KV pool, `max_total_num_tokens` | 241,216 | 110,336 | 236,864 | 108,032 |
+| Max input accepted | - | 110,330 | - | 108,026 |
+| Mamba slots, `max_mamba_cache_size` | 28 | 34 | 28 | 33 |
+| Mamba `ssm_state` (GB) | 2.04 | 4.92 | 2.04 | 4.78 |
+| Hierarchical KV host pool (tokens) | 1,159,424 | 465,984 | 1,150,848 | 463,296 |
+| Hierarchical Mamba host cache (GB) | 26.04 | 48.80 | 26.36 | 48.95 |
+| Peak GPU memory (MiB) | - | 58,407 | - | 58,729 |
+| Peak container memory (GiB) | - | 76.65 | - | 76.4 |
+| Peak host memory used (GiB) | - | 95.66 | - | 95.93 |
+| Startup (s) | - | 705 | - | 678 |
+
+The float32 Mamba state doubles the SSM state and the 11.93 ratio (against 0.9) gives the Mamba pool most of the 0.41 budget, so the KV pool drops by 54% and 120k no longer fits. The card runs `--mem-fraction-static 0.80` on an H200; here the fraction stays at 0.41, as in every other config.
+
+**Startup 705 s and 678 s instead of about 170 s.** `Capture target prefill CUDA graph` took 538.49 s (`dspark-cardflags`) and 518.34 s (`dflash8-cardflags`) against 50.58 s and 50.82 s for `dspark` and `dflash8`: with `--chunked-prefill-size 32768` the breakable prefill graphs are captured for token counts up to 32,768 (106 sizes) instead of up to 2,048 (42 sizes). The rest of `scheduler_e2e` is 115 s for both labels against 83 s for `dspark` (weight loading 46.83 s and 33.67 s against 13.08 s, which the logs don't explain).
+
+Flags that differ from the shared server flags (`scripts/args/qwen38-27b.sh`; `qwen38_27b_card_server_args` rewrites them):
+
+| Flag | Shared (`dspark`, `dflash8`) | Card flags |
+|---|---|---|
+| `--mamba-ssm-dtype` | `bfloat16` | `float32` |
+| `--mamba-radix-cache-strategy` | `extra_buffer_lazy` | `extra_buffer` |
+| `--mamba-full-memory-ratio` | `0.9` | `11.93` |
+| `--chunked-prefill-size` | `2048` | `32768` |
+| `--max-prefill-tokens` | not set (log shows 16384) | `32768` |
+| env `PYTORCH_CUDA_ALLOC_CONF` | not set | `expandable_segments:True` (`card-dspark.env`, `card-dflash.env`) |
+| env `SGLANG_RAGGED_VERIFY_MODE` | not set | `static` on `dspark-cardflags` only (`card-dspark.env`) |
+
+`SGLANG_RAGGED_VERIFY_MODE=static` is the image's default (`srt/environ.py` in `lmsysorg/sglang:nightly-dev-cu13-20261010-961bcf48`), so setting it changes nothing; it is there because the card's launch command sets it. Kept as in every other config: `--mem-fraction-static 0.41` (memory budget; the card uses 0.80 on an H200), `--max-running-requests 4` (the card uses 48; at most 4 users here), and the hierarchical cache.
+
+Caveats:
+
+- One run per label. Differences under about 4% (the size of same-config reruns of 20k at 4 users) are not separable from noise; only the DFlash2 8 chat drop at 4 users (-12.2%) is clearly larger, and one run does not establish it.
+- The card flags were run with a 0.41 memory fraction, so this is not the card's configuration: the KV pool is less than half of the main runs' and 120k does not fit. A run at the card's 0.80 fraction (an H200 has 141 GB; this card has 96 GB) would need a different memory budget and is not covered.
+- No BFCL for the new labels, so nothing here says whether the flags change tool-call accuracy.
+- The 20k–120k rows are one repeated prompt (see the main caveats), the same as the main runs.
