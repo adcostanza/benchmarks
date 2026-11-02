@@ -1,0 +1,163 @@
+{"set": "full_infovqa", "seconds": 12.3, "n": true, "items_sha256": true, "images_sha256": true}
+{"set": "full_mind2web", "seconds": 52.3, "n": true, "items_sha256": true, "images_sha256": false}
+{
+  "dir": "<datasets>/decision-index-vision/vision",
+  "build": {
+    "full_infovqa": {
+      "n": {
+        "rebuilt": 244,
+        "pinned": 244,
+        "match": true
+      },
+      "items_sha256": {
+        "rebuilt": "1b364f23949d467f3e5a6f67c6b9c39b4e83334016d42c7dbbf109fda5024b83",
+        "pinned": "1b364f23949d467f3e5a6f67c6b9c39b4e83334016d42c7dbbf109fda5024b83",
+        "match": true
+      },
+      "images_sha256": {
+        "rebuilt": "2ad6421d9c3ce03c46803a50fdd68fc0ba615332ef1e56511c9fd84d45ff85bc",
+        "pinned": "2ad6421d9c3ce03c46803a50fdd68fc0ba615332ef1e56511c9fd84d45ff85bc",
+        "match": true
+      }
+    },
+    "full_mind2web": {
+      "n": {
+        "rebuilt": 973,
+        "pinned": 973,
+        "match": true
+      },
+      "items_sha256": {
+        "rebuilt": "6f9953642a50ed5b25835f1ce51344ed93a7169eec7e6354cd90ae10451cf52d",
+        "pinned": "6f9953642a50ed5b25835f1ce51344ed93a7169eec7e6354cd90ae10451cf52d",
+        "match": true
+      },
+      "images_sha256": {
+        "rebuilt": "775b0641d25969b09109fdd512f96f65d1019ac4fbf92a5856d92a52ede12d42",
+        "pinned": "78f082317d9d4cb9373492167c11ebd7cc6ed9ed5907e9eb6d596922a1c3897a",
+        "match": false
+      }
+    }
+  },
+  "verify": {
+    "sets": {
+      "full_cvbench": {
+        "n": true,
+        "items_sha256": true,
+        "images_sha256": true
+      },
+      "full_blink": {
+        "n": true,
+        "items_sha256": true,
+        "images_sha256": true
+      },
+      "full_realworldqa": {
+        "n": true,
+        "items_sha256": true,
+        "images_sha256": true
+      },
+      "full_charxiv": {
+        "n": true,
+        "items_sha256": true,
+        "images_sha256": true
+      },
+      "full_infovqa": {
+        "n": true,
+        "items_sha256": true,
+        "images_sha256": true
+      },
+      "full_mind2web": {
+        "n": true,
+        "items_sha256": true,
+        "images_sha256": false
+      },
+      "full_winoground": {
+        "n": true,
+        "items_sha256": true,
+        "images_sha256": true
+      },
+      "full_cord": {
+        "n": true,
+        "items_sha256": true,
+        "images_sha256": true
+      },
+      "full_funsd": {
+        "n": true,
+        "items_sha256": true,
+        "images_sha256": true
+      },
+      "full_hateful_memes": {
+        "n": true,
+        "items_sha256": true,
+        "images_sha256": true
+      },
+      "full_rbench_m": {
+        "n": true,
+        "items_sha256": true,
+        "images_sha256": true
+      },
+      "full_mmmu_pro_vision": {
+        "n": true,
+        "items_sha256": true,
+        "images_sha256": true
+      }
+    },
+    "benchmarks": {
+      "CV-Bench": {
+        "rows": true,
+        "run_ids_sha256": true,
+        "payloads_sha256": true
+      },
+      "BLINK": {
+        "rows": true,
+        "run_ids_sha256": true,
+        "payloads_sha256": true
+      },
+      "RealWorldQA": {
+        "rows": true,
+        "run_ids_sha256": true,
+        "payloads_sha256": true
+      },
+      "CharXiv": {
+        "rows": true,
+        "run_ids_sha256": true,
+        "payloads_sha256": true
+      },
+      "InfographicVQA": {
+        "rows": true,
+        "run_ids_sha256": true,
+        "payloads_sha256": true
+      },
+      "Mind2Web": {
+        "rows": true,
+        "run_ids_sha256": true,
+        "payloads_sha256": false
+      },
+      "Winoground": {
+        "rows": true,
+        "run_ids_sha256": true,
+        "payloads_sha256": true
+      },
+      "KIE (CORD+FUNSD)": {
+        "rows": true,
+        "run_ids_sha256": true,
+        "payloads_sha256": true
+      },
+      "Moderation (Hateful Memes)": {
+        "rows": true,
+        "run_ids_sha256": true,
+        "payloads_sha256": true
+      },
+      "R-Bench-M": {
+        "rows": true,
+        "run_ids_sha256": true,
+        "payloads_sha256": true
+      },
+      "MMMU-Pro vision": {
+        "rows": true,
+        "run_ids_sha256": true,
+        "payloads_sha256": true
+      }
+    },
+    "ok": false
+  }
+}

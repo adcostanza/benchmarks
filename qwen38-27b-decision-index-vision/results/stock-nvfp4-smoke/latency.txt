@@ -1,0 +1,15 @@
+status: {'ok': 99}
+ALL       n=   99 median=    245 mean=    238 p80=    354 max=   1123
+BLINK                        n=    9 median=    105 mean=    241 p80=    525 max=    525
+CV-Bench                     n=    9 median=     82 mean=    244 p80=    375 max=   1123
+CharXiv                      n=    9 median=    114 mean=    115 p80=    133 max=    149
+InfographicVQA               n=    9 median=    342 mean=    278 p80=    369 max=    387
+KIE (CORD+FUNSD)             n=    9 median=    211 mean=    361 p80=    672 max=    813
+MMMU-Pro vision              n=    9 median=    282 mean=    359 p80=    500 max=    761
+Mind2Web                     n=    9 median=    255 mean=    258 p80=    269 max=    271
+Moderation (Hateful Memes)   n=    9 median=     55 mean=     69 p80=     99 max=    108
+R-Bench-M                    n=    9 median=     74 mean=     87 p80=    115 max=    181
+RealWorldQA                  n=    9 median=    255 mean=    261 p80=    352 max=    393
+Winoground                   n=    9 median=    343 mean=    345 p80=    357 max=    366
+1 image(s)                   n=   94 median=    210 mean=    230 p80=    343 max=   1123
+2 image(s)                   n=    5 median=    399 mean=    390 p80=    525 max=    525

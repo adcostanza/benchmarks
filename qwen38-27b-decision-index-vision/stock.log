@@ -1,0 +1,10 @@
+ Container bench-sglang-1  Creating
+ Container bench-sglang-1  Created
+ Container bench-sglang-1  Starting
+ Container bench-sglang-1  Started
+sglang ready: Qwen3.8-27B-NVFP4 in 170s
+ Container bench-sglang-1  Stopping
+ Container bench-sglang-1  Stopped
+Going to remove bench-sglang-1
+ Container bench-sglang-1  Removing
+ Container bench-sglang-1  Removed

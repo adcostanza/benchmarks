@@ -1,0 +1,164 @@
+{"time":"2026-11-02T05:48:16.230415+00:00","event":"loading","engine":"decide"}
+{"time":"2026-11-02T05:48:16.243003+00:00","event":"ready","engine":"decide"}
+{"time":"2026-11-02T05:49:00.615019+00:00","event":"progress","engine":"decide","completed":256,"total":12210,"counts":{"ok":256},"elapsed_seconds":44.3}
+{"time":"2026-11-02T05:49:30.778942+00:00","event":"progress","engine":"decide","completed":512,"total":12210,"counts":{"ok":512},"elapsed_seconds":74.5}
+{"time":"2026-11-02T05:49:51.685463+00:00","event":"progress","engine":"decide","completed":768,"total":12210,"counts":{"ok":768},"elapsed_seconds":95.4}
+{"time":"2026-11-02T05:50:07.842864+00:00","event":"progress","engine":"decide","completed":1024,"total":12210,"counts":{"ok":1024},"elapsed_seconds":111.5}
+{"time":"2026-11-02T05:50:22.350670+00:00","event":"progress","engine":"decide","completed":1280,"total":12210,"counts":{"ok":1280},"elapsed_seconds":126.0}
+{"time":"2026-11-02T05:50:45.211114+00:00","event":"progress","engine":"decide","completed":1536,"total":12210,"counts":{"ok":1536},"elapsed_seconds":148.9}
+{"time":"2026-11-02T05:51:10.013137+00:00","event":"progress","engine":"decide","completed":1792,"total":12210,"counts":{"ok":1792},"elapsed_seconds":173.7}
+{"time":"2026-11-02T05:52:06.179206+00:00","event":"progress","engine":"decide","completed":2038,"total":12210,"counts":{"ok":2038},"elapsed_seconds":229.9}
+{"time":"2026-11-02T05:52:20.534025+00:00","event":"progress","engine":"decide","completed":2294,"total":12210,"counts":{"ok":2294},"elapsed_seconds":244.2}
+{"time":"2026-11-02T05:52:43.198134+00:00","event":"progress","engine":"decide","completed":2550,"total":12210,"counts":{"ok":2550},"elapsed_seconds":266.9}
+{"time":"2026-11-02T05:54:59.318440+00:00","event":"progress","engine":"decide","completed":2806,"total":12210,"counts":{"ok":2806},"elapsed_seconds":403.0}
+{"time":"2026-11-02T05:56:41.063742+00:00","event":"progress","engine":"decide","completed":2999,"total":12210,"counts":{"ok":2999},"elapsed_seconds":504.7}
+{"time":"2026-11-02T05:57:50.998818+00:00","event":"progress","engine":"decide","completed":3255,"total":12210,"counts":{"ok":3255},"elapsed_seconds":574.7}
+{"time":"2026-11-02T05:59:02.748058+00:00","event":"progress","engine":"decide","completed":3511,"total":12210,"counts":{"ok":3511},"elapsed_seconds":646.4}
+{"time":"2026-11-02T05:59:24.690294+00:00","event":"progress","engine":"decide","completed":3588,"total":12210,"counts":{"ok":3588},"elapsed_seconds":668.4}
+{"time":"2026-11-02T05:59:58.625467+00:00","event":"progress","engine":"decide","completed":3844,"total":12210,"counts":{"ok":3844},"elapsed_seconds":702.3}
+{"time":"2026-11-02T06:00:31.606610+00:00","event":"progress","engine":"decide","completed":4100,"total":12210,"counts":{"ok":4100},"elapsed_seconds":735.3}
+{"time":"2026-11-02T06:00:34.238415+00:00","event":"progress","engine":"decide","completed":4120,"total":12210,"counts":{"ok":4120},"elapsed_seconds":737.9}
+{"time":"2026-11-02T06:01:47.377937+00:00","event":"progress","engine":"decide","completed":4364,"total":12210,"counts":{"ok":4364},"elapsed_seconds":811.1}
+{"time":"2026-11-02T06:02:58.269013+00:00","event":"progress","engine":"decide","completed":4620,"total":12210,"counts":{"ok":4620},"elapsed_seconds":882.0}
+{"time":"2026-11-02T06:04:09.546286+00:00","event":"progress","engine":"decide","completed":4876,"total":12210,"counts":{"ok":4876},"elapsed_seconds":953.2}
+{"time":"2026-11-02T06:05:20.359538+00:00","event":"progress","engine":"decide","completed":5132,"total":12210,"counts":{"ok":5132},"elapsed_seconds":1024.0}
+{"time":"2026-11-02T06:06:17.381213+00:00","event":"progress","engine":"decide","completed":5337,"total":12210,"counts":{"ok":5337},"elapsed_seconds":1081.1}
+{"time":"2026-11-02T06:07:51.402777+00:00","event":"progress","engine":"decide","completed":5593,"total":12210,"counts":{"ok":5593},"elapsed_seconds":1175.1}
+{"time":"2026-11-02T06:09:24.857266+00:00","event":"progress","engine":"decide","completed":5849,"total":12210,"counts":{"ok":5849},"elapsed_seconds":1268.5}
+{"time":"2026-11-02T06:10:58.656860+00:00","event":"progress","engine":"decide","completed":6105,"total":12210,"counts":{"ok":6105},"elapsed_seconds":1362.3}
+{"time":"2026-11-02T06:11:10.466750+00:00","event":"progress","engine":"decide","completed":6137,"total":12210,"counts":{"ok":6137},"elapsed_seconds":1374.2}
+{"time":"2026-11-02T06:12:15.151606+00:00","event":"progress","engine":"decide","completed":6393,"total":12210,"counts":{"ok":6393},"elapsed_seconds":1438.8}
+{"time":"2026-11-02T06:13:15.619942+00:00","event":"progress","engine":"decide","completed":6649,"total":12210,"counts":{"ok":6649},"elapsed_seconds":1499.3}
+{"time":"2026-11-02T06:14:12.253063+00:00","event":"progress","engine":"decide","completed":6905,"total":12210,"counts":{"ok":6905},"elapsed_seconds":1555.9}
+{"time":"2026-11-02T06:15:12.009915+00:00","event":"progress","engine":"decide","completed":7161,"total":12210,"counts":{"ok":7161},"elapsed_seconds":1615.7}
+{"time":"2026-11-02T06:16:02.949795+00:00","event":"progress","engine":"decide","completed":7417,"total":12210,"counts":{"ok":7417},"elapsed_seconds":1666.6}
+{"time":"2026-11-02T06:16:46.226012+00:00","event":"progress","engine":"decide","completed":7659,"total":12210,"counts":{"ok":7659},"elapsed_seconds":1709.9}
+{"time":"2026-11-02T06:17:04.797016+00:00","event":"progress","engine":"decide","completed":7915,"total":12210,"counts":{"ok":7915},"elapsed_seconds":1728.5}
+{"time":"2026-11-02T06:17:24.411115+00:00","event":"progress","engine":"decide","completed":8171,"total":12210,"counts":{"ok":8171},"elapsed_seconds":1748.1}
+{"time":"2026-11-02T06:17:44.021242+00:00","event":"progress","engine":"decide","completed":8427,"total":12210,"counts":{"ok":8427},"elapsed_seconds":1767.7}
+{"time":"2026-11-02T06:17:56.630630+00:00","event":"progress","engine":"decide","completed":8602,"total":12210,"counts":{"ok":8602},"elapsed_seconds":1780.3}
+{"time":"2026-11-02T06:18:15.931520+00:00","event":"progress","engine":"decide","completed":8858,"total":12210,"counts":{"ok":8858},"elapsed_seconds":1799.6}
+{"time":"2026-11-02T06:18:34.779322+00:00","event":"progress","engine":"decide","completed":9114,"total":12210,"counts":{"ok":9114},"elapsed_seconds":1818.5}
+{"time":"2026-11-02T06:18:53.027171+00:00","event":"progress","engine":"decide","completed":9370,"total":12210,"counts":{"ok":9370},"elapsed_seconds":1836.7}
+{"time":"2026-11-02T06:19:13.609288+00:00","event":"progress","engine":"decide","completed":9626,"total":12210,"counts":{"ok":9626},"elapsed_seconds":1857.3}
+{"time":"2026-11-02T06:19:28.293875+00:00","event":"progress","engine":"decide","completed":9815,"total":12210,"counts":{"ok":9815},"elapsed_seconds":1872.0}
+{"time":"2026-11-02T06:19:49.102706+00:00","event":"progress","engine":"decide","completed":10071,"total":12210,"counts":{"ok":10071},"elapsed_seconds":1892.8}
+{"time":"2026-11-02T06:20:11.318693+00:00","event":"progress","engine":"decide","completed":10327,"total":12210,"counts":{"ok":10327},"elapsed_seconds":1915.0}
+{"time":"2026-11-02T06:20:32.398485+00:00","event":"progress","engine":"decide","completed":10480,"total":12210,"counts":{"ok":10480},"elapsed_seconds":1936.1}
+{"time":"2026-11-02T06:21:49.523675+00:00","event":"progress","engine":"decide","completed":10736,"total":12210,"counts":{"ok":10736},"elapsed_seconds":2013.2}
+{"time":"2026-11-02T06:23:48.757950+00:00","event":"progress","engine":"decide","completed":10992,"total":12210,"counts":{"ok":10992},"elapsed_seconds":2132.4}
+{"time":"2026-11-02T06:25:46.035208+00:00","event":"progress","engine":"decide","completed":11248,"total":12210,"counts":{"ok":11248},"elapsed_seconds":2249.7}
+{"time":"2026-11-02T06:27:24.611003+00:00","event":"progress","engine":"decide","completed":11504,"total":12210,"counts":{"ok":11504},"elapsed_seconds":2348.3}
+{"time":"2026-11-02T06:28:48.481586+00:00","event":"progress","engine":"decide","completed":11760,"total":12210,"counts":{"ok":11760},"elapsed_seconds":2432.2}
+{"time":"2026-11-02T06:30:57.152420+00:00","event":"progress","engine":"decide","completed":12016,"total":12210,"counts":{"ok":12016},"elapsed_seconds":2560.8}
+{"time":"2026-11-02T06:31:52.979513+00:00","event":"progress","engine":"decide","completed":12210,"total":12210,"counts":{"ok":12210},"elapsed_seconds":2616.7}
+{"time":"2026-11-02T06:31:52.980120+00:00","event":"complete","engine":"decide","completed":12210,"counts":{"ok":12210},"effective_image_budget":{"max_image_pixels":1638400,"max_image_tokens":null,"rows_with_image_tokens":0},"elapsed_seconds":2616.7}
+{"event": "complete", "engine": "decide", "completed": 12210, "counts": {"ok": 12210}, "effective_image_budget": {"max_image_pixels": 1638400, "max_image_tokens": null, "rows_with_image_tokens": 0}, "elapsed_seconds": 2616.7}
+{
+  "edition": "0.3",
+  "public_vision_index": 65.79631037913617,
+  "complete": true,
+  "missing_rows": 0,
+  "benchmarks": {
+    "CV-Bench": {
+      "rows": 2038,
+      "answered": 2038,
+      "accuracy": 0.831207065750736,
+      "chance": 0.393825646058227,
+      "skill": 0.721543920240681,
+      "skill_clipped": 0.721543920240681,
+      "weight": 1.0
+    },
+    "BLINK": {
+      "rows": 961,
+      "answered": 961,
+      "accuracy": 0.7232049947970863,
+      "chance": 0.3540582726326743,
+      "skill": 0.5714861055175191,
+      "skill_clipped": 0.5714861055175191,
+      "weight": 1.0
+    },
+    "RealWorldQA": {
+      "rows": 589,
+      "answered": 589,
+      "accuracy": 0.7555178268251274,
+      "chance": 0.38808715336728916,
+      "skill": 0.6004624277456647,
+      "skill_clipped": 0.6004624277456647,
+      "weight": 1.0
+    },
+    "CharXiv": {
+      "rows": 532,
+      "answered": 532,
+      "accuracy": 0.7669172932330827,
+      "chance": 0.25,
+      "skill": 0.6892230576441102,
+      "skill_clipped": 0.6892230576441102,
+      "weight": 1.0
+    },
+    "InfographicVQA": {
+      "rows": 244,
+      "answered": 244,
+      "accuracy": 0.9180327868852459,
+      "chance": 0.25,
+      "skill": 0.8907103825136612,
+      "skill_clipped": 0.8907103825136612,
+      "weight": 1.0
+    },
+    "Mind2Web": {
+      "rows": 973,
+      "answered": 973,
+      "accuracy": 0.8191161356628982,
+      "chance": 0.25,
+      "skill": 0.7588215142171976,
+      "skill_clipped": 0.7588215142171976,
+      "weight": 1.0
+    },
+    "Winoground": {
+      "rows": 800,
+      "answered": 800,
+      "accuracy": 0.86625,
+      "chance": 0.5,
+      "skill": 0.7324999999999999,
+      "skill_clipped": 0.7324999999999999,
+      "weight": 1.0
+    },
+    "KIE (CORD+FUNSD)": {
+      "rows": 2465,
+      "answered": 2465,
+      "accuracy": 0.9415821501014199,
+      "chance": 0.39259634888438133,
+      "skill": 0.9038236767406913,
+      "skill_clipped": 0.9038236767406913,
+      "weight": 1.0
+    },
+    "Moderation (Hateful Memes)": {
+      "rows": 1213,
+      "answered": 1213,
+      "accuracy": 0.685078318219291,
+      "chance": 0.5,
+      "skill": 0.370156636438582,
+      "skill_clipped": 0.370156636438582,
+      "weight": 1.0
+    },
+    "R-Bench-M": {
+      "rows": 665,
+      "answered": 665,
+      "accuracy": 0.32781954887218046,
+      "chance": 0.16679197994987469,
+      "skill": 0.19326214468341105,
+      "skill_clipped": 0.19326214468341105,
+      "weight": 0.5
+    },
+    "MMMU-Pro vision": {
+      "rows": 1730,
+      "answered": 1730,
+      "accuracy": 0.40635838150289016,
+      "chance": 0.12811840535828975,
+      "skill": 0.31912587426385564,
+      "skill_clipped": 0.31912587426385564,
+      "weight": 0.25
+    }
+  },
+  "full_index": "0.5 x public + 0.5 x private; the private part is run by the maintainers and reported as an aggregate"
+}

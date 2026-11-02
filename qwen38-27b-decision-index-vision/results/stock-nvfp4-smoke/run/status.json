@@ -1,0 +1,1 @@
+{"time": "2026-11-02T04:57:42.995261+00:00", "event": "complete", "engine": "decide", "completed": 99, "counts": {"ok": 99}, "effective_image_budget": {"max_image_pixels": 1638400, "max_image_tokens": null, "rows_with_image_tokens": 0}, "elapsed_seconds": 23.6}

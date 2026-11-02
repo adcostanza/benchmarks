@@ -1,0 +1,122 @@
+{
+  "sets": {
+    "full_cvbench": {
+      "n": true,
+      "items_sha256": true,
+      "images_sha256": true
+    },
+    "full_blink": {
+      "n": true,
+      "items_sha256": true,
+      "images_sha256": true
+    },
+    "full_realworldqa": {
+      "n": true,
+      "items_sha256": true,
+      "images_sha256": true
+    },
+    "full_charxiv": {
+      "n": true,
+      "items_sha256": true,
+      "images_sha256": true
+    },
+    "full_infovqa": {
+      "n": true,
+      "items_sha256": true,
+      "images_sha256": true
+    },
+    "full_mind2web": {
+      "n": true,
+      "items_sha256": true,
+      "images_sha256": false
+    },
+    "full_winoground": {
+      "n": true,
+      "items_sha256": true,
+      "images_sha256": true
+    },
+    "full_cord": {
+      "n": true,
+      "items_sha256": true,
+      "images_sha256": true
+    },
+    "full_funsd": {
+      "n": true,
+      "items_sha256": true,
+      "images_sha256": true
+    },
+    "full_hateful_memes": {
+      "n": true,
+      "items_sha256": true,
+      "images_sha256": true
+    },
+    "full_rbench_m": {
+      "n": true,
+      "items_sha256": true,
+      "images_sha256": true
+    },
+    "full_mmmu_pro_vision": {
+      "n": true,
+      "items_sha256": true,
+      "images_sha256": true
+    }
+  },
+  "benchmarks": {
+    "CV-Bench": {
+      "rows": true,
+      "run_ids_sha256": true,
+      "payloads_sha256": true
+    },
+    "BLINK": {
+      "rows": true,
+      "run_ids_sha256": true,
+      "payloads_sha256": true
+    },
+    "RealWorldQA": {
+      "rows": true,
+      "run_ids_sha256": true,
+      "payloads_sha256": true
+    },
+    "CharXiv": {
+      "rows": true,
+      "run_ids_sha256": true,
+      "payloads_sha256": true
+    },
+    "InfographicVQA": {
+      "rows": true,
+      "run_ids_sha256": true,
+      "payloads_sha256": true
+    },
+    "Mind2Web": {
+      "rows": true,
+      "run_ids_sha256": true,
+      "payloads_sha256": false
+    },
+    "Winoground": {
+      "rows": true,
+      "run_ids_sha256": true,
+      "payloads_sha256": true
+    },
+    "KIE (CORD+FUNSD)": {
+      "rows": true,
+      "run_ids_sha256": true,
+      "payloads_sha256": true
+    },
+    "Moderation (Hateful Memes)": {
+      "rows": true,
+      "run_ids_sha256": true,
+      "payloads_sha256": true
+    },
+    "R-Bench-M": {
+      "rows": true,
+      "run_ids_sha256": true,
+      "payloads_sha256": true
+    },
+    "MMMU-Pro vision": {
+      "rows": true,
+      "run_ids_sha256": true,
+      "payloads_sha256": true
+    }
+  },
+  "ok": false
+}

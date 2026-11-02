@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-02",
+  "gpu": "NVIDIA RTX PRO 6000 Blackwell Workstation Edition, 400 W power limit, PCIe Gen 4 x16",
+  "cpu": "AMD Ryzen 9 7950X",
+  "os": "Ubuntu 24.04.2, kernel 6.8.0-147-generic",
+  "nvidia_driver": "580.178.04 (CUDA 13.0)",
+  "docker": "rootless 28.0.4, GPU through CDI; NVIDIA Container Toolkit 1.18.1",
+  "server_image": "lmsysorg/sglang:nightly-dev-cu13-20261010-961bcf48 (RepoDigest lmsysorg/sglang@sha256:e03dd310dc72e64ac709ceb244a79f20fd5e05448c811ab33cc777d8040061ff)",
+  "client_image": "same image; kit mounted at /kit, Python with Pillow 12.3.0, PyArrow 26.0.0",
+  "kit": {"repo": "https://github.com/apolinario/decision-index", "commit": "25c6ec7b6b5f44a216c63c3a700de3a9c6d6699d", "committed": "2026-10-20", "edition": "vision 0.3"},
+  "suite_rebuild": {"host_pillow_for_all_sets_but_two": "13.0.0", "pillow_for_infovqa_and_mind2web": "12.3.0", "mind2web_font": "Liberation Sans Bold, /usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf, sha256 3973aa5054fb467dd5627245d3dc82e37bf16fe075756156a570455871351582", "vision_rows_sha256": "5fdcd0f37fe06946a844638f80b54afacc7d9800068087be21f92f37e1170878"},
+  "models": {
+    "stock-nvfp4": "RadixArk/Qwen3.8-27B-NVFP4 @ 319f741cce68d7914884900c138a1fbb70a42f30",
+    "swift-nvfp4": "ukisai/Swift-1.5-Qwen3.8-27b-NVFP4 @ 25482027debd5485e8108897ba9fed8d3ba16595"
+  },
+  "server_args": "scripts/args/qwen38-27b.sh qwen38_27b_server_args 0.41 (see results/<label>/server.log server_args=)",
+  "engine": "decide, protocol=decisions, path=/v1/systemone, --workers 1, max_pixels 1638400, image_encoding data_url",
+  "harness_commit": "see README (Harness)"
+}

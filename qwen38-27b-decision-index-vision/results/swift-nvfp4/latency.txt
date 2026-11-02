@@ -1,0 +1,15 @@
+status: {'ok': 12210}
+ALL       n=12210 median=    127 mean=    214 p80=    365 max=   1150
+BLINK                        n=  961 median=    114 mean=    286 p80=    573 max=    789
+CV-Bench                     n= 2038 median=     64 mean=    113 p80=    144 max=   1150
+CharXiv                      n=  532 median=    124 mean=    131 p80=    156 max=    207
+InfographicVQA               n=  244 median=    358 mean=    300 p80=    373 max=    541
+KIE (CORD+FUNSD)             n= 2465 median=     88 mean=    165 p80=    214 max=    913
+MMMU-Pro vision              n= 1730 median=    432 mean=    393 p80=    505 max=   1085
+Mind2Web                     n=  973 median=    275 mean=    277 p80=    276 max=    359
+Moderation (Hateful Memes)   n= 1213 median=     85 mean=     76 p80=     93 max=    124
+R-Bench-M                    n=  665 median=     68 mean=     96 p80=    100 max=    556
+RealWorldQA                  n=  589 median=    278 mean=    278 p80=    362 max=    417
+Winoground                   n=  800 median=    366 mean=    366 p80=    373 max=    750
+1 image(s)                   n=11636 median=    120 mean=    203 p80=    362 max=   1150
+2 image(s)                   n=  574 median=    514 mean=    439 p80=    621 max=    789

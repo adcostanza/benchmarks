@@ -1,0 +1,253 @@
+{"set": "full_hateful_memes", "seconds": 11.9, "n": true, "items_sha256": true, "images_sha256": true}
+{"set": "full_infovqa", "seconds": 12.0, "n": true, "items_sha256": true, "images_sha256": false}
+{"set": "full_mind2web", "seconds": 44.6, "n": true, "items_sha256": true, "images_sha256": false}
+{"set": "full_mmmu_pro_vision", "seconds": 29.9, "n": true, "items_sha256": true, "images_sha256": true}
+{"set": "full_rbench_m", "seconds": 3.7, "n": true, "items_sha256": true, "images_sha256": true}
+{"set": "full_realworldqa", "seconds": 8.6, "n": true, "items_sha256": true, "images_sha256": true}
+{"set": "full_winoground", "seconds": 7.2, "n": true, "items_sha256": true, "images_sha256": true}
+{
+  "dir": "<datasets>/decision-index-vision/vision",
+  "build": {
+    "full_hateful_memes": {
+      "n": {
+        "rebuilt": 1213,
+        "pinned": 1213,
+        "match": true
+      },
+      "items_sha256": {
+        "rebuilt": "3d2f57bfac0da9c66b1b7b445e6177a037b588458c9bdc68be15139f8e59d0d0",
+        "pinned": "3d2f57bfac0da9c66b1b7b445e6177a037b588458c9bdc68be15139f8e59d0d0",
+        "match": true
+      },
+      "images_sha256": {
+        "rebuilt": "7a6c9ef1414c87e17d97e552b89bdde1418b6bf0dd5ecb7727142c25a46cb36b",
+        "pinned": "7a6c9ef1414c87e17d97e552b89bdde1418b6bf0dd5ecb7727142c25a46cb36b",
+        "match": true
+      }
+    },
+    "full_infovqa": {
+      "n": {
+        "rebuilt": 244,
+        "pinned": 244,
+        "match": true
+      },
+      "items_sha256": {
+        "rebuilt": "1b364f23949d467f3e5a6f67c6b9c39b4e83334016d42c7dbbf109fda5024b83",
+        "pinned": "1b364f23949d467f3e5a6f67c6b9c39b4e83334016d42c7dbbf109fda5024b83",
+        "match": true
+      },
+      "images_sha256": {
+        "rebuilt": "77645604c90477ab785ea1f0e49cf3b452f8994655e4f9edf1a0f8e6217d26cd",
+        "pinned": "2ad6421d9c3ce03c46803a50fdd68fc0ba615332ef1e56511c9fd84d45ff85bc",
+        "match": false
+      }
+    },
+    "full_mind2web": {
+      "n": {
+        "rebuilt": 973,
+        "pinned": 973,
+        "match": true
+      },
+      "items_sha256": {
+        "rebuilt": "6f9953642a50ed5b25835f1ce51344ed93a7169eec7e6354cd90ae10451cf52d",
+        "pinned": "6f9953642a50ed5b25835f1ce51344ed93a7169eec7e6354cd90ae10451cf52d",
+        "match": true
+      },
+      "images_sha256": {
+        "rebuilt": "775b0641d25969b09109fdd512f96f65d1019ac4fbf92a5856d92a52ede12d42",
+        "pinned": "78f082317d9d4cb9373492167c11ebd7cc6ed9ed5907e9eb6d596922a1c3897a",
+        "match": false
+      }
+    },
+    "full_mmmu_pro_vision": {
+      "n": {
+        "rebuilt": 1730,
+        "pinned": 1730,
+        "match": true
+      },
+      "items_sha256": {
+        "rebuilt": "292ec7f67aeba3bbc2ec6eee752145fcb70198cca45073e992b0b019ab361d3e",
+        "pinned": "292ec7f67aeba3bbc2ec6eee752145fcb70198cca45073e992b0b019ab361d3e",
+        "match": true
+      },
+      "images_sha256": {
+        "rebuilt": "948dcfd352c0cca80e3f19c9ad536749e99609c436b1e74fd4c755e33da3d875",
+        "pinned": "948dcfd352c0cca80e3f19c9ad536749e99609c436b1e74fd4c755e33da3d875",
+        "match": true
+      }
+    },
+    "full_rbench_m": {
+      "n": {
+        "rebuilt": 665,
+        "pinned": 665,
+        "match": true
+      },
+      "items_sha256": {
+        "rebuilt": "ded2b925b86864fadf183beb7c02004d749d7520c4fa7ef86138927f9ac1b45f",
+        "pinned": "ded2b925b86864fadf183beb7c02004d749d7520c4fa7ef86138927f9ac1b45f",
+        "match": true
+      },
+      "images_sha256": {
+        "rebuilt": "30bfa369e90408d0fa1cc5c6a216a3c38c1c8f0853d2e3102acd6411209b717d",
+        "pinned": "30bfa369e90408d0fa1cc5c6a216a3c38c1c8f0853d2e3102acd6411209b717d",
+        "match": true
+      }
+    },
+    "full_realworldqa": {
+      "n": {
+        "rebuilt": 589,
+        "pinned": 589,
+        "match": true
+      },
+      "items_sha256": {
+        "rebuilt": "9924feae5e9b031bdc38f0db634082604d300eba16639527e418b77772dae3d4",
+        "pinned": "9924feae5e9b031bdc38f0db634082604d300eba16639527e418b77772dae3d4",
+        "match": true
+      },
+      "images_sha256": {
+        "rebuilt": "fc4243a80788fcd0e13b2fcf1c5896ae96383ee9efd9569872443ce23b4aa40c",
+        "pinned": "fc4243a80788fcd0e13b2fcf1c5896ae96383ee9efd9569872443ce23b4aa40c",
+        "match": true
+      }
+    },
+    "full_winoground": {
+      "n": {
+        "rebuilt": 1600,
+        "pinned": 1600,
+        "match": true
+      },
+      "items_sha256": {
+        "rebuilt": "0218db9ddb6096a84b615d3a070499cadf04f6d51788cd57c93e25aa171ce2c6",
+        "pinned": "0218db9ddb6096a84b615d3a070499cadf04f6d51788cd57c93e25aa171ce2c6",
+        "match": true
+      },
+      "images_sha256": {
+        "rebuilt": "b3a9c7e863d2bc199cd03ec350ab8342bcb54e439f9687a25b60e54ab3c4cff9",
+        "pinned": "b3a9c7e863d2bc199cd03ec350ab8342bcb54e439f9687a25b60e54ab3c4cff9",
+        "match": true
+      }
+    }
+  },
+  "verify": {
+    "sets": {
+      "full_cvbench": {
+        "n": true,
+        "items_sha256": true,
+        "images_sha256": true
+      },
+      "full_blink": {
+        "n": true,
+        "items_sha256": true,
+        "images_sha256": true
+      },
+      "full_realworldqa": {
+        "n": true,
+        "items_sha256": true,
+        "images_sha256": true
+      },
+      "full_charxiv": {
+        "n": true,
+        "items_sha256": true,
+        "images_sha256": true
+      },
+      "full_infovqa": {
+        "n": true,
+        "items_sha256": true,
+        "images_sha256": false
+      },
+      "full_mind2web": {
+        "n": true,
+        "items_sha256": true,
+        "images_sha256": false
+      },
+      "full_winoground": {
+        "n": true,
+        "items_sha256": true,
+        "images_sha256": true
+      },
+      "full_cord": {
+        "n": true,
+        "items_sha256": true,
+        "images_sha256": true
+      },
+      "full_funsd": {
+        "n": true,
+        "items_sha256": true,
+        "images_sha256": true
+      },
+      "full_hateful_memes": {
+        "n": true,
+        "items_sha256": true,
+        "images_sha256": true
+      },
+      "full_rbench_m": {
+        "n": true,
+        "items_sha256": true,
+        "images_sha256": true
+      },
+      "full_mmmu_pro_vision": {
+        "n": true,
+        "items_sha256": true,
+        "images_sha256": true
+      }
+    },
+    "benchmarks": {
+      "CV-Bench": {
+        "rows": true,
+        "run_ids_sha256": true,
+        "payloads_sha256": true
+      },
+      "BLINK": {
+        "rows": true,
+        "run_ids_sha256": true,
+        "payloads_sha256": true
+      },
+      "RealWorldQA": {
+        "rows": true,
+        "run_ids_sha256": true,
+        "payloads_sha256": true
+      },
+      "CharXiv": {
+        "rows": true,
+        "run_ids_sha256": true,
+        "payloads_sha256": true
+      },
+      "InfographicVQA": {
+        "rows": true,
+        "run_ids_sha256": true,
+        "payloads_sha256": false
+      },
+      "Mind2Web": {
+        "rows": true,
+        "run_ids_sha256": true,
+        "payloads_sha256": false
+      },
+      "Winoground": {
+        "rows": true,
+        "run_ids_sha256": true,
+        "payloads_sha256": true
+      },
+      "KIE (CORD+FUNSD)": {
+        "rows": true,
+        "run_ids_sha256": true,
+        "payloads_sha256": true
+      },
+      "Moderation (Hateful Memes)": {
+        "rows": true,
+        "run_ids_sha256": true,
+        "payloads_sha256": true
+      },
+      "R-Bench-M": {
+        "rows": true,
+        "run_ids_sha256": true,
+        "payloads_sha256": true
+      },
+      "MMMU-Pro vision": {
+        "rows": true,
+        "run_ids_sha256": true,
+        "payloads_sha256": true
+      }
+    },
+    "ok": false
+  }
+}

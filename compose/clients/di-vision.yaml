@@ -1,0 +1,12 @@
+# Decision Index vision kit client (qwen38-27b-decision-index-vision/run.sh). Paths relative to compose/.
+# Runs the kit from a pinned checkout on the SGLang image's Python (Pillow, PyArrow, NumPy, httpx).
+services:
+  di-vision:
+    image: ${SGLANG_IMAGE:-lmsysorg/sglang:nightly-dev-cu13-20261010-961bcf48}
+    profiles: [client]
+    entrypoint: ["python3", "-m", "decision_index"]
+    environment:
+      - PYTHONPATH=/kit
+    volumes:
+      - ${DI_KIT:?set DI_KIT}:/kit:ro
+      - ${DI_SUITE:?set DI_SUITE}:/suite:ro

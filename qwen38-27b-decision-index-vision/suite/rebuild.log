@@ -1,0 +1,5 @@
+{"set": "full_blink", "seconds": 6.1, "n": true, "items_sha256": true, "images_sha256": true}
+{"set": "full_charxiv", "seconds": 1.1, "n": true, "items_sha256": true, "images_sha256": true}
+{"set": "full_cord", "seconds": 8.7, "n": true, "items_sha256": true, "images_sha256": true}
+{"set": "full_cvbench", "seconds": 8.2, "n": true, "items_sha256": true, "images_sha256": true}
+{"set": "full_funsd", "seconds": 1.8, "n": true, "items_sha256": true, "images_sha256": true}
